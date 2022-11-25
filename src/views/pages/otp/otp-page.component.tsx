@@ -1,16 +1,35 @@
 import React, {FormEvent, useRef} from "react"
+import LoadingButton from '@mui/lab/LoadingButton';
 import {Button, Divider, Grid, Paper, Typography, useTheme} from "@mui/material";
 import Logo from "../../components/logo/logo.component";
 import {useNavigate} from "react-router-dom";
 import OTPTextField from "../../components/otp-textfield/otp-textfield.component";
+import useSend from "../../../utils/hooks/use-send";
+import config from "../../../config";
+import {useAppSelector} from "../../../utils/hooks/redux-hooks";
 
 const OTPPage = (): JSX.Element => {
-    const phoneNumberRef = useRef<HTMLInputElement | null>(null)
-    const theme = useTheme()
     const navigate = useNavigate();
-    const handleOTPConfirmationFormSubmit = (event: FormEvent) => {
+    const user = useAppSelector((state) => state.user)
+
+    const {sendRequest,isRequestLoading} = useSend({
+        method:"POST",
+        url:config.REACT_APP_ROOT_URL+"me",
+        data:{
+            phoneNumber: user.phoneNumber
+        }
+    })
+    const handleOTPConfirmationFormSubmit = async (event: FormEvent) => {
         event.preventDefault()
-        navigate("/personal-information")
+        // TODO OTP code sending and confirmation
+
+        let result = await sendRequest();
+
+        if(result?.data?.userExists){
+            navigate("/home")
+        }else{
+            navigate("/personal-information")
+        }
     }
     return (
         <Paper>
@@ -27,9 +46,9 @@ const OTPPage = (): JSX.Element => {
                             <OTPTextField/>
                         </Grid>
                         <Grid item xs={12}>
-                            <Button variant={"contained"} type={"submit"} sx={{width: "200px", height: "40px"}}>
+                            <LoadingButton loading={isRequestLoading} variant={"contained"} type={"submit"} sx={{width: "200px", height: "40px"}}>
                                 Enter
-                            </Button>
+                            </LoadingButton>
                         </Grid>
                     </Grid>
                 </Grid>

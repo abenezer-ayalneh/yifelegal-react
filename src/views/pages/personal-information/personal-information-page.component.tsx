@@ -5,13 +5,15 @@ import {Button, Grid, Paper, Typography} from "@mui/material";
 import Logo from "../../components/logo/logo.component";
 import {TextField} from "../../components/text-field/text-field.component";
 import {useAppSelector} from "../../../utils/hooks/redux-hooks";
-import useSend from "../../../utils/hooks/use-send";
 import useAuth from "../../../utils/hooks/use-auth";
+import {useNavigate} from "react-router-dom";
+import LoadingButton from "@mui/lab/LoadingButton";
 
 export function PersonalInformationPage() {
+    const navigate = useNavigate()
     const user = useAppSelector((state) => state.user)
     const fullNameRef = useRef<HTMLInputElement | null>(null)
-    const {signIn,isRequestLoading} = useAuth();
+    const {signIn, isRequestLoading} = useAuth();
     const handlePersonalInformationFormSubmit = async (event: FormEvent) => {
         event.preventDefault()
 
@@ -20,7 +22,10 @@ export function PersonalInformationPage() {
             phoneNumber: user.phoneNumber ?? null,
         }
 
-        await signIn(requestData)
+        let result = await signIn(requestData)
+        if (result) {
+            navigate("/home")
+        }
     }
     return (
         <Paper>
@@ -40,9 +45,9 @@ export function PersonalInformationPage() {
                             <TextField disabled label={"Phone Number"} value={user.phoneNumber}/>
                         </Grid>
                         <Grid item xs={12}>
-                            <Button variant={"contained"} type={"submit"} sx={{width: "200px", height: "40px"}}>
+                            <LoadingButton loading={isRequestLoading} variant={"contained"} type={"submit"} sx={{width: "200px", height: "40px"}}>
                                 Enter
-                            </Button>
+                            </LoadingButton>
                         </Grid>
                         <Grid item xs={12} width={"100%"}>
                             <Grid container justifyContent={"flex-start"} direction={"column"}>

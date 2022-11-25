@@ -22,6 +22,10 @@ const authRoute = (): RouteObject[] => {
         {
             path: "personal-information",
             element: <PersonalInformationPage/>,
+        },
+        {
+            path: "home",
+            element: <div><h1>Homepage</h1></div>
         }
     ]
 }
