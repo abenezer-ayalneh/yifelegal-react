@@ -5,8 +5,8 @@ interface AccountType{
   photoURL: string
 }
 const account:AccountType = {
-  displayName: 'Jaydon Frankie',
-  email: 'demo@minimals.cc',
+  displayName: 'John Doe',
+  email: 'john.doe@yifelegal.com',
   photoURL: '/assets/images/avatars/avatar_default.jpg',
 };
 

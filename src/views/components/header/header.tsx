@@ -4,12 +4,15 @@ import { styled } from '@mui/material/styles';
 import { Box, Stack, AppBar, Toolbar, IconButton } from '@mui/material';
 // utils
 import { bgBlur } from '../../../utils/css/css-styles';
-import LanguagePopover from "./LanguagePopover";
+import LanguagePopover from "../popovers/language-popover";
+import Searchbar from "../search-bar/search-bar";
+import Iconify from "../iconify/iconify";
+import AccountPopover from "../popovers/account-popover";
 // import NotificationsPopover from "./NotificationsPopover";
 // components
 // import Iconify from '../../../components/iconify/Iconify';
 //
-// import Searchbar from './Searchbar';
+// import SearchBar from './SearchBar';
 // import AccountPopover from './AccountPopover';
 // import LanguagePopover from './LanguagePopover';
 // import NotificationsPopover from './NotificationsPopover';
@@ -22,21 +25,12 @@ const HEADER_MOBILE = 64;
 
 const HEADER_DESKTOP = 92;
 
-// const StyledRoot = styled(AppBar)(({ theme }) => ({
-//   ...bgBlur({ color: theme.palette.background.default }),
-//   boxShadow: 'none',
-//   [theme.breakpoints.up('lg')]: {
-//     width: `calc(100% - ${NAV_WIDTH + 1}px)`,
-//   },
-// }));
-
 const StyledRoot = styled(AppBar)(({ theme }) => ({
-    // ...bgBlur({ color: theme.palette.background.default }),
-    minHeight: HEADER_MOBILE,
-    [theme.breakpoints.up('lg')]: {
-        minHeight: HEADER_DESKTOP,
-        padding: theme.spacing(0, 5),
-    },
+  ...bgBlur({ color: theme.palette.background.default }),
+  boxShadow: 'none',
+  [theme.breakpoints.up('lg')]: {
+    width: `calc(100% - ${NAV_WIDTH + 1}px)`,
+  },
 }));
 
 const StyledToolbar = styled(Toolbar)(({ theme }) => ({
@@ -53,8 +47,7 @@ Header.propTypes = {
   onOpenNav: PropTypes.func,
 };
 
-export default function Header({ onOpenNav }) {
-    console.log(hello)
+export default function Header({ onOpenNav }:{onOpenNav: () => void}) {
   return (
     <StyledRoot>
       <StyledToolbar>
@@ -66,10 +59,10 @@ export default function Header({ onOpenNav }) {
             display: { lg: 'none' },
           }}
         >
-          {/* <Iconify icon="eva:menu-2-fill" /> */}
+           <Iconify icon="eva:menu-2-fill" />
         </IconButton>
 
-        {/* <Searchbar /> */}
+         <Searchbar />
         <Box sx={{ flexGrow: 1 }} />
 
         <Stack
@@ -82,7 +75,7 @@ export default function Header({ onOpenNav }) {
         >
            <LanguagePopover />
            {/*<NotificationsPopover />*/}
-           {/*<AccountPopover /> */}
+           <AccountPopover />
         </Stack>
       </StyledToolbar>
     </StyledRoot>

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 // @mui
 import { alpha } from '@mui/material/styles';
 import { Box, MenuItem, Stack, IconButton, Popover } from '@mui/material';
@@ -26,10 +26,10 @@ const LANGS = [
 // ----------------------------------------------------------------------
 
 export default function LanguagePopover() {
-  const [open, setOpen] = useState(null);
+  const [open, setOpen] = useState<HTMLButtonElement | null>(null);
 
-  const handleOpen = (event) => {
-    setOpen(event.currentTarget);
+  const handlePopoverToggle: React.MouseEventHandler<HTMLButtonElement> | undefined = (event: React.MouseEvent<HTMLButtonElement>) => {
+      setOpen(event.currentTarget);
   };
 
   const handleClose = () => {
@@ -39,7 +39,7 @@ export default function LanguagePopover() {
   return (
     <>
       <IconButton
-        onClick={handleOpen}
+        onClick={handlePopoverToggle}
         sx={{
           padding: 0,
           width: 44,

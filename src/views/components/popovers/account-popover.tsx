@@ -25,20 +25,20 @@ const MENU_OPTIONS = [
 // ----------------------------------------------------------------------
 
 export default function AccountPopover() {
-  const [open, setOpen] = useState<boolean>(false);
+  const [open, setOpen] = useState<HTMLButtonElement | null>(null);
 
-  const handlePopoverToggle: React.MouseEventHandler<HTMLButtonElement> | undefined = () => {
-    setOpen(!open);
+  const handleOpen = (event:React.MouseEvent<HTMLButtonElement>) => {
+    setOpen(event.currentTarget);
   };
 
   const handleClose = () => {
-    setOpen(false);
+    setOpen(null);
   };
 
   return (
     <>
       <IconButton
-        onClick={handlePopoverToggle}
+        onClick={handleOpen}
         sx={{
           p: 0,
           ...(open && {
@@ -59,7 +59,8 @@ export default function AccountPopover() {
 
       <Popover
         open={Boolean(open)}
-        onClose={handlePopoverToggle}
+        onClose={handleClose}
+        anchorEl={open}
         anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
         transformOrigin={{ vertical: 'top', horizontal: 'right' }}
         PaperProps={{

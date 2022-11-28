@@ -5,6 +5,7 @@
   "dependencies": {
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
+    "@iconify/react": "^4.0.0",
     "@mui/lab": "^5.0.0-alpha.109",
     "@mui/material": "^5.10.13",
     "@reduxjs/toolkit": "^1.9.0",
