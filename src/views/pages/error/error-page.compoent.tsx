@@ -36,7 +36,7 @@ export default function Error404Page() {
                         </Grid>
                         : <Grid container justifyContent="center" alignItems="center" direction="column">
                             <Grid item xs={12}>
-                                <Typography>Error! {error.status}</Typography>
+                                <Typography>Error!! {error.status}</Typography>
                             </Grid>
                             <Grid item xs={12}>
                                 <Typography>{error.statusText}</Typography>
