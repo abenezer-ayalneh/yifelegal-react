@@ -43,8 +43,7 @@ export default function ThemeProvider({children}: { children: JSX.Element }) {
             typography,
             shadows: shadows(),
             customShadows: customShadows(),
-        }),
-        []
+        }),[]
     )
 
     const theme = createTheme(themeOptions)
