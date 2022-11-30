@@ -1,6 +1,7 @@
 // component
 import SvgColor from '../svg-color/svg-color';
 import {NavSectionPropTypes} from "../nav-section/nav-section.component";
+import {IconHome, IconHome2, IconSettings, IconUser, IconUsers} from "@tabler/icons";
 
 // ----------------------------------------------------------------------
 
@@ -10,33 +11,23 @@ const navConfig:NavSectionPropTypes[] = [
   {
     title: 'home',
     path: '/dashboard/app',
-    icon: icon('ic_analytics'),
+    icon:<IconHome/>,
   },
   {
     title: 'request for others',
     path: '/dashboard/user',
-    icon: icon('ic_user'),
+    icon: <IconUsers/>,
   },
   {
     title: 'my request',
     path: '/dashboard/products',
-    icon: icon('ic_cart'),
+    icon: <IconUser/>,
   },
   {
     title: 'settings',
     path: '/dashboard/blog',
-    icon: icon('ic_blog'),
+    icon: <IconSettings/>,
   },
-  // {
-  //   title: 'login',
-  //   path: '/login',
-  //   icon: icon('ic_lock'),
-  // },
-  // {
-  //   title: 'Not found',
-  //   path: '/404',
-  //   icon: icon('ic_disabled'),
-  // },
 ];
 
 export default navConfig;
