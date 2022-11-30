@@ -6,10 +6,10 @@ import HorizontalTile from "../../components/cards/horizontal-tile/horizontal-ti
 const HomePage = () => {
     return (
         <Box>
-
             {/**/}
-            <Grid container justifyContent={"center"} paddingX={20} spacing={3}>
-                <HorizontalTile/>
+            {/*Tiles*/}
+            <Grid container paddingX={{xs:5,sm:7,md:5,lg:5,xl:5}} spacing={3}>
+                <HorizontalTile tileTitle={"Title"}/>
                 <VerticalTile/>
                 <VerticalTile/>
                 <VerticalTile/>

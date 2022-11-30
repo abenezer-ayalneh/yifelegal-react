@@ -1,13 +1,17 @@
 import React from "react";
-import {Grid, GridProps} from "@mui/material";
-import {HorizontalTileContainer, HorizontalTileOverlay} from "./horizontal-tile.styles";
+import {Grid, GridProps, Typography} from "@mui/material";
+import {HorizontalTileContainer, HorizontalTileOverlay, HorizontalTileTextContainer} from "./horizontal-tile.styles";
 
-const HorizontalTile = (props: GridProps) => {
+const HorizontalTile = ({tileTitle, props}:{tileTitle: string, props: GridProps}) => {
     return (
-        <Grid item xs={12} md={6}>
+        <Grid item xs={12} sm={7} md={6} {...props}>
             <HorizontalTileContainer container>
                 <HorizontalTileOverlay/>
-                <h1>Hello</h1>
+                <HorizontalTileTextContainer>
+                    <Typography variant={"h1"}>
+                        {tileTitle}
+                    </Typography>
+                </HorizontalTileTextContainer>
             </HorizontalTileContainer>
         </Grid>
     )

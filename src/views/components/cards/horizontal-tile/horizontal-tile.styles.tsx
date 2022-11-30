@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import {Grid} from "@mui/material";
+import exp from "constants";
 
 export const HorizontalTileContainer = styled(Grid)`
   height: 360px;
@@ -17,3 +18,9 @@ export const HorizontalTileOverlay = styled(Grid)`
   top: 0;
   left: 0;
 `
+
+export const HorizontalTileTextContainer = styled.div`
+  position: absolute;
+  left: 20px;
+  bottom: 20px;
+`;
