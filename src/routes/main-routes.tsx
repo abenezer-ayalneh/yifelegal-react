@@ -1,6 +1,7 @@
 import {RouteObject} from "react-router-dom"
 import Error404Page from "../views/pages/error/error-page.compoent"
 import MainLayout from "../views/layouts/main-layout/main-layout";
+import HomePage from "../views/pages/home/home-page.component";
 
 const authRoute = (): RouteObject[] => {
     return [
@@ -10,8 +11,8 @@ const authRoute = (): RouteObject[] => {
             errorElement: <Error404Page/>,
             children:[
                 {
-                    path:"/dashboard",
-                    element: <div><h1>Hello</h1></div>
+                    path:"/home",
+                    element: <HomePage/>
                 }
             ]
         },
