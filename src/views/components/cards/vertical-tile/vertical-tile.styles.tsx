@@ -17,3 +17,9 @@ export const VerticalTileOverlay = styled(Grid)`
   top: 0;
   left: 0;
 `
+
+export const VerticalTileTextContainer = styled.div`
+  position: absolute;
+  left: 20px;
+  bottom: 20px;
+`;

@@ -1,13 +1,21 @@
 import React from "react";
-import {Grid, GridProps} from "@mui/material";
-import {VerticalTileContainer, VerticalTileOverlay} from "./vertical-tile.styles";
+import {Grid, GridProps, Typography} from "@mui/material";
+import {VerticalTileContainer, VerticalTileOverlay, VerticalTileTextContainer} from "./vertical-tile.styles";
 
-const VerticalTile = (props: GridProps) => {
+interface HorizontalTilePropTypes {
+    tileTitle?: string | null,
+}
+
+const VerticalTile: React.FunctionComponent<HorizontalTilePropTypes & GridProps> = (props) => {
     return (
-        <Grid item xs={12} sm={5} md={3}>
+        <Grid item xs={6} sm={5} md={3}>
             <VerticalTileContainer container>
                 <VerticalTileOverlay/>
-                <h1>Hello</h1>
+                <VerticalTileTextContainer>
+                    <Typography variant={"h1"}  color={"white"}>
+                        {props.tileTitle}
+                    </Typography>
+                </VerticalTileTextContainer>
             </VerticalTileContainer>
         </Grid>
     )
