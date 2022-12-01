@@ -82,7 +82,7 @@ export default function Header({onOpenNav}: { onOpenNav: () => void }) {
                 {/*Breadcrumb*/}
             </StyledToolbar>
             <Stack paddingX={5} paddingY={1}>
-                <Breadcrumbs aria-label="breadcrumb" separator={<IconChevronRight size={20}/>}>
+                <Breadcrumbs aria-label="breadcrumb" maxItems={4} separator={<IconChevronRight size={20}/>}>
                     <Link underline="hover" variant={"body2"} color="inherit" href="/">
                         MUI
                     </Link>
@@ -93,7 +93,6 @@ export default function Header({onOpenNav}: { onOpenNav: () => void }) {
                     >
                         Core
                     </Link>
-                    <Link color="text.primary" variant={"body2"} underline={"hover"} href={"/"}>Breadcrumbs</Link>
                     <Link underline="hover" variant={"body2"} color="inherit" href="/">
                         MUI
                     </Link>
