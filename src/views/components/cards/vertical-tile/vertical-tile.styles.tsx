@@ -1,11 +1,16 @@
 import styled from "styled-components";
 import {Grid} from "@mui/material";
 
-export const VerticalTileContainer = styled(Grid)`
+interface VerticalTilePropTypes{
+    image?: string,
+}
+export const VerticalTileContainer = styled(Grid)<VerticalTilePropTypes>`
   height: 360px;
-  background-color: rebeccapurple;
   border-radius: 15px;
   position: relative;
+  background-image: ${(props) => `url(${props.image})`};
+  background-position: center;
+  background-size: cover;
 `
 
 export const VerticalTileOverlay = styled(Grid)`

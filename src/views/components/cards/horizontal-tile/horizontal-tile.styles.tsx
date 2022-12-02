@@ -2,11 +2,16 @@ import styled from "styled-components";
 import {Grid} from "@mui/material";
 import exp from "constants";
 
-export const HorizontalTileContainer = styled(Grid)`
+interface HorizontalTilePropTypes {
+    image?: string,
+}
+export const HorizontalTileContainer = styled(Grid)<HorizontalTilePropTypes>`
   height: 360px;
-  background-color: pink;
   border-radius: 15px;
   position: relative;
+  background-image: ${(props) => `url(${props.image})`};
+  background-position: center;
+  background-size: cover;
 `
 
 export const HorizontalTileOverlay = styled(Grid)`

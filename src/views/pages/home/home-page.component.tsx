@@ -3,6 +3,14 @@ import {Box, Breadcrumbs, Grid, Link, Stack, Typography} from "@mui/material";
 import VerticalTile from "../../components/cards/vertical-tile/vertical-tile.component";
 import HorizontalTile from "../../components/cards/horizontal-tile/horizontal-tile.component";
 import {IconArrowsRight, IconArrowsUpRight, IconChevronRight} from "@tabler/icons";
+import House from "../../../assets/images/house.jpg"
+import Land from "../../../assets/images/land.jpg"
+import CommercialBuilding from "../../../assets/images/commercial-building.jpg"
+import GuestHouse from "../../../assets/images/guest-house.jpg"
+import MachineryAndTrucks from "../../../assets/images/machinery-&-trucks.jpg"
+import Car from "../../../assets/images/car.jpg"
+import ThreeWheeler from "../../../assets/images/three-wheeler.jpg"
+import WholeBuilding from "../../../assets/images/whole-building.jpg"
 
 
 const HomePage = () => {
@@ -15,15 +23,15 @@ const HomePage = () => {
             </Stack>
             <Box height={30}></Box>
             {/*Tiles*/}
-            <Grid container paddingX={{xs: 5, md: 5, lg: 3, xl: 15}} justifyContent={{xs:"center",lg:"left"}} spacing={{xs: 1, sm: 2, md: 3, xl: 4}}>
-                <HorizontalTile tileTitle={"House"}/>
-                <VerticalTile tileTitle={"Land"}/>
-                <VerticalTile tileTitle={"Commercial Building"}/>
-                <VerticalTile tileTitle={"Guest House (Furnished)"}/>
-                <VerticalTile tileTitle={"Machinery & Truck"}/>
-                <HorizontalTile tileTitle={"Car"}/>
-                <HorizontalTile tileTitle={"Three Wheeler"}/>
-                <VerticalTile tileTitle={"Whole Building"}/>
+            <Grid container paddingX={{xs: 5, md: 5, lg: 3, xl: 15}} justifyContent={{xs:"center",lg:"left"}} spacing={{xs: 1, sm: 2, md: 3}}>
+                <HorizontalTile tileTitle={"House"} image={House}/>
+                <VerticalTile tileTitle={"Land"} image={Land}/>
+                <VerticalTile tileTitle={"Commercial Building"} image={CommercialBuilding}/>
+                <VerticalTile tileTitle={"Guest House (Furnished)"} image={GuestHouse}/>
+                <VerticalTile tileTitle={"Machinery & Truck"} image={MachineryAndTrucks}/>
+                <HorizontalTile tileTitle={"Car"} image={Car}/>
+                <HorizontalTile tileTitle={"Three Wheeler"} image={ThreeWheeler}/>
+                <VerticalTile tileTitle={"Whole Building"} image={WholeBuilding}/>
             </Grid>
         </Box>
     )
