@@ -13,13 +13,30 @@ const useAuth = () => {
         method: "POST",
     });
 
-    const signIn = async (credentials: { name: null | string, phoneNumber: null | string } = {name: null, phoneNumber: null}) => {
+    const signIn = async (phoneNumber: string): Promise<boolean> => {
 
         let result = await sendRequest({
             url: config.REACT_APP_ROOT_URL + "login",
             headers: {
                 withCredentials: false,
-                accept: "application/json",
+            },
+            data: {
+                phoneNumber: phoneNumber
+            }
+        })
+        if (result?.status) {
+            dispatch(setUser({user: result.data?.user}))
+
+        }
+
+        return result?.status;
+    };
+
+    const signUp = async (credentials: { name: string, phoneNumber: string }): Promise<boolean> => {
+        let result = await sendRequest({
+            url: config.REACT_APP_ROOT_URL + "signUp",
+            headers: {
+                withCredentials: false,
             },
             data: {
                 name: credentials.name,
@@ -27,7 +44,7 @@ const useAuth = () => {
             }
         })
         if (result?.status) {
-            dispatch(setUser({user: result.data.response}))
+            dispatch(setUser({user: result.data?.user}))
 
             return true;
         } else {
@@ -35,20 +52,20 @@ const useAuth = () => {
         }
     };
 
-    const signOut = async () => {
+    const signOut = async (): Promise<boolean> => {
         let result = await sendRequest({
             url: config.REACT_APP_ROOT_URL + "logout",
         })
 
         if (result.status) {
             dispatch(clearUser())
-            return navigate("/login")
-        } else {
-            return false;
+            navigate("/")
         }
+
+        return result.status;
     };
 
-    const checkAuth = async () => {
+    const checkAuth = async (): Promise<boolean> => {
         let result = await sendRequest({
             url: config.REACT_APP_ROOT_URL + "user",
         })
@@ -63,7 +80,7 @@ const useAuth = () => {
         }
     }
 
-    return {signIn, signOut, checkAuth, isCheckingAuth, isRequestLoading};
+    return {signUp, signIn, signOut, checkAuth, isCheckingAuth, isRequestLoading};
 }
 
 export default useAuth;

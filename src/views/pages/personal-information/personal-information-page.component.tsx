@@ -13,25 +13,26 @@ export function PersonalInformationPage() {
     const navigate = useNavigate()
     const user = useAppSelector((state) => state.user)
     const fullNameRef = useRef<HTMLInputElement | null>(null)
-    const {signIn, isRequestLoading} = useAuth();
+    const {signUp, isRequestLoading} = useAuth();
     const handlePersonalInformationFormSubmit = async (event: FormEvent) => {
         event.preventDefault()
 
         let requestData = {
-            name: fullNameRef.current?.value ?? null,
-            phoneNumber: user.phoneNumber ?? null,
+            name: fullNameRef.current?.value ?? "",
+            phoneNumber: user.phoneNumber ?? "",
         }
 
-        let result = await signIn(requestData)
+        let result = await signUp(requestData)
+
         if (result) {
-            navigate("/home")
+            navigate("/home",{replace: true})
         }
     }
     return (
         <Paper>
             <form onSubmit={handlePersonalInformationFormSubmit}>
                 <Grid container width={"100vw"} height={"100vh"} justifyContent={"center"} alignItems={"center"}>
-                    <Grid container direction={"column"} width={{xs: 300, md: 450}} justifyContent={"center"} alignItems={"center"} rowSpacing={3}>
+                    <Grid container direction={"column"} width={{xs: 350, md: 550}} justifyContent={"center"} alignItems={"center"} rowSpacing={3}>
                         <Grid item xs={12} width={{xs: 150, md: 200}}>
                             <Logo/>
                         </Grid>
@@ -42,7 +43,7 @@ export function PersonalInformationPage() {
                             <TextField required label={"Full Name"} inputRef={fullNameRef}/>
                         </Grid>
                         <Grid item xs={12} width={{xs: 300, md: 400}} height={{xs: 100}}>
-                            <TextField disabled label={"Phone Number"} value={user.phoneNumber}/>
+                            <TextField disabled label={"Phone Number"} value={user.phoneNumber ?? ""}/>
                         </Grid>
                         <Grid item xs={12}>
                             <LoadingButton loading={isRequestLoading} variant={"contained"} type={"submit"} sx={{width: "200px", height: "40px"}}>
