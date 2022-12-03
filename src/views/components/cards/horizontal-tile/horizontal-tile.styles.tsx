@@ -26,6 +26,7 @@ export const HorizontalTileOverlay = styled(Grid)`
 
 export const HorizontalTileTextContainer = styled.div`
   position: absolute;
-  left: 20px;
-  bottom: 20px;
+  left: 0;
+  bottom: 0;
+  padding: 0 10px 20px 20px;
 `;

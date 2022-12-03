@@ -23,7 +23,7 @@ const HomePage = () => {
             </Stack>
             <Box height={30}></Box>
             {/*Tiles*/}
-            <Grid container paddingX={{xs: 5, md: 5, lg: 3, xl: 15}} justifyContent={{xs:"center",lg:"left"}} spacing={{xs: 1, sm: 2, md: 3}}>
+            <Grid container paddingX={{xs: 5, md: 5, lg: 3, xl: 15}} justifyContent={{xs:"left",sm:"center",lg:"left"}} spacing={{xs: 1, sm: 2, md: 3}}>
                 <HorizontalTile tileTitle={"House"} image={House}/>
                 <VerticalTile tileTitle={"Land"} image={Land}/>
                 <VerticalTile tileTitle={"Commercial Building"} image={CommercialBuilding}/>

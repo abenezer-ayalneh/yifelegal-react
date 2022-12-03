@@ -13,7 +13,7 @@ const VerticalTile: React.FunctionComponent<VerticalTileProps & GridProps> = (pr
             <VerticalTileContainer container image={props.image}>
                 <VerticalTileOverlay/>
                 <VerticalTileTextContainer>
-                    <Typography variant={"h1"}  color={"white"}>
+                    <Typography variant={"h2"}  color={"white"}>
                         {props.tileTitle}
                     </Typography>
                 </VerticalTileTextContainer>

@@ -11,6 +11,7 @@ export const VerticalTileContainer = styled(Grid)<VerticalTilePropTypes>`
   background-image: ${(props) => `url(${props.image})`};
   background-position: center;
   background-size: cover;
+  
 `
 
 export const VerticalTileOverlay = styled(Grid)`
@@ -25,6 +26,7 @@ export const VerticalTileOverlay = styled(Grid)`
 
 export const VerticalTileTextContainer = styled.div`
   position: absolute;
-  left: 20px;
-  bottom: 20px;
+  left: 0;
+  bottom: 0;
+  padding: 0 10px 20px 20px;
 `;
