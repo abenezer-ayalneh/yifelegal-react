@@ -10,6 +10,7 @@ import Iconify from "../iconify/iconify";
 import AccountPopover from "../popovers/account-popover";
 import {IconChevronRight} from "@tabler/icons";
 import React from "react";
+import {useHref, useLocation} from "react-router-dom";
 // import NotificationsPopover from "./NotificationsPopover";
 // components
 // import Iconify from '../../../components/iconify/Iconify';
@@ -50,6 +51,7 @@ Header.propTypes = {
 };
 
 export default function Header({onOpenNav}: { onOpenNav: () => void }) {
+    let location = useLocation();
     return (
         <StyledRoot>
             <StyledToolbar>

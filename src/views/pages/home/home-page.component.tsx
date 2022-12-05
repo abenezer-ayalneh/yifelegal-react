@@ -1,8 +1,7 @@
 import React from "react";
-import {Box, Breadcrumbs, Grid, Link, Stack, Typography} from "@mui/material";
+import {Box, Grid, Stack, Typography} from "@mui/material";
 import VerticalTile from "../../components/cards/vertical-tile/vertical-tile.component";
 import HorizontalTile from "../../components/cards/horizontal-tile/horizontal-tile.component";
-import {IconArrowsRight, IconArrowsUpRight, IconChevronRight} from "@tabler/icons";
 import House from "../../../assets/images/house.jpg"
 import Land from "../../../assets/images/land.jpg"
 import CommercialBuilding from "../../../assets/images/commercial-building.jpg"
@@ -23,7 +22,7 @@ const HomePage = () => {
             </Stack>
             <Box height={30}></Box>
             {/*Tiles*/}
-            <Grid container paddingX={{xs: 5, md: 5, lg: 3, xl: 15}} justifyContent={{xs:"left",sm:"center",lg:"left"}} spacing={{xs: 1, sm: 2, md: 3}}>
+            <Grid container paddingX={{xs: 5, md: 5, lg: 3, xl: 15}} justifyContent={{xs: "left", sm: "center", lg: "left"}} spacing={{xs: 1, sm: 2, md: 3}}>
                 <HorizontalTile tileTitle={"House"} image={House}/>
                 <VerticalTile tileTitle={"Land"} image={Land}/>
                 <VerticalTile tileTitle={"Commercial Building"} image={CommercialBuilding}/>

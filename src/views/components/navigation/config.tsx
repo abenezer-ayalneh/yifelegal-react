@@ -9,22 +9,22 @@ const icon = (name: string) => <SvgColor src={`/assets/icons/navbar/${name}.svg`
 const navConfig:NavSectionPropTypes[] = [
   {
     title: 'home',
-    path: '/home/app',
+    path: '/home',
     icon: icon('ic_analytics'),
   },
   {
     title: 'request for others',
-    path: '/home/user',
+    path: '/request/others',
     icon: icon('ic_user'),
   },
   {
     title: 'my request',
-    path: '/home/products',
+    path: '/request/my-request',
     icon: icon('ic_cart'),
   },
   {
     title: 'settings',
-    path: '/home/blog',
+    path: '/settings',
     icon: icon('ic_blog'),
   },
   // {
