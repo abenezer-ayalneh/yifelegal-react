@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 // @mui
 import {styled} from '@mui/material/styles';
-import {AppBar, Box, Breadcrumbs, IconButton, Link, Stack, Toolbar} from '@mui/material';
+import {AppBar, Box, Breadcrumbs, IconButton, Stack, Toolbar} from '@mui/material';
 // utils
 import {bgBlur} from '../../../utils/css/css-styles';
 import LanguagePopover from "../popovers/language-popover";
@@ -9,8 +9,8 @@ import Searchbar from "../search-bar/search-bar";
 import Iconify from "../iconify/iconify";
 import AccountPopover from "../popovers/account-popover";
 import {IconChevronRight} from "@tabler/icons";
-import React from "react";
-import {useHref, useLocation} from "react-router-dom";
+import React, {ReactNode, useMemo} from "react";
+import {Link, useLocation} from "react-router-dom";
 // import NotificationsPopover from "./NotificationsPopover";
 // components
 // import Iconify from '../../../components/iconify/Iconify';
@@ -52,6 +52,15 @@ Header.propTypes = {
 
 export default function Header({onOpenNav}: { onOpenNav: () => void }) {
     let location = useLocation();
+    const breadCrumb: ReactNode[] = useMemo<ReactNode[]>(() => {
+        let breadcrumbArray: ReactNode[] = []
+        location.pathname.substring(1).split("/").reduce((previousValue: string, currentValue: string, currentIndex: number) => {
+            breadcrumbArray.push(<Link to={`${previousValue}/${currentValue}`}>{currentValue}</Link>)
+            return "";
+        })
+
+        return breadcrumbArray
+    }, [location])
     return (
         <StyledRoot>
             <StyledToolbar>
@@ -85,27 +94,9 @@ export default function Header({onOpenNav}: { onOpenNav: () => void }) {
             </StyledToolbar>
             <Stack paddingX={5} paddingY={1}>
                 <Breadcrumbs aria-label="breadcrumb" maxItems={4} separator={<IconChevronRight size={20}/>}>
-                    <Link underline="hover" variant={"body2"} color="inherit" href="/">
-                        MUI
-                    </Link>
-                    <Link
-                        underline="hover"
-                        color="inherit"
-                        variant={"body2"}
-                    >
-                        Core
-                    </Link>
-                    <Link underline="hover" variant={"body2"} color="inherit" href="/">
-                        MUI
-                    </Link>
-                    <Link
-                        underline="hover"
-                        color="inherit"
-                        variant={"body2"}
-                    >
-                        Core
-                    </Link>
-                    <Link color="text.primary" variant={"body2"} underline={"hover"} href={"/"}>Breadcrumbs</Link>
+                    {
+                        console.log(breadCrumb)
+                    }
                 </Breadcrumbs>
             </Stack>
         </StyledRoot>
