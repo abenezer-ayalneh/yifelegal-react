@@ -1,4 +1,4 @@
-import React, {FormEvent, useRef} from "react"
+import React, {FormEvent, useRef, useState} from "react"
 import {Button, Divider, Grid, Paper, Typography, useTheme} from "@mui/material";
 import Logo from "../../components/logo/logo.component";
 import {useNavigate} from "react-router-dom";
@@ -6,7 +6,9 @@ import {TextField} from "../../components/text-field/text-field.component";
 import {setPhoneNumber} from "../../../utils/redux/slices/user-slice";
 import {useAppDispatch} from "../../../utils/hooks/redux-hooks";
 import {firebaseAuth} from "../../../utils/firebase/firebase-config"
-import {RecaptchaVerifier} from "firebase/auth";
+import {RecaptchaVerifier, signInWithPhoneNumber} from "firebase/auth";
+import {setError} from "../../../utils/redux/slices/error-slice";
+import LoadingButton from "@mui/lab/LoadingButton";
 
 declare global {
     interface Window {
@@ -20,7 +22,9 @@ const LoginPage = (): JSX.Element => {
     const theme = useTheme()
     const navigate = useNavigate()
     const dispatch = useAppDispatch()
+    const [isRecaptchaGenerating, setIsRecaptchaGenerating] = useState<boolean>(false)
     const generateRecaptcha = () => {
+        setIsRecaptchaGenerating(true)
         window.MyNamespace.recaptchaVerifier = new RecaptchaVerifier('recaptcha-container', {
             'size': 'invisible',
             // 'callback': () => {
@@ -29,12 +33,24 @@ const LoginPage = (): JSX.Element => {
             //     // reCAPTCHA solved, allow signInWithPhoneNumber.
             // },
         }, firebaseAuth);
+
+        let appVerifier = window.MyNamespace.recaptchaVerifier
+        signInWithPhoneNumber(firebaseAuth, phoneNumberRef.current?.value ?? "", appVerifier)
+            .then((confirmationResult) => {
+                // SMS sent. Prompt user to type the code from the message, then sign the
+                // user in with confirmationResult.confirm(code).
+                window.MyNamespace.confirmationResult = confirmationResult;
+                navigate("/otp-confirmation")
+            }).catch((error) => {
+            // Error; SMS not sent
+            console.error(error)
+            dispatch(setError({type: "OTP Verification Failed", message: error.message}))
+        }).finally(() => setIsRecaptchaGenerating(true));
     }
     const handleLogin = (event: FormEvent) => {
         event.preventDefault()
         dispatch(setPhoneNumber({phoneNumber: phoneNumberRef.current?.value}))
         generateRecaptcha()
-        navigate("/otp-confirmation")
     }
 
     return (
@@ -52,9 +68,9 @@ const LoginPage = (): JSX.Element => {
                             <TextField required label={"Phone Number"} style={{width: "100%"}} inputRef={phoneNumberRef}/>
                         </Grid>
                         <Grid item xs={12} paddingY={2}>
-                            <Button variant={"contained"} sx={{width: "200px", height: "40px"}} type={"submit"}>
+                            <LoadingButton loading={isRecaptchaGenerating} variant={"contained"} sx={{width: "200px", height: "40px"}} type={"submit"}>
                                 Login
-                            </Button>
+                            </LoadingButton>
                         </Grid>
                         <Divider variant={"fullWidth"} flexItem sx={{py: 3}}><Typography variant={"body1"} color={theme.palette.grey["500"]}>OR</Typography></Divider>
                         <Grid item xs={12}>
