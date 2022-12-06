@@ -3,22 +3,37 @@ import {Button, Divider, Grid, Paper, Typography, useTheme} from "@mui/material"
 import Logo from "../../components/logo/logo.component";
 import {useNavigate} from "react-router-dom";
 import {TextField} from "../../components/text-field/text-field.component";
-import {useDispatch} from "react-redux";
 import {setPhoneNumber} from "../../../utils/redux/slices/user-slice";
 import {useAppDispatch} from "../../../utils/hooks/redux-hooks";
+import {firebaseAuth} from "../../../utils/firebase/firebase-config"
+import {RecaptchaVerifier} from "firebase/auth";
 
-interface PhoneNumber {
-    phoneNumber: string | undefined,
+declare global {
+    interface Window {
+        MyNamespace: any;
+    }
 }
+window.MyNamespace = window.MyNamespace || {};
 
 const LoginPage = (): JSX.Element => {
     const phoneNumberRef = useRef<HTMLInputElement | null>(null)
     const theme = useTheme()
     const navigate = useNavigate()
     const dispatch = useAppDispatch()
+    const generateRecaptcha = () => {
+        window.MyNamespace.recaptchaVerifier = new RecaptchaVerifier('recaptcha-container', {
+            'size': 'invisible',
+            // 'callback': () => {
+            //     // console.log(response)
+            //     // console.log("Recaptcha check callback")
+            //     // reCAPTCHA solved, allow signInWithPhoneNumber.
+            // },
+        }, firebaseAuth);
+    }
     const handleLogin = (event: FormEvent) => {
         event.preventDefault()
-        dispatch(setPhoneNumber({phoneNumber: phoneNumberRef.current?.value ?? null}))
+        dispatch(setPhoneNumber({phoneNumber: phoneNumberRef.current?.value}))
+        generateRecaptcha()
         navigate("/otp-confirmation")
     }
 
@@ -34,7 +49,7 @@ const LoginPage = (): JSX.Element => {
                             <Typography variant={"h1"}>Sign In</Typography>
                         </Grid>
                         <Grid item xs={12} paddingY={2} width={{xs: 300, md: 450}}>
-                            <TextField required label={"Phone Number"} style={{width:"100%"}} inputRef={phoneNumberRef}/>
+                            <TextField required label={"Phone Number"} style={{width: "100%"}} inputRef={phoneNumberRef}/>
                         </Grid>
                         <Grid item xs={12} paddingY={2}>
                             <Button variant={"contained"} sx={{width: "200px", height: "40px"}} type={"submit"}>
@@ -50,6 +65,7 @@ const LoginPage = (): JSX.Element => {
                     </Grid>
                 </Grid>
             </form>
+            <div style={{position: "fixed", bottom: 0, right: 0}} id="recaptcha-container"></div>
         </Paper>
     )
 }

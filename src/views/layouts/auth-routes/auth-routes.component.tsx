@@ -8,7 +8,7 @@ const AuthRoutes = ({children}: { children: ReactNode }): JSX.Element => {
     const {isRequestLoading, responseData} = useFetch({
         method: "POST",
         url: config.REACT_APP_ROOT_URL + "checkToken"
-    }, "check-user-on-auth-routes")
+    }, "check-user-on-auth-routes",150000)
     if (isRequestLoading && !responseData) {
         return <FullscreenLoadingAnimation/>
     } else {
