@@ -3,16 +3,16 @@ import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 export interface UserModelType{
     id: number,
     name: string,
-    phoneNumber: string,
+    phone_number: string,
     email?: string,
-    roleID: number,
-    rememberToken?: string,
-    createdBy: number,
-    updatedBy: number,
-    createdAt?: Date,
-    updatedAt?: Date,
-    deletedBy?: number,
-    deletedAt?: Date,
+    role_id: number,
+    remember_token?: string,
+    created_by: number,
+    updated_by: number,
+    created_at?: Date,
+    updated_at?: Date,
+    deleted_by?: number,
+    deleted_at?: Date,
 }
 
 export interface UserStateType {
@@ -45,6 +45,9 @@ const userSlice = createSlice({
         },
         clearUser: (state) => {
             state.user = null
+            state.name = null
+            state.email = null
+            state.phoneNumber = null
         },
     }
 })

@@ -2,9 +2,7 @@ import {useEffect} from 'react';
 import {useLocation} from 'react-router-dom';
 // @mui
 import {alpha, styled} from '@mui/material/styles';
-import {Avatar, Box, Button, Drawer, Link, Stack, Typography} from '@mui/material';
-// mock
-import account from '../../../utils/_mock/account';
+import {Avatar, Box, Drawer, Link, Typography} from '@mui/material';
 // hooks
 import useResponsive from '../../../utils/hooks/useResponsive';
 // components
@@ -12,6 +10,7 @@ import navConfig from './config';
 import Logo from '../logo/logo.component';
 import Scrollbar from '../scrollbar/scrollbar.component'
 import NavSection from "../nav-section/nav-section.component";
+import {useAppSelector} from "../../../utils/hooks/redux-hooks";
 
 // ----------------------------------------------------------------------
 
@@ -34,7 +33,7 @@ interface NavPropTypes {
 
 export default function Nav({openNav, onCloseNav}: NavPropTypes) {
     const {pathname} = useLocation();
-
+    const userState = useAppSelector((state) => state.user)
     const isDesktop = useResponsive('up', 'lg');
 
     useEffect(() => {
@@ -59,18 +58,18 @@ export default function Nav({openNav, onCloseNav}: NavPropTypes) {
                 <Box sx={{mb: 5, mx: 2.5}}>
                     <Link underline="none">
                         <StyledAccount>
-                            <Avatar src={account.photoURL} alt="photoURL"/>
+                            <Avatar src={'/assets/images/avatars/avatar_default.jpg'} alt="photoURL"/>
 
                             <Box sx={{ml: 2}}>
                                 <div style={{overflow: "hidden", textOverflow: "ellipsis", width: '10rem'}}>
                                     <Typography variant="subtitle2" sx={{color: 'text.primary'}} noWrap>
-                                        {account.displayName}
+                                        {userState.user?.name}
                                     </Typography>
                                 </div>
 
                                 <div style={{overflow: "hidden", textOverflow: "ellipsis", width: '10rem'}}>
                                     <Typography noWrap={true} variant={"subtitle2"} sx={{color: 'text.primary'}}>
-                                        {account.email}
+                                        {userState.user?.email ?? userState.user?.phone_number}
                                     </Typography>
                                 </div>
                             </Box>

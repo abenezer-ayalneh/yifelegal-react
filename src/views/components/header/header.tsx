@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 // @mui
 import {styled} from '@mui/material/styles';
-import {AppBar, Box, Breadcrumbs, IconButton, Stack, Toolbar} from '@mui/material';
+import {AppBar, Box, Breadcrumbs, IconButton, Stack, Toolbar, useTheme} from '@mui/material';
 // utils
 import {bgBlur} from '../../../utils/css/css-styles';
 import LanguagePopover from "../popovers/language-popover";
@@ -51,13 +51,20 @@ Header.propTypes = {
 };
 
 export default function Header({onOpenNav}: { onOpenNav: () => void }) {
-    let location = useLocation();
+    const location = useLocation();
+    const theme = useTheme();
     const breadCrumb: ReactNode[] = useMemo<ReactNode[]>(() => {
         let breadcrumbArray: ReactNode[] = []
         location.pathname.substring(1).split("/").reduce((previousValue: string, currentValue: string, currentIndex: number) => {
-            breadcrumbArray.push(<Link to={`${previousValue}/${currentValue}`}>{currentValue}</Link>)
-            return "";
-        })
+            let link
+            if (currentIndex + 1 === location.pathname.substring(1).split("/").length) {
+                link = <Link key={currentIndex} to={`${previousValue}/${currentValue}`} style={{textTransform:"capitalize",textDecoration:"none",...theme.typography.body2,color:theme.palette.text.primary}}>{currentValue}</Link>
+            }else{
+                link = <Link key={currentIndex} to={`${previousValue}/${currentValue}`} style={{textTransform:"capitalize",textDecoration:"none",...theme.typography.h5,color:theme.palette.text.primary,}}>{currentValue}</Link>
+            }
+            breadcrumbArray.push(link)
+            return `${previousValue}/${currentValue}`;
+        }, "")
 
         return breadcrumbArray
     }, [location])
@@ -95,7 +102,7 @@ export default function Header({onOpenNav}: { onOpenNav: () => void }) {
             <Stack paddingX={5} paddingY={1}>
                 <Breadcrumbs aria-label="breadcrumb" maxItems={4} separator={<IconChevronRight size={20}/>}>
                     {
-                        console.log(breadCrumb)
+                        breadCrumb
                     }
                 </Breadcrumbs>
             </Stack>
