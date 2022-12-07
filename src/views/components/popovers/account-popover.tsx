@@ -4,6 +4,8 @@ import { alpha } from '@mui/material/styles';
 import { Box, Divider, Typography, Stack, MenuItem, Avatar, IconButton, Popover } from '@mui/material';
 // mocks_
 import account from '../../../utils/_mock/account';
+import {useAppSelector} from "../../../utils/hooks/redux-hooks";
+import useAuth from "../../../utils/hooks/use-auth";
 
 // ----------------------------------------------------------------------
 
@@ -26,14 +28,20 @@ const MENU_OPTIONS = [
 
 export default function AccountPopover() {
   const [open, setOpen] = useState<HTMLButtonElement | null>(null);
+  const userState = useAppSelector((state) => state.user)
+  const {signOut} = useAuth()
 
   const handleOpen = (event:React.MouseEvent<HTMLButtonElement>) => {
     setOpen(event.currentTarget);
   };
 
   const handleClose = () => {
-    setOpen(null);
+    setOpen(null)
   };
+
+  const handleSignOut = () => {
+    signOut().then(() => setOpen(null))
+  }
 
   return (
     <>
@@ -78,10 +86,10 @@ export default function AccountPopover() {
       >
         <Box sx={{ my: 1.5, px: 2.5 }}>
           <Typography variant="subtitle2" noWrap>
-            {account.displayName}
+            {userState.user?.name}
           </Typography>
           <Typography variant="body2" sx={{ color: 'text.secondary' }} noWrap>
-            {account.email}
+            {userState.user?.phone_number}
           </Typography>
         </Box>
 
@@ -97,7 +105,7 @@ export default function AccountPopover() {
 
         <Divider sx={{ borderStyle: 'dashed' }} />
 
-        <MenuItem onClick={handleClose} sx={{ m: 1 }}>
+        <MenuItem onClick={handleSignOut} sx={{ m: 1 }}>
           Logout
         </MenuItem>
       </Popover>

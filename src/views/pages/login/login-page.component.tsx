@@ -28,8 +28,6 @@ const LoginPage = (): JSX.Element => {
         window.MyNamespace.recaptchaVerifier = new RecaptchaVerifier('recaptcha-container', {
             'size': 'invisible',
             // 'callback': () => {
-            //     // console.log(response)
-            //     // console.log("Recaptcha check callback")
             //     // reCAPTCHA solved, allow signInWithPhoneNumber.
             // },
         }, firebaseAuth);
