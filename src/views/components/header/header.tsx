@@ -62,7 +62,7 @@ export default function Header({onOpenNav}: { onOpenNav: () => void }) {
         return breadcrumbArray
     }, [location])
     return (
-        <StyledRoot>
+        <StyledRoot>`
             <StyledToolbar>
                 <IconButton
                     onClick={onOpenNav}
