@@ -12,7 +12,7 @@ export const HorizontalTileContainer = styled(Grid)<HorizontalTilePropTypes>`
   background-image: ${(props) => `url(${props.image})`};
   background-position: center;
   background-size: cover;
-`
+`;
 
 export const HorizontalTileOverlay = styled(Grid)`
   height: 360px;
@@ -22,7 +22,8 @@ export const HorizontalTileOverlay = styled(Grid)`
   position: absolute;
   top: 0;
   left: 0;
-`
+  cursor: pointer;
+`;
 
 export const HorizontalTileTextContainer = styled.div`
   position: absolute;
