@@ -23,14 +23,14 @@ const HomePage = () => {
             <Box height={30}></Box>
             {/*Tiles*/}
             <Grid container paddingX={{xs: 5, md: 5, lg: 3, xl: 15}} justifyContent={{xs: "left", sm: "center", lg: "left"}} spacing={{xs: 1, sm: 2, md: 3}}>
-                <HorizontalTile tileTitle={"House"} image={House}/>
-                <VerticalTile tileTitle={"Land"} image={Land}/>
-                <VerticalTile tileTitle={"Commercial Building"} image={CommercialBuilding}/>
-                <VerticalTile tileTitle={"Guest House (Furnished)"} image={GuestHouse}/>
-                <VerticalTile tileTitle={"Machinery & Truck"} image={MachineryAndTrucks}/>
-                <HorizontalTile tileTitle={"Car"} image={Car}/>
-                <HorizontalTile tileTitle={"Three Wheeler"} image={ThreeWheeler}/>
-                <VerticalTile tileTitle={"Whole Building"} image={WholeBuilding}/>
+                <HorizontalTile tileTitle={"House"} image={House} to={"/request/house"}/>
+                <VerticalTile tileTitle={"Land"} image={Land} to={"/request/land"}/>
+                <VerticalTile tileTitle={"Commercial Building"} image={CommercialBuilding} to={"/request/commercial-building"}/>
+                <VerticalTile tileTitle={"Guest House (Furnished)"} image={GuestHouse} to={"/request/guest-house"}/>
+                <VerticalTile tileTitle={"Machinery & Truck"} image={MachineryAndTrucks} to={"/request/machinery-and-truck"}/>
+                <HorizontalTile tileTitle={"Car"} image={Car} to={"/request/car"}/>
+                <HorizontalTile tileTitle={"Three Wheeler"} image={ThreeWheeler} to={"/request/three-wheeler"}/>
+                <VerticalTile tileTitle={"Whole Building"} image={WholeBuilding} to={"/request/whole-building"}/>
             </Grid>
         </Box>
     )

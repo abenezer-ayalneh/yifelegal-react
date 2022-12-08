@@ -1,15 +1,17 @@
 import React from "react";
 import {Grid, GridProps, Typography} from "@mui/material";
 import {VerticalTileContainer, VerticalTileOverlay, VerticalTileTextContainer} from "./vertical-tile.styles";
+import {Link} from "react-router-dom";
 
 interface VerticalTileProps {
     tileTitle?: string | null,
     image?: string,
+    to:string,
 }
 
 const VerticalTile: React.FunctionComponent<VerticalTileProps & GridProps> = (props) => {
     return (
-        <Grid item xs={6} sm={5} md={3}>
+        <Grid item xs={6} sm={5} md={3} component={Link} to={props.to}>
             <VerticalTileContainer container image={props.image}>
                 <VerticalTileOverlay/>
                 <VerticalTileTextContainer>

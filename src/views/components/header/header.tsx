@@ -58,9 +58,9 @@ export default function Header({onOpenNav}: { onOpenNav: () => void }) {
         location.pathname.substring(1).split("/").reduce((previousValue: string, currentValue: string, currentIndex: number) => {
             let link
             if (currentIndex + 1 === location.pathname.substring(1).split("/").length) {
-                link = <Link key={currentIndex} to={`${previousValue}/${currentValue}`} style={{textTransform:"capitalize",textDecoration:"none",...theme.typography.body2,color:theme.palette.text.primary}}>{currentValue}</Link>
+                link = <Link key={currentIndex} to={`${previousValue}/${currentValue}`} style={{textTransform:"capitalize",textDecoration:"none",...theme.typography.h5,color:theme.palette.text.primary}}>{currentValue}</Link>
             }else{
-                link = <Link key={currentIndex} to={`${previousValue}/${currentValue}`} style={{textTransform:"capitalize",textDecoration:"none",...theme.typography.h5,color:theme.palette.text.primary,}}>{currentValue}</Link>
+                link = <Link key={currentIndex} to={`${previousValue}/${currentValue}`} style={{textTransform:"capitalize",textDecoration:"none",...theme.typography.body2,color:theme.palette.text.primary,}}>{currentValue}</Link>
             }
             breadcrumbArray.push(link)
             return `${previousValue}/${currentValue}`;
