@@ -8,6 +8,8 @@ import {lazy} from "react";
 // Loadable
 const HomePage = Loadable(lazy(() => import("../views/pages/home/home-page.component")))
 const HousePage = Loadable(lazy(() => import("../views/pages/house/house-page.component")))
+const DealPage = Loadable(lazy(()=>import("../views/pages/deal/deal.component")))
+
 const authRoute = (): RouteObject[] => {
     return [
         {
@@ -33,6 +35,10 @@ const authRoute = (): RouteObject[] => {
                 {
                     path: "house",
                     element: <HousePage/>
+                },
+                {
+                    path: "house/:pageName",
+                    element: <DealPage/>
                 },
             ]
         }
