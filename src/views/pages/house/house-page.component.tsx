@@ -20,12 +20,12 @@ const HousePage = () => {
             <Box height={30}></Box>
             {/*Tiles*/}
             <Grid container paddingX={{xs: 5, md: 5, lg: 3, xl: 15}} justifyContent={{xs: "left", sm: "center", lg: "left"}} spacing={{xs: 1, sm: 2, md: 3}}>
-                <HorizontalTile tileTitle={"Apartment"} image={Apartment} to={"/request/house"}/>
-                <VerticalTile tileTitle={"Villa"} image={Villa} to={"/request/land"}/>
-                <VerticalTile tileTitle={"Ground+"} image={GroundPlus} to={"/request/commercial-building"}/>
-                <VerticalTile tileTitle={"RealEstate"} image={RealEstate} to={"/request/guest-house"}/>
-                <HorizontalTile tileTitle={"Condominium"} image={Condominium} to={"/request/machinery-and-truck"}/>
-                <VerticalTile tileTitle={"Other"} image={Other} to={"/request/car"}/>
+                <HorizontalTile tileTitle={"Apartment"} image={Apartment} to={"apartment"}/>
+                <VerticalTile tileTitle={"Villa"} image={Villa} to={"villa"}/>
+                <VerticalTile tileTitle={"Ground+"} image={GroundPlus} to={"ground+"}/>
+                <VerticalTile tileTitle={"RealEstate"} image={RealEstate} to={"real estate"}/>
+                <HorizontalTile tileTitle={"Condominium"} image={Condominium} to={"condominium"}/>
+                <VerticalTile tileTitle={"Other"} image={Other} to={"other"}/>
             </Grid>
         </Box>
     )
