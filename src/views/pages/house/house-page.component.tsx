@@ -15,7 +15,7 @@ const HousePage = () => {
             {/*Page Title*/}
             <Stack justifyContent={"center"} alignItems={"center"} direction={"column"}>
                 <Typography variant={"h1"}>House</Typography>
-                <Typography variant={"subtitle2"}>Please choose the sub-category of what you are looking for</Typography>
+                <Typography variant={"subtitle2"} align={"center"}>Please choose the sub-category of what you are looking for</Typography>
             </Stack>
             <Box height={30}></Box>
             {/*Tiles*/}

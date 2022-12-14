@@ -11,7 +11,7 @@ interface VerticalTileProps {
 
 const VerticalTile: React.FunctionComponent<VerticalTileProps & GridProps> = (props) => {
     return (
-        <Grid item xs={6} sm={5} md={3} component={Link} to={props.to}>
+        <Grid item xs={12} sm={6} md={3} component={Link} to={props.to}>
             <VerticalTileContainer container image={props.image}>
                 <VerticalTileOverlay/>
                 <VerticalTileTextContainer>

@@ -42,7 +42,7 @@ const authRoute = (): RouteObject[] => {
                     element: <DealPage/>
                 },
                 {
-                    path: "house/:pageName/inquiry",
+                    path: "house/:pageName/:dealType",
                     element: <PageDispatcher/>
                 },
             ]

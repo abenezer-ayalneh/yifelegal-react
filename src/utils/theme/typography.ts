@@ -37,7 +37,7 @@ const typography: TypographyPropsVariantOverrides = {
         lineHeight: 1.5,
         fontSize: pxToRem(34),
         // ...responsiveFontSizes({xs:52,sm: 52, md: 58, lg: 64}),
-        ...responsiveFontSizes({xs: 32, sm: 36, md: 40, lg: 45}),
+        ...responsiveFontSizes({xs: 28, sm: 36, md: 40, lg: 45}),
     },
     h2: {
         color: "#212B36",
@@ -45,7 +45,7 @@ const typography: TypographyPropsVariantOverrides = {
         lineHeight: 1.5,
         fontSize: pxToRem(24),
         // ...responsiveFontSizes({xs:40,sm: 40, md: 44, lg: 48}),
-        ...responsiveFontSizes({xs: 18, sm: 21, md: 25, lg: 30}),
+        ...responsiveFontSizes({xs: 28, sm: 21, md: 25, lg: 30}),
     },
     h3: {
         color: "#212B36",
