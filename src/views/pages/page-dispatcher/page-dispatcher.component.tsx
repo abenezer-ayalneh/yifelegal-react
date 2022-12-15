@@ -3,6 +3,7 @@ import Loadable from "../../components/loader/loadable";
 import {lazy} from "react";
 
 type DispatcherPageParams = {
+    entity: string,
     pageName: string,
     dealType: string,
 }
@@ -13,17 +14,17 @@ const PageDispatcher = (): JSX.Element => {
     const {pageName, dealType} = useParams<DispatcherPageParams>()
 
     const chosenPage = (): JSX.Element => {
-        if(dealType === "forSale"){
+        if (dealType === "sale") {
             switch (pageName) {
                 case "apartment":
                     return <ApartmentForSalePage/>
                 default:
                     return <div>Page coming soon...</div>
             }
-        }else{
+        } else {
             switch (pageName) {
                 case "apartment":
-                return <ApartmentForRentPage/>
+                    return <ApartmentForRentPage/>
                 default:
                     return <div>Page coming soon...</div>
             }

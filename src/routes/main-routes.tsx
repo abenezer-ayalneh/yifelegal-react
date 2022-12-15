@@ -34,15 +34,15 @@ const authRoute = (): RouteObject[] => {
                     element: <HomePage/>
                 },
                 {
-                    path: "house",
+                    path: ":entity",
                     element: <HousePage/>
                 },
                 {
-                    path: "house/:pageName",
+                    path: ":entity/:pageName",
                     element: <DealPage/>
                 },
                 {
-                    path: "house/:pageName/:dealType",
+                    path: ":entity/:pageName/:dealType",
                     element: <PageDispatcher/>
                 },
             ]

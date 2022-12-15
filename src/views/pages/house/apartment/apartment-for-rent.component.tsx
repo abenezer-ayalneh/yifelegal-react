@@ -37,7 +37,7 @@ const ApartmentForRentPage = () => {
                     <TextField placeholder={"Which payment method you want to use? In cash or bank transfer?"} label={"Payment Method"} size={"small"}/>
                 </FormRow>
                 <FormRow xs={12}>
-                    <LoadingButton variant={"contained"} color={"primary"} fullWidth onClick={handleSubmit}>Submit</LoadingButton>
+                    <LoadingButton variant={"contained"} color={"primary"} fullWidth>Submit</LoadingButton>
                 </FormRow>
             </Grid>
         </Box>

@@ -21,8 +21,8 @@ const Deal = () => {
             <Box height={30}></Box>
             {/*Tiles*/}
             <Grid container paddingX={{xs: 5, md: 5, lg: 3, xl: 15}} justifyContent={{xs: "left", sm: "center", lg: "left"}} spacing={{xs: 1, sm: 2, md: 3}}>
-                <HorizontalTile tileTitle={"For Sale"} image={ForSale} to={"forSale"}/>
-                <HorizontalTile tileTitle={"For Rent"} image={ForRent} to={"forRent"}/>
+                <HorizontalTile tileTitle={"For Sale"} image={ForSale} to={"sale"}/>
+                <HorizontalTile tileTitle={"For Rent"} image={ForRent} to={"rent"}/>
             </Grid>
         </Box>
     )
