@@ -63,7 +63,7 @@ const LoginPage = (): JSX.Element => {
                             <Typography variant={"h1"}>Sign In</Typography>
                         </Grid>
                         <Grid item xs={12} paddingY={2} width={{xs: 300, md: 450}}>
-                            <TextField required label={"Phone Number"} style={{width: "100%"}} inputRef={phoneNumberRef}/>
+                            <TextField required label={"Phone Number"} style={{width: "100%"}} inputRef={phoneNumberRef} size={"normal"}/>
                         </Grid>
                         <Grid item xs={12} paddingY={2}>
                             <LoadingButton loading={isRecaptchaGenerating} variant={"contained"} sx={{width: "200px", height: "40px"}} type={"submit"}>

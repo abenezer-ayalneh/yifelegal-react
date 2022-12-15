@@ -7,7 +7,7 @@ import {BaseTextFieldProps} from "@mui/material/TextField/TextField";
 type TextInputProps = {
     size: "small" | "normal",
 }
-export const TextField: FC<BaseTextFieldProps & TextInputProps> = ({size = "normal", ...restProps}) => {
+export const TextField: FC<BaseTextFieldProps & TextInputProps> = ({size, ...restProps}) => {
     return (
         <MUITextFiled
             {...restProps}
@@ -20,7 +20,7 @@ export const TextField: FC<BaseTextFieldProps & TextInputProps> = ({size = "norm
                 style: {
                     height: size === "small" ? 40 : 50,
                     fontSize: 14,
-                    top: size === "small" ? "-7px" : "-3px"
+                    top: size === "small" ? "-6px" : "0"
                 },
             }}
 
