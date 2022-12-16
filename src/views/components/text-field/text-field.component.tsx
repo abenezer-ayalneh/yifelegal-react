@@ -18,9 +18,14 @@ export const TextField: FC<BaseTextFieldProps & TextInputProps> = ({size, ...res
             /* styles the label component */
             InputLabelProps={{
                 style: {
-                    height: size === "small" ? 40 : 50,
+                    padding: 0,
+                    margin: 0,
+                    height: size === "small" ? 12 : 50,
+                    minWidth: "20px",
+                    display: "flex",
+                    alignItems: "center",
                     fontSize: 14,
-                    top: size === "small" ? "-6px" : "0"
+                    top: size === "small" ? "-3px" : "0"
                 },
             }}
 
