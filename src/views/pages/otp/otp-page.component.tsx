@@ -1,4 +1,4 @@
-import React, {FormEvent, useRef} from "react"
+import React, {FormEvent, useRef, useState} from "react"
 import LoadingButton from '@mui/lab/LoadingButton';
 import {Grid, Paper, Typography} from "@mui/material";
 import Logo from "../../components/logo/logo.component";
@@ -16,10 +16,12 @@ const OTPPage = (): JSX.Element => {
     const dispatch = useAppDispatch()
     const otpCodeInputRef = useRef<HTMLInputElement>(null)
     const user = useAppSelector((state) => state.user)
-    const {signIn, isRequestLoading: isSigningIn} = useAuth()
+    const [isSigningIn, setIsSigningIn] = useState<boolean>(false)
+    const {signIn} = useAuth()
     const handleOTPConfirmationFormSubmit = async (event: FormEvent) => {
         event.preventDefault()
         // TODO OTP code confirmation
+        setIsSigningIn(true)
         const code = otpCodeInputRef.current?.value ?? "";
         window.MyNamespace.confirmationResult.confirm(code).then((response:UserCredential) => {
             // User signed in successfully.
@@ -33,7 +35,7 @@ const OTPPage = (): JSX.Element => {
                 })
         }).catch(() => {
             dispatch(setError({type:"OTP Verification Failed",message:"Incorrect OTP code. Please try again"}))
-        });
+        }).finally(() => setIsSigningIn(false));
     }
     return (<Paper>
         <form onSubmit={handleOTPConfirmationFormSubmit}>

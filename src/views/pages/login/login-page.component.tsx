@@ -55,15 +55,15 @@ const LoginPage = (): JSX.Element => {
         <Paper>
             <form onSubmit={handleLogin}>
                 <Grid container width={"100vw"} height={"100vh"} justifyContent={"center"} alignItems={"center"}>
-                    <Grid container direction={"column"} width={{xs: 300, md: 450}} justifyContent={"center"} alignItems={"center"} rowSpacing={2}>
+                    <Grid container direction={"column"} width={{xs: 300, md: 400}} justifyContent={"center"} alignItems={"center"} rowSpacing={2}>
                         <Grid item xs={12} width={{xs: 150, md: 200}}>
                             <Logo/>
                         </Grid>
                         <Grid item xs={12}>
                             <Typography variant={"h1"}>Sign In</Typography>
                         </Grid>
-                        <Grid item xs={12} paddingY={2} width={{xs: 300, md: 450}}>
-                            <TextField required label={"Phone Number"} style={{width: "100%"}} inputRef={phoneNumberRef} size={"normal"}/>
+                        <Grid item xs={12} paddingY={2} width={{xs: 300, md: 400}}>
+                            <TextField required label={"Phone Number"} style={{width: "100%"}} inputRef={phoneNumberRef}/>
                         </Grid>
                         <Grid item xs={12} paddingY={2}>
                             <LoadingButton loading={isRecaptchaGenerating} variant={"contained"} sx={{width: "200px", height: "40px"}} type={"submit"}>
