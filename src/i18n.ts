@@ -1,18 +1,19 @@
 import i18n from "i18next"
 import {initReactI18next} from 'react-i18next';
-import en from "./utils/lang/en-US.json"
-import am from "./utils/lang/am-ET.json"
+import en from '../public/locales/en/translation.json'
+import am from '../public/locales/am/translation.json'
 
-const resources = {en: en, am: am}
-
-export default i18n.use(initReactI18next) // passes i18n down to react-i18next
+export default i18n
+    // pass the i18n instance to react-i18next.
+    .use(initReactI18next)
+    // init i18next
+    // for all options read: https://www.i18next.com/overview/configuration-options
     .init({
-        resources,
-        lng: "en", // language to use, more information here: https://www.i18next.com/overview/configuration-options#languages-namespaces-resources
-        // you can use the i18n.changeLanguage function to change the language manually: https://www.i18next.com/overview/api#changelanguage
-        // if you're using a language detector, do not define the lng option
-
+        lng: "am",
+        fallbackLng: 'en',
+        resources: {en, am},
+        debug: true,
         interpolation: {
-            escapeValue: false // react already safes from xss
-        }
+            escapeValue: false, // not needed for react as it escapes by default
+        },
     });
