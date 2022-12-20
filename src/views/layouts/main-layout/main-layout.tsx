@@ -5,6 +5,12 @@ import { styled } from '@mui/material/styles';
 //
 import Header from '../../components/header/header';
 import Nav from '../../components/navigation/navigation';
+import SuccessSnackbar from "../../components/snackbars/success-snackbar.component";
+import ErrorSnackbar from "../../components/snackbars/error-snackbar.component";
+import {useAppSelector} from "../../../utils/hooks/redux-hooks";
+import {clearError} from "../../../utils/redux/slices/error-slice";
+import {useDispatch} from "react-redux";
+import {clearSuccess} from "../../../utils/redux/slices/success-slice";
 
 // ----------------------------------------------------------------------
 
@@ -34,6 +40,23 @@ const Main = styled('div')(({ theme }) => ({
 
 export default function MainLayout() {
   const [open, setOpen] = useState(false);
+  const success = useAppSelector((state) => state.success);
+  const error = useAppSelector((state) => state.error);
+  const dispatch = useDispatch();
+
+  const handleCloseErrorMessage = (event:React.SyntheticEvent | Event, reason?: string) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    dispatch(clearError());
+  }
+
+  const handleCloseSuccessMessage = (event:React.SyntheticEvent | Event, reason?: string) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    dispatch(clearSuccess());
+  }
 
   return (
     <StyledRoot>
@@ -42,6 +65,12 @@ export default function MainLayout() {
       <Main>
         <Outlet />
       </Main>
+      {
+          success.message && <SuccessSnackbar success={success} handleCloseSuccessMessage={handleCloseSuccessMessage}/>
+      }
+      {
+          error.message && <ErrorSnackbar error={error} handleCloseErrorMessage={handleCloseErrorMessage}/>
+      }
     </StyledRoot>
   );
 }

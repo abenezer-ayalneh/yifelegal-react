@@ -23,10 +23,22 @@ const useSend = (axiosParams: AxiosRequestConfig<any> = {}) => {
                     ...sendRequestParams.headers,
                 },
             }).catch((result) => {
-                if (result.response.status === 401) {
-                    navigate("/login")
-                } else {
-                    dispatch(setError({type: result?.message, message: "Error contacting the server. Please check your connection"}))
+                let code = result?.response?.status
+                switch (code) {
+                    case 401:
+                        navigate("/login")
+                        break
+                    case 403:
+                        dispatch(setError({type: "Authorization Error", message: result?.response?.data?.message}))
+                        break
+                    case 422:
+                        dispatch(setError({type: "Validation Error", message: result?.response?.data?.message}))
+                        break
+                    case 500:
+                        dispatch(setError({type: "Server issue", message: "Please check you connection or contact the administrator"}))
+                        break
+                    default:
+                        dispatch(setError({type: "Sorry! The server ran into a problem", message: "Please contact the administrator"}))
                 }
             });
 

@@ -1,5 +1,5 @@
-import {Box, Grid, Stack, Typography} from "@mui/material";
-import React, {useEffect, useRef} from "react";
+import {Box, Grid, MenuItem, Stack, Typography} from "@mui/material";
+import React, {useEffect} from "react";
 import FormRow from "../../../components/form-row/form-row.component";
 import {TextField} from "../../../components/text-field/text-field.component";
 import LoadingButton from "@mui/lab/LoadingButton";
@@ -7,76 +7,75 @@ import {Controller, SubmitHandler, useForm} from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod";
 import {z} from "zod";
 import config from "../../../../config";
-import {useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import {DispatcherPageParams} from "../../page-dispatcher/page-dispatcher.component";
 import useSend from "../../../../utils/hooks/use-send";
 
-
 // Validation Schema
 const ApartmentForSaleSchema = z.object({
-    subCity: z.string(),
+    entity: z.string().min(1,"Can't be empty"),
+    entityType: z.string().min(1,"Can't be empty"),
+    dealType: z.string().min(1,"Can't be empty"),
+    subCity: z.string().min(1,"Can't be empty"),
     specialName: z.string().optional(),
-    numberOfBedroom: z.string().refine((value) => !Number.isNaN(parseInt(value)), {
-        message: "Must be number"
-    }),
+    numberOfBedroom: z.string().refine((value) => !Number.isNaN(parseInt(value)), {message: "Must be number"})
+        .refine((value) => parseInt(value) >= 0, {message: "Zero is the minimum"}),
     area: z.string().refine((value) => !Number.isNaN(parseFloat(value)), {
         message: "Must be number"
     }),
     floorNumber: z.string().refine((value) => !Number.isNaN(parseFloat(value)), {
         message: "Must be number"
     }),
-    paymentMethod: z.enum(["In Cash","With Bank"],{invalid_type_error:"Should be either cash or bank"})
+    paymentMethod: z.enum(["In Cash", "With Bank"], {invalid_type_error: "Should be either In Cash or With Bank"}),
 })
 type ApartmentForSaleType = z.infer<typeof ApartmentForSaleSchema>;
 
 const ApartmentForSalePage = () => {
+    const navigate = useNavigate()
     const {pageName, dealType, entity} = useParams<DispatcherPageParams>()
-    const subCity = useRef<HTMLInputElement>()
-    const specialPlaceNameRef = useRef()
-    const numberOfBedroomRef = useRef()
-    const areaRef = useRef()
-    const floorNumberRef = useRef()
-    const paymentMethodRef = useRef()
-    const {sendRequest: storeRequest} = useSend({
+    const {sendRequest: storeRequest, isRequestLoading} = useSend({
         method: "POST",
-        url: config.REACT_APP_ROOT_URL + "/request/store",
+        url: config.REACT_APP_ROOT_URL + "request",
     })
 
     const {
-        register,
         watch,
         formState: {errors, isSubmitSuccessful, isSubmitting},
         reset,
         handleSubmit,
-        control
+        control,
     } = useForm<ApartmentForSaleType>({
         resolver: zodResolver(ApartmentForSaleSchema),
         // reValidateMode: "onChange",
+        defaultValues: {
+            entity: entity,
+            entityType: pageName,
+            dealType: dealType,
+            subCity: "",
+            specialName: "",
+            numberOfBedroom: "",
+            floorNumber: "",
+            area: "",
+            paymentMethod: "With Bank",
+        },
         mode: "onChange"
     });
 
     useEffect(() => {
-        console.log("Successful Submit:" + isSubmitSuccessful)
         if (isSubmitSuccessful) {
-            reset();
+            // reset();
         }
     }, [isSubmitSuccessful, reset]);
 
-    useEffect(() => console.log(errors), [errors])
-
     const onSubmitHandler: SubmitHandler<ApartmentForSaleType> = (values) => {
-        console.log(values);
+        storeRequest({
+            data: values
+        },true).then((result) => {
+            if(result.status){
+                navigate('/home')
+            }
+        })
     };
-
-    // const handleSubmit = () => {
-    //     let requestData = {
-    //         entity: entity,
-    //         entityType: pageName,
-    //         deal: dealType
-    //     }
-    //
-    //     console.log(requestData)
-    // }
 
     return (
         <Box>
@@ -93,7 +92,7 @@ const ApartmentForSalePage = () => {
                 <Grid
                     container
                     paddingX={2}
-                    rowSpacing={4}
+                    rowSpacing={2}
                 >
                     <FormRow required={true} label={"Sub-City"} xs={12}>
                         <Controller
@@ -103,12 +102,10 @@ const ApartmentForSalePage = () => {
                                 <TextField
                                     placeholder={"The sub-city of the apartment. E.g: Bole, Yeka"}
                                     label={"Sub-City"}
-                                    size={"small"}
                                     inputRef={ref}
                                     error={!!errors.subCity}
                                     helperText={errors?.subCity?.message}
-                                    {...field}
-                                />
+                                    {...field}                                />
                             )}
                         />
                     </FormRow>
@@ -184,19 +181,30 @@ const ApartmentForSalePage = () => {
                             control={control}
                             render={({field: {ref, ...field}}) => (
                                 <TextField
-                                    placeholder={"Which payment method you want to use? In cash or bank transfer?"}
-                                    label={"Payment Method"}
+                                    label={"In Cash or with Bank Transfer?"}
                                     size={"small"}
                                     error={!!errors.paymentMethod}
                                     helperText={errors?.paymentMethod?.message}
                                     {...field}
-                                />
+                                    select
+                                    defaultValue={''}
+                                    sx={{
+                                        '& .MuiSelect-select': {
+                                            fontSize: 14,
+                                            padding: '6px 14px',
+                                        }
+                                    }}
+                                >
+                                    <MenuItem style={{fontSize: 14}} value={""} hidden></MenuItem>
+                                    <MenuItem style={{fontSize: 14}} value={"In Cash"}>In Cash</MenuItem>
+                                    <MenuItem style={{fontSize: 14}} value={"With Bank"}>With Bank</MenuItem>
+                                </TextField>
                             )}
                         />
                     </FormRow>
 
                     <FormRow xs={12}>
-                        <LoadingButton variant={"contained"} color={"primary"} type={"submit"} fullWidth>Submit</LoadingButton>
+                        <LoadingButton loading={isSubmitting || isRequestLoading} variant={"contained"} color={"primary"} type={"submit"} fullWidth>Submit</LoadingButton>
                     </FormRow>
                 </Grid>
             </form>

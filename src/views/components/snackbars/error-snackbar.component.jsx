@@ -1,10 +1,18 @@
-import React from "react";
+import React, {useEffect} from "react";
 import Alert from "@mui/material/Alert";
 import Snackbar from "@mui/material/Snackbar";
 import AlertTitle from "@mui/material/AlertTitle";
 import config from "../../../config";
+import {useDispatch} from "react-redux";
+import {clearSuccess} from "../../../utils/redux/slices/success-slice";
 
 const ErrorSnackbar = ({error, handleCloseErrorMessage}) => {
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(clearSuccess())
+    }, [])
+
     return (
         <Snackbar
             anchorOrigin={{
@@ -16,7 +24,7 @@ const ErrorSnackbar = ({error, handleCloseErrorMessage}) => {
             onClose={handleCloseErrorMessage}
         >
             <Alert onClose={handleCloseErrorMessage} severity="error" sx={{width: '100%'}}>
-                <AlertTitle>{error.type ?? "Error"}</AlertTitle>
+                <AlertTitle style={{fontSize: 14}}>{error.type ?? "Error"}</AlertTitle>
                 {error.message}
             </Alert>
         </Snackbar>

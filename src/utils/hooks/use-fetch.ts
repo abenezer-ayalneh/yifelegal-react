@@ -16,8 +16,22 @@ const useFetch = (axiosParams: AxiosRequestConfig<any>, queryKey: string = Math.
                 ...axiosParams.headers,
             },
         }).catch((result) => {
-            if (result.response.status === 401) {
-                return navigate("/login")
+            let code = result?.response?.status
+            switch (code) {
+                case 401:
+                    navigate("/login")
+                    break
+                case 403:
+                    dispatch(setError({type: "Authorization Error", message: result?.response?.data?.message}))
+                    break
+                case 422:
+                    dispatch(setError({type: "Validation Error", message: result?.response?.data?.message}))
+                    break
+                case 500:
+                    dispatch(setError({type: "Server issue", message: "Please check you connection or contact the administrator"}))
+                    break
+                default:
+                    dispatch(setError({type: "Sorry! The server ran into a problem", message: "Please contact the administrator"}))
             }
         });
 
