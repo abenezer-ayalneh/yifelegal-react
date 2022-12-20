@@ -195,7 +195,6 @@ const ApartmentForSalePage = () => {
                                         }
                                     }}
                                 >
-                                    <MenuItem style={{fontSize: 14}} value={""} hidden></MenuItem>
                                     <MenuItem style={{fontSize: 14}} value={"In Cash"}>In Cash</MenuItem>
                                     <MenuItem style={{fontSize: 14}} value={"With Bank"}>With Bank</MenuItem>
                                 </TextField>
