@@ -8,8 +8,10 @@ import {useAppSelector} from "../../../utils/hooks/redux-hooks";
 import useAuth from "../../../utils/hooks/use-auth";
 import {useNavigate} from "react-router-dom";
 import LoadingButton from "@mui/lab/LoadingButton";
+import {useTranslation} from "react-i18next";
 
 export function PersonalInformationPage() {
+    const {t} = useTranslation()
     const navigate = useNavigate()
     const user = useAppSelector((state) => state.user)
     const fullNameRef = useRef<HTMLInputElement | null>(null)
@@ -37,34 +39,32 @@ export function PersonalInformationPage() {
                             <Logo/>
                         </Grid>
                         <Grid item xs={12}>
-                            <Typography variant={"h1"}>Personal Information</Typography>
+                            <Typography variant={"h1"}>{t("personalInformation")}</Typography>
                         </Grid>
                         <Grid item xs={12} width={{xs: 300, md: 400}} height={{xs: 100}}>
-                            <TextField required label={"Full Name"} inputRef={fullNameRef}/>
+                            <TextField required label={t("fullName")} inputRef={fullNameRef}/>
                         </Grid>
                         <Grid item xs={12} width={{xs: 300, md: 400}} height={{xs: 100}}>
-                            <TextField disabled label={"Phone Number"} value={user.phoneNumber ?? ""}/>
+                            <TextField disabled label={t("phoneNumber")} value={user.phoneNumber ?? ""}/>
                         </Grid>
                         <Grid item xs={12}>
                             <LoadingButton loading={isRequestLoading} variant={"contained"} type={"submit"} sx={{width: "200px", height: "40px"}}>
-                                Enter
+                                {t("enter")}
                             </LoadingButton>
                         </Grid>
                         <Grid item xs={12} width={"100%"}>
                             <Grid container justifyContent={"flex-start"} direction={"column"}>
                                 <Grid item>
-                                    <Typography variant={"subtitle2"} textAlign={"start"}>Disclaimer:</Typography>
+                                    <Typography variant={"subtitle2"} textAlign={"start"}>{t("disclaimer")}:</Typography>
                                 </Grid>
                                 <Grid item>
                                     <Typography variant={"subtitle2"} textAlign={"start"}>
-                                        *&nbsp;&nbsp;&nbsp;&nbsp;The application will record the information you entered above
+                                        *&nbsp;&nbsp;&nbsp;&nbsp;{t("recordsInformation")}
                                     </Typography>
                                 </Grid>
                                 <Grid item>
                                     <Typography variant={"subtitle2"} textAlign={"start"}>
-                                        *&nbsp;&nbsp;&nbsp;&nbsp;When you need our services and when we want to contact you
-                                        we will use the information you entered above so make sure it
-                                        is correct!
+                                        *&nbsp;&nbsp;&nbsp;&nbsp;{t("makeSureInfoIsCorrect")}
                                     </Typography>
                                 </Grid>
                             </Grid>

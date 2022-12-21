@@ -1,10 +1,11 @@
 import axios, {AxiosRequestConfig} from "axios";
 import {setError} from "../redux/slices/error-slice";
 import {useQuery} from "@tanstack/react-query";
-import {useNavigate} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 import {useAppDispatch} from "./redux-hooks";
 
 const useFetch = (axiosParams: AxiosRequestConfig<any>, queryKey: string = Math.random().toString(36).slice(2, 7), cacheTime: number = 0) => {
+    const location = useLocation()
     const dispatch = useAppDispatch();
     const navigate = useNavigate()
     const fetchData = async () => {
@@ -19,7 +20,8 @@ const useFetch = (axiosParams: AxiosRequestConfig<any>, queryKey: string = Math.
             let code = result?.response?.status
             switch (code) {
                 case 401:
-                    navigate("/login")
+                    console.log((location.pathname) )
+                    !['/login', '/otp-confirmation', '/personal-information'].includes(location.pathname) && navigate("/login")
                     break
                 case 403:
                     dispatch(setError({type: "Authorization Error", message: result?.response?.data?.message}))

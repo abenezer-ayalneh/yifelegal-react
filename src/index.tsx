@@ -7,6 +7,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import {store} from './utils/redux/store'
 import {Provider} from 'react-redux'
 import './i18n'
+import "./assets/fonts/Nyala/nyala.ttf"
 
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement

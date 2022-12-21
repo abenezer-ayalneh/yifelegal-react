@@ -1,6 +1,10 @@
 {
   "translation": {
+    "signIn": "Sign In",
+    "home": "Home",
+    "phoneNumber": "Phone Number",
     "login": "Login",
-    "home": "Home"
+    "or": "OR",
+    "loginWithGoogle": "Login with Google"
   }
 }

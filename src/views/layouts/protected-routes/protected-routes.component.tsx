@@ -1,4 +1,4 @@
-import {Navigate, useNavigate} from "react-router-dom";
+import {Navigate, useLocation} from "react-router-dom";
 import useFetch from "../../../utils/hooks/use-fetch";
 import config from "../../../config";
 import FullscreenLoadingAnimation from "../../components/fullscreen-loading-animation/fullscreen-loading-animation";
@@ -7,23 +7,26 @@ import {useAppDispatch} from "../../../utils/hooks/redux-hooks";
 import {setUser} from "../../../utils/redux/slices/user-slice";
 
 const ProtectedRoutes = ({children}: { children: ReactNode }): JSX.Element => {
+    const location = useLocation()
     const dispatch = useAppDispatch()
     const {isRequestLoading, responseData} = useFetch({
         method: "POST",
         url: config.REACT_APP_ROOT_URL + "checkToken"
-    },"check-token-on-protected-routes")
+    }, "check-token-on-protected-routes")
 
-    useEffect(()=> {
-        if(responseData?.data?.user){
-            dispatch(setUser({user:responseData?.data?.user}))
+    useEffect(() => {
+        if (responseData?.data?.user) {
+            dispatch(setUser({user: responseData?.data?.user}))
         }
-    },[responseData])
+    }, [responseData])
 
     if (isRequestLoading && !responseData) {
         return <FullscreenLoadingAnimation/>
     } else {
         return (
-            responseData.data?.user ? <>{children}</> : <Navigate to={"/"}/>
+            (responseData.data?.user)
+                ? <>{children}</>
+                : <Navigate to={"/"}/>
             // TODO redirect to landing page based on response
         );
     }

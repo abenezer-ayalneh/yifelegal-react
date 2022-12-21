@@ -23,11 +23,10 @@ export function responsiveFontSizes({xs, sm, md, lg}: { xs: number, sm: number, 
 
 // ----------------------------------------------------------------------
 
-const FONT_PRIMARY = 'Poppins, Public Sans, sans-serif' // Google Font
+// const FONT_PRIMARY = 'Poppins, Public Sans, sans-serif' // Google Font
 // const FONT_SECONDARY = 'CircularStd, sans-serif' // Local Font
 
 const typography: TypographyPropsVariantOverrides = {
-    fontFamily: FONT_PRIMARY,
     fontWeightRegular: 400,
     fontWeightMedium: 600,
     fontWeightBold: 700,

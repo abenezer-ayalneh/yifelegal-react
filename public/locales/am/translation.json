@@ -1,6 +1,18 @@
 {
   "translation": {
+    "signIn": "ይመዝገቡ",
+    "home": "መጀመሪያ",
+    "phoneNumber": "ስልክ ቁጥር",
     "login": "ይግቡ",
-    "home": "መጀመሪያ"
+    "or": "ወይም",
+    "loginWithGoogle": "Google'ን በመጠቀም ይግቡ",
+    "otpConfirmation" :  "የOTP ማረጋገጫ",
+    "otpConfirmationInformation" : "ባስገቡት ስልክ ለአንድ ጊዜ የሚያገለግል ቁጥር በአጭር የጽሁፍ መልእክት ልከናል። እባክዎን እንደደረሶት ከታች ያለው ጽሁፍ ማስገቢያ ውስጥ ያስገቡት።",
+    "enter": "አስገባ",
+    "personalInformation" : "የግል መረጃዎች",
+    "fullName" : "ሙሉ ስም",
+    "disclaimer" : "ማሳሰቢያ",
+    "recordsInformation" : "ከላይ ያስገቡትን መረጃ መተግበሪያው መዝግቦ ይይዛል",
+    "makeSureInfoIsCorrect" : "እርዳታችንን ሲፈልጉ እርስዎን ለማግኘት ስለምንጠቀምበት እባክዎን ትክክለኛ መሆኑን ያረጋግጡ"
   }
 }

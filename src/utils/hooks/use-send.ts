@@ -26,7 +26,7 @@ const useSend = (axiosParams: AxiosRequestConfig<any> = {}) => {
                 let code = result?.response?.status
                 switch (code) {
                     case 401:
-                        navigate("/login")
+                        !['login', 'otp-confirmation', 'personal-information'].some((route: string) => route === location.pathname) && navigate("/login")
                         break
                     case 403:
                         dispatch(setError({type: "Authorization Error", message: result?.response?.data?.message}))

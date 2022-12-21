@@ -1,8 +1,9 @@
 import logger from "redux-logger";
 import {configureStore} from "@reduxjs/toolkit";
-import errorReducer from "./slices/error-slice";
-import successReducer from "./slices/success-slice";
+import errorSlice from "./slices/error-slice";
+import successSlice from "./slices/success-slice";
 import userSlice from "./slices/user-slice";
+import customizationSlice from "./slices/customization-slice";
 
 const middleware = [];
 if (process.env.NODE_ENV === 'development') {
@@ -11,9 +12,10 @@ if (process.env.NODE_ENV === 'development') {
 
 export const store = configureStore({
     reducer: {
-        error: errorReducer,
-        success:successReducer,
+        error: errorSlice,
+        success:successSlice,
         user: userSlice,
+        customization: customizationSlice,
     },
     middleware: (getDefaultMiddleware) => getDefaultMiddleware({
         serializableCheck: false

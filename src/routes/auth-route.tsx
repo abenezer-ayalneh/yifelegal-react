@@ -14,7 +14,7 @@ const authRoute = (): RouteObject[] => {
             errorElement: <Error404Page/>,
             children: [
                 {
-                    path: "/",
+                    path: "",
                     element: <LoginPage/>,
                 },
                 {

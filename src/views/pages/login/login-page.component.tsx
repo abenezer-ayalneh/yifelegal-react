@@ -1,5 +1,5 @@
 import React, {FormEvent, useRef, useState} from "react"
-import {Button, Divider, FormGroup, Grid, MenuItem, Paper, Select, Typography, useTheme} from "@mui/material";
+import {Button, Divider, FormControl, Grid, MenuItem, Paper, Typography, useTheme} from "@mui/material";
 import Logo from "../../components/logo/logo.component";
 import {useNavigate} from "react-router-dom";
 import {TextField} from "../../components/text-field/text-field.component";
@@ -9,7 +9,10 @@ import {firebaseAuth} from "../../../utils/firebase/firebase-config"
 import {RecaptchaVerifier, signInWithPhoneNumber} from "firebase/auth";
 import {setError} from "../../../utils/redux/slices/error-slice";
 import LoadingButton from "@mui/lab/LoadingButton";
-import { useTranslation } from 'react-i18next';
+import {useTranslation} from 'react-i18next';
+import {IconLanguage} from "@tabler/icons";
+import i18next from "i18next";
+import {setFontFamily} from "../../../utils/redux/slices/customization-slice";
 
 declare global {
     interface Window {
@@ -19,17 +22,12 @@ declare global {
 window.MyNamespace = window.MyNamespace || {};
 
 const LoginPage = (): JSX.Element => {
-    const { t, i18n } = useTranslation();
+    const {t, i18n} = useTranslation();
     const phoneNumberRef = useRef<HTMLInputElement | null>(null)
     const theme = useTheme()
     const navigate = useNavigate()
     const dispatch = useAppDispatch()
     const [isRecaptchaGenerating, setIsRecaptchaGenerating] = useState<boolean>(false)
-
-    const handleLanguageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        console.log(`Changing language to: ${event.target.value}`)
-        i18n.changeLanguage(event.target.value);
-    };
 
     const generateRecaptcha = () => {
         setIsRecaptchaGenerating(true)
@@ -53,6 +51,16 @@ const LoginPage = (): JSX.Element => {
             dispatch(setError({type: "OTP Verification Failed", message: error.message}))
         }).finally(() => setIsRecaptchaGenerating(true));
     }
+
+    const handleLanguageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        if (event.target.value === "am") {
+            dispatch(setFontFamily({fontFamily: "Nyala, Public Sans, sans-serif"}))
+        }else{
+            dispatch(setFontFamily({fontFamily: "Poppins, Public Sans, sans-serif"}))
+        }
+        i18n.changeLanguage(event.target.value);
+    };
+
     const handleLogin = (event: FormEvent) => {
         event.preventDefault()
         dispatch(setPhoneNumber({phoneNumber: phoneNumberRef.current?.value}))
@@ -64,25 +72,31 @@ const LoginPage = (): JSX.Element => {
             <form onSubmit={handleLogin}>
                 <Grid container width={"100vw"} height={"100vh"} justifyContent={"center"} alignItems={"center"}>
                     <Grid container direction={"column"} width={{xs: 300, md: 400}} justifyContent={"center"} alignItems={"center"} rowSpacing={2}>
-                        <Grid item xs={12}>
-                            <FormGroup>
-                                <TextField
-                                    label={"Language"}
-                                    size={"small"}
-                                    select
-                                    defaultValue={'am'}
-                                    sx={{
-                                        '& .MuiSelect-select': {
-                                            fontSize: 14,
-                                            padding: '6px 14px',
-                                        }
-                                    }}
-                                    onChange={handleLanguageChange}
-                                >
-                                    <MenuItem style={{fontSize: 14}} value={"am"}>አማርኛ</MenuItem>
-                                    <MenuItem style={{fontSize: 14}} value={"en"}>English</MenuItem>
-                                </TextField>
-                            </FormGroup>
+                        <Grid item xs={12} paddingY={2} width={{xs: 300, md: 400}} justifyContent={"center"}>
+                            <Grid container justifyContent={"center"} rowSpacing={1}>
+                                <Grid item xs={1}>
+                                    <IconLanguage size={40} color={theme.palette.primary.main}/>
+                                </Grid>
+                                <Grid item xs={12}>
+                                    <FormControl fullWidth>
+                                        <TextField
+                                            size={"small"}
+                                            select
+                                            defaultValue={"am"}
+                                            sx={{
+                                                '& .MuiSelect-select': {
+                                                    fontSize: 14,
+                                                    padding: '6px 14px',
+                                                }
+                                            }}
+                                            onChange={handleLanguageChange}
+                                        >
+                                            <MenuItem style={{fontSize: 14}} value={"am"}>አማርኛ</MenuItem>
+                                            <MenuItem style={{fontSize: 14}} value={"en"}>English</MenuItem>
+                                        </TextField>
+                                    </FormControl>
+                                </Grid>
+                            </Grid>
                         </Grid>
                         <Grid item xs={12} width={{xs: 150, md: 200}}>
                             <Logo/>
@@ -91,17 +105,17 @@ const LoginPage = (): JSX.Element => {
                             <Typography variant={"h1"}>{t("login")}</Typography>
                         </Grid>
                         <Grid item xs={12} paddingY={2} width={{xs: 300, md: 400}}>
-                            <TextField required label={"Phone Number"} style={{width: "100%"}} inputRef={phoneNumberRef}/>
+                            <TextField required label={t('phoneNumber')} style={{width: "100%"}} inputRef={phoneNumberRef}/>
                         </Grid>
                         <Grid item xs={12} paddingY={2}>
                             <LoadingButton loading={isRecaptchaGenerating} variant={"contained"} sx={{width: "200px", height: "40px"}} type={"submit"}>
-                                Login
+                                {t("login")}
                             </LoadingButton>
                         </Grid>
-                        <Divider variant={"fullWidth"} flexItem sx={{py: 3}}><Typography variant={"body1"} color={theme.palette.grey["500"]}>OR</Typography></Divider>
+                        <Divider variant={"fullWidth"} flexItem sx={{py: 3}}><Typography variant={"body1"} color={theme.palette.grey["500"]}>{t("or")}</Typography></Divider>
                         <Grid item xs={12}>
                             <Button variant={"outlined"} sx={{width: "200px", height: "40px"}}>
-                                Login with Google
+                                {t("loginWithGoogle")}
                             </Button>
                         </Grid>
                     </Grid>

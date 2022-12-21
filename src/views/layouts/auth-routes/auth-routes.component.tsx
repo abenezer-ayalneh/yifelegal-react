@@ -5,13 +5,15 @@ import FullscreenLoadingAnimation from "../../components/fullscreen-loading-anim
 import {ReactNode} from "react";
 
 const AuthRoutes = ({children}: { children: ReactNode }): JSX.Element => {
-    const {isRequestLoading, responseData} = useFetch({
+    const {responseData} = useFetch({
         method: "POST",
         url: config.REACT_APP_ROOT_URL + "checkToken"
     }, "check-user-on-auth-routes",150000)
-    if (isRequestLoading && !responseData) {
+
+    if (!responseData) {
         return <FullscreenLoadingAnimation/>
     } else {
+        console.log(responseData.data?.user)
         return (
             responseData.data?.user ? <Navigate to={"/home"}/> : <>{children}</>
         );
