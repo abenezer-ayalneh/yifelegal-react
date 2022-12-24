@@ -63,7 +63,17 @@ const ApartmentForSalePage = () => {
 
     useEffect(() => {
         if (isSubmitSuccessful) {
-            // reset();
+            reset({
+                entity: entity,
+                entityType: pageName,
+                dealType: dealType,
+                subCity: "",
+                specialName: "",
+                numberOfBedroom: "",
+                floorNumber: "",
+                area: "",
+                paymentMethod: "With Bank",
+            });
         }
     }, [isSubmitSuccessful, reset]);
 

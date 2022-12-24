@@ -9,7 +9,7 @@ export default i18n
     // init i18next
     // for all options read: https://www.i18next.com/overview/configuration-options
     .init({
-        lng: "am",
+        lng: "en",
         fallbackLng: 'en',
         resources: {en, am},
         debug: true,

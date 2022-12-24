@@ -13,6 +13,7 @@ import {useTranslation} from 'react-i18next';
 import {IconLanguage} from "@tabler/icons";
 import {setFontFamily} from "../../../utils/redux/slices/customization-slice";
 import "react-phone-input-2/lib/material.css";
+import LanguageIcon from "../../../assets/icons/language.svg"
 
 declare global {
     interface Window {
@@ -75,7 +76,7 @@ const LoginPage = (): JSX.Element => {
                         <Grid item xs={12} paddingY={2} width={{xs: 300, md: 400}} justifyContent={"center"}>
                             <Grid container justifyContent={"center"} rowSpacing={1}>
                                 <Grid item xs={1}>
-                                    <IconLanguage size={40} color={theme.palette.primary.main}/>
+                                    <img src={LanguageIcon} alt={"language"} style={{width: "30px"}}/>
                                 </Grid>
                                 <Grid item xs={12}>
                                     <FormControl fullWidth>

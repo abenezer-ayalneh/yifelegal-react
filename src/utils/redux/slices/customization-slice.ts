@@ -1,11 +1,11 @@
 import {createSlice} from '@reduxjs/toolkit';
 
 interface CustomizationStateTypes {
-    fontFamily: string | undefined,
+    fontFamily: string,
 }
 
 const initialState: CustomizationStateTypes = {
-    fontFamily: "Nyala, Public Sans, sans-serif",
+    fontFamily: "Poppins, Public Sans, sans-serif",
 }
 
 const customizationSlice = createSlice({
