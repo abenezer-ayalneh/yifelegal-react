@@ -1,7 +1,7 @@
 import i18n from "i18next"
 import {initReactI18next} from 'react-i18next';
-import en from '../public/locales/en/translation.json'
-import am from '../public/locales/am/translation.json'
+import en from './assets/locales/en/translation.json'
+import am from './assets/locales/am/translation.json'
 
 export default i18n
     // pass the i18n instance to react-i18next.

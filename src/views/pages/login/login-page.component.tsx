@@ -11,8 +11,8 @@ import {setError} from "../../../utils/redux/slices/error-slice";
 import LoadingButton from "@mui/lab/LoadingButton";
 import {useTranslation} from 'react-i18next';
 import {IconLanguage} from "@tabler/icons";
-import i18next from "i18next";
 import {setFontFamily} from "../../../utils/redux/slices/customization-slice";
+import "react-phone-input-2/lib/material.css";
 
 declare global {
     interface Window {
@@ -55,7 +55,7 @@ const LoginPage = (): JSX.Element => {
     const handleLanguageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         if (event.target.value === "am") {
             dispatch(setFontFamily({fontFamily: "Nyala, Public Sans, sans-serif"}))
-        }else{
+        } else {
             dispatch(setFontFamily({fontFamily: "Poppins, Public Sans, sans-serif"}))
         }
         i18n.changeLanguage(event.target.value);
@@ -106,6 +106,13 @@ const LoginPage = (): JSX.Element => {
                         </Grid>
                         <Grid item xs={12} paddingY={2} width={{xs: 300, md: 400}}>
                             <TextField required label={t('phoneNumber')} style={{width: "100%"}} inputRef={phoneNumberRef}/>
+                            {/*<PhoneInput*/}
+                            {/*    country={"ET"}*/}
+                            {/*    enableSearch={true}*/}
+                            {/*    placeholder={t("phoneNumber").toString()}*/}
+                            {/*    // onChange={(phone) => setPhone(phone)}*/}
+
+                            {/*/>*/}
                         </Grid>
                         <Grid item xs={12} paddingY={2}>
                             <LoadingButton loading={isRecaptchaGenerating} variant={"contained"} sx={{width: "200px", height: "40px"}} type={"submit"}>
