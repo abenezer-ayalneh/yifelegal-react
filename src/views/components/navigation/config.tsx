@@ -12,21 +12,21 @@ const navConfig:NavSectionPropTypes[] = [
     path: '/home',
     icon: icon('ic_analytics'),
   },
-  {
-    title: 'request for others',
-    path: '/request/others',
-    icon: icon('ic_user'),
-  },
+  // {
+  //   title: 'request for others',
+  //   path: '/request/others',
+  //   icon: icon('ic_user'),
+  // },
   {
     title: 'my request',
-    path: '/request/my-request',
+    path: '/my-requests',
     icon: icon('ic_cart'),
   },
-  {
-    title: 'settings',
-    path: '/settings',
-    icon: icon('ic_blog'),
-  },
+  // {
+  //   title: 'settings',
+  //   path: '/settings',
+  //   icon: icon('ic_blog'),
+  // },
   // {
   //   title: 'login',
   //   path: '/login',

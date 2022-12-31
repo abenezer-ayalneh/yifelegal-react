@@ -20,7 +20,6 @@ const useFetch = (axiosParams: AxiosRequestConfig<any>, queryKey: string = Math.
             let code = result?.response?.status
             switch (code) {
                 case 401:
-                    console.log((location.pathname) )
                     !['/login', '/otp-confirmation', '/personal-information'].includes(location.pathname) && navigate("/login")
                     break
                 case 403:

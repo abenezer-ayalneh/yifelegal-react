@@ -5,6 +5,24 @@
     "phoneNumber": "Phone Number",
     "login": "Login",
     "or": "OR",
-    "loginWithGoogle": "Login with Google"
+    "loginWithGoogle": "Login with Google",
+    "otpConfirmation": "OTP Confirmation",
+    "otpConfirmationInformation": "We have sent an SMS containing a one time only code through the phone number you entered. Please enter the code on the field below",
+    "enter": "Enter",
+    "personalInformation": "Personal Information",
+    "fullName": "Full Name",
+    "disclaimer": "Disclaimer",
+    "recordsInformation": "The application will hold a record of the information you entered above",
+    "makeSureInfoIsCorrect": "Because we are going to use the number to contact you when you need our help, please make sure it is correct",
+    "entity": "Request",
+    "entityType": "Category",
+    "dealType": "Deal Type",
+    "subCity": "Sub City",
+    "specialName": "Special Name",
+    "numberOfBedroom": "Number of Bedrooms",
+    "area": "Area",
+    "floorNumber": "Floor Number",
+    "paymentMethod": "Payment Method",
+    "empty" : "Empty"
   }
 }

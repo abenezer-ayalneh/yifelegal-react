@@ -8,7 +8,7 @@ import {zodResolver} from "@hookform/resolvers/zod";
 import {z} from "zod";
 import config from "../../../../config";
 import {useNavigate, useParams} from "react-router-dom";
-import {DispatcherPageParams} from "../../page-dispatcher/page-dispatcher.component";
+import {DispatcherPageParams} from "../../page-dispatchers/request-page-dispatcher.component";
 import useSend from "../../../../utils/hooks/use-send";
 
 // Validation Schema
@@ -35,7 +35,7 @@ const ApartmentForSalePage = () => {
     const {pageName, dealType, entity} = useParams<DispatcherPageParams>()
     const {sendRequest: storeRequest, isRequestLoading} = useSend({
         method: "POST",
-        url: config.REACT_APP_ROOT_URL + "request",
+        url: config.REACT_APP_ROOT_URL + "request/store",
     })
 
     const {

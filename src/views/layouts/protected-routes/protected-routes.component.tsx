@@ -11,7 +11,7 @@ const ProtectedRoutes = ({children}: { children: ReactNode }): JSX.Element => {
     const dispatch = useAppDispatch()
     const {isRequestLoading, responseData} = useFetch({
         method: "POST",
-        url: config.REACT_APP_ROOT_URL + "checkToken"
+        url: config.REACT_APP_ROOT_URL + "check/token"
     }, "check-token-on-protected-routes")
 
     useEffect(() => {

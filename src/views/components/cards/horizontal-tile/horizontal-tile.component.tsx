@@ -5,6 +5,7 @@ import {Link} from "react-router-dom";
 
 interface HorizontalTilePropTypes{
     tileTitle?: string | null,
+    subtitle?: string | null,
     image?: string,
     to: string,
 }
@@ -14,6 +15,9 @@ const HorizontalTile: React.FunctionComponent<HorizontalTilePropTypes & GridProp
             <HorizontalTileContainer container image={props.image}>
                 <HorizontalTileOverlay/>
                 <HorizontalTileTextContainer>
+                    <Typography variant={"h3"} color={"white"}>
+                        {props.subtitle}
+                    </Typography>
                     <Typography variant={"h1"} color={"white"}>
                         {props.tileTitle}
                     </Typography>

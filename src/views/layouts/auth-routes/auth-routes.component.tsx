@@ -7,13 +7,12 @@ import {ReactNode} from "react";
 const AuthRoutes = ({children}: { children: ReactNode }): JSX.Element => {
     const {responseData} = useFetch({
         method: "POST",
-        url: config.REACT_APP_ROOT_URL + "checkToken"
+        url: config.REACT_APP_ROOT_URL + "check/token"
     }, "check-user-on-auth-routes",150000)
 
     if (!responseData) {
         return <FullscreenLoadingAnimation/>
     } else {
-        console.log(responseData.data?.user)
         return (
             responseData.data?.user ? <Navigate to={"/home"}/> : <>{children}</>
         );

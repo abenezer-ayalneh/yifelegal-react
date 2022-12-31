@@ -11,7 +11,7 @@ type DispatcherPageParams = {
 const ApartmentForSalePage = Loadable(lazy(() => import("../house/apartment/apartment-for-sale.component")))
 const ApartmentForRentPage = Loadable(lazy(() => import("../house/apartment/apartment-for-rent.component")))
 
-const PageDispatcher = (): JSX.Element => {
+const RequestPageDispatcher = (): JSX.Element => {
     const {pageName, dealType} = useParams<DispatcherPageParams>()
 
     const chosenPage = (): JSX.Element => {
@@ -36,5 +36,5 @@ const PageDispatcher = (): JSX.Element => {
     return chosenPage()
 }
 
-export default PageDispatcher;
+export default RequestPageDispatcher;
 export type {DispatcherPageParams}

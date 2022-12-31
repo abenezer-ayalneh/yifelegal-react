@@ -5,6 +5,7 @@ import {Link} from "react-router-dom";
 
 interface VerticalTileProps {
     tileTitle?: string | null,
+    subtitle?: string | null,
     image?: string,
     to:string,
 }
@@ -15,6 +16,9 @@ const VerticalTile: React.FunctionComponent<VerticalTileProps & GridProps> = (pr
             <VerticalTileContainer container image={props.image}>
                 <VerticalTileOverlay/>
                 <VerticalTileTextContainer>
+                    <Typography variant={"h3"} color={"white"}>
+                        {props.subtitle}
+                    </Typography>
                     <Typography variant={"h2"}  color={"white"}>
                         {props.tileTitle}
                     </Typography>

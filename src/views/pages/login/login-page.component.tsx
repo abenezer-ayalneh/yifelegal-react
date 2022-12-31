@@ -83,7 +83,7 @@ const LoginPage = (): JSX.Element => {
                                         <TextField
                                             size={"small"}
                                             select
-                                            defaultValue={"am"}
+                                            defaultValue={i18n.language }
                                             sx={{
                                                 '& .MuiSelect-select': {
                                                     fontSize: 14,
@@ -107,13 +107,6 @@ const LoginPage = (): JSX.Element => {
                         </Grid>
                         <Grid item xs={12} paddingY={2} width={{xs: 300, md: 400}}>
                             <TextField required label={t('phoneNumber')} style={{width: "100%"}} inputRef={phoneNumberRef}/>
-                            {/*<PhoneInput*/}
-                            {/*    country={"ET"}*/}
-                            {/*    enableSearch={true}*/}
-                            {/*    placeholder={t("phoneNumber").toString()}*/}
-                            {/*    // onChange={(phone) => setPhone(phone)}*/}
-
-                            {/*/>*/}
                         </Grid>
                         <Grid item xs={12} paddingY={2}>
                             <LoadingButton loading={isRecaptchaGenerating} variant={"contained"} sx={{width: "200px", height: "40px"}} type={"submit"}>

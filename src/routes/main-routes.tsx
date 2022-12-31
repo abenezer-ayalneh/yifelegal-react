@@ -9,7 +9,9 @@ import {lazy} from "react";
 const HomePage = Loadable(lazy(() => import("../views/pages/home/home-page.component")))
 const HousePage = Loadable(lazy(() => import("../views/pages/house/house-page.component")))
 const DealPage = Loadable(lazy(() => import("../views/pages/deal/deal.component")))
-const PageDispatcher = Loadable(lazy(() => import("../views/pages/page-dispatcher/page-dispatcher.component")))
+const PageDispatcher = Loadable(lazy(() => import("../views/pages/page-dispatchers/request-page-dispatcher.component")))
+const MyRequestsPage = Loadable(lazy(() => import("../views/pages/my-requests/my-requests-page.component")))
+const MyRequestPageDispatcher = Loadable(lazy(() => import("../views/pages/page-dispatchers/my-request-list-page-dispatcher.component")))
 
 const authRoute = (): RouteObject[] => {
     return [
@@ -44,6 +46,21 @@ const authRoute = (): RouteObject[] => {
                 {
                     path: ":entity/:pageName/:dealType",
                     element: <PageDispatcher/>
+                },
+            ]
+        },
+        {
+            path: "my-requests",
+            element: <ProtectedRoutes><MainLayout/></ProtectedRoutes>,
+            errorElement: <Error404Page/>,
+            children: [
+                {
+                    path: "",
+                    element: <MyRequestsPage/>,
+                },
+                {
+                    path: ":entity",
+                    element: <MyRequestPageDispatcher/>,
                 },
             ]
         }
