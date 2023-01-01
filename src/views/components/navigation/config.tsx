@@ -22,6 +22,11 @@ const navConfig:NavSectionPropTypes[] = [
     path: '/my-requests',
     icon: icon('ic_cart'),
   },
+  {
+    title: 'requests',
+    path: '/requests',
+    icon: icon('requests'),
+  },
   // {
   //   title: 'settings',
   //   path: '/settings',

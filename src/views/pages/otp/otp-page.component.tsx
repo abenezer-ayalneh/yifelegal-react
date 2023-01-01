@@ -51,7 +51,7 @@ const OTPPage = (): JSX.Element => {
                             <Typography variant={"body1"} textAlign={"center"}>{t("otpConfirmationInformation")}</Typography>
                         </Grid>
                         <Grid item>
-                            <input type={"text"} ref={otpCodeInputRef} className={"form-control"} style={{textAlign: "center"}}/>
+                            <input type={"text"} ref={otpCodeInputRef} className={"form-control"} style={{textAlign: "center"}} autoFocus/>
                         </Grid>
                         <Grid item xs={12}>
                             <LoadingButton loading={isSigningIn} variant={"contained"} type={"submit"} sx={{width: "200px", height: "40px"}}>

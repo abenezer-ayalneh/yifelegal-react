@@ -12,6 +12,7 @@ const DealPage = Loadable(lazy(() => import("../views/pages/deal/deal.component"
 const PageDispatcher = Loadable(lazy(() => import("../views/pages/page-dispatchers/request-page-dispatcher.component")))
 const MyRequestsPage = Loadable(lazy(() => import("../views/pages/my-requests/my-requests-page.component")))
 const MyRequestPageDispatcher = Loadable(lazy(() => import("../views/pages/page-dispatchers/my-request-list-page-dispatcher.component")))
+const RequestsPage = Loadable(lazy(() => import("../views/pages/requests/requests-page.component")))
 
 const authRoute = (): RouteObject[] => {
     return [
@@ -63,7 +64,18 @@ const authRoute = (): RouteObject[] => {
                     element: <MyRequestPageDispatcher/>,
                 },
             ]
-        }
+        },
+        {
+            path: "requests",
+            element: <ProtectedRoutes><MainLayout/></ProtectedRoutes>,
+            errorElement: <Error404Page/>,
+            children: [
+                {
+                    path: "",
+                    element: <RequestsPage/>
+                },
+            ]
+        },
     ]
 }
 

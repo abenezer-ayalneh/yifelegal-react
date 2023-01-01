@@ -1,37 +1,33 @@
+import {useTranslation} from "react-i18next";
 import {useParams} from "react-router-dom";
+import {useMemo, useState} from "react";
+import {RequestDetailType, RequestType} from "../../../utils/types/request-type";
 import useFetch from "../../../utils/hooks/use-fetch";
 import config from "../../../config";
-import {Grid, Typography} from "@mui/material";
-import Highlight from "../../components/cards/highlight/highlight.component";
-import House from "../../../assets/images/house.jpg"
-import {useMemo, useState} from "react";
 import FullscreenLoadingAnimation from "../../components/fullscreen-loading-animation/fullscreen-loading-animation";
-import {RequestDetailType, RequestType} from "../../../utils/types/request-type";
-import moment from "moment"
+import {Button, Grid, Typography} from "@mui/material";
+import EmptyComponent from "../../components/empty/empty.component";
+import Highlight from "../../components/cards/highlight/highlight.component";
+import moment from "moment/moment";
 import CustomModal from "../../components/modal/modal.component";
 import FormRow from "../../components/form-row/form-row.component";
-import {useTranslation} from "react-i18next";
-import EmptyComponent from "../../components/empty/empty.component";
+import House from "../../../assets/images/house.jpg";
 
-const HouseMyRequestsPage = () => {
+const RequestsPage = () =>{
     const {t} = useTranslation()
-    const params = useParams()
-    const [selectedHouseDetail, setSelectedHouseDetail] = useState<RequestDetailType[] | null>(null)
+    const [selectedRequestDetail, setSelectedRequestDetail] = useState<RequestDetailType[] | null>(null)
     const {responseData, isRequestLoading} = useFetch({
         method: "GET",
-        url: config.REACT_APP_ROOT_URL + `request/mine/entity`,
-        params: {
-            entity: params.entity
-        }
+        url: config.REACT_APP_ROOT_URL + `request`,
     }, "fetch-my-house-requests-on-house-my-request-page")
 
-    const myRequests = useMemo<RequestType[]>(() => responseData?.data?.myRequests, [responseData])
+    const requests = useMemo<RequestType[]>(() => responseData?.data?.requests, [responseData])
 
-    const handleModalClose = () => setSelectedHouseDetail(null)
+    const handleModalClose = () => setSelectedRequestDetail(null)
 
-    const handleHighlightClicked = (request: RequestDetailType[]) => setSelectedHouseDetail(request)
+    const handleHighlightClicked = (request: RequestDetailType[]) => setSelectedRequestDetail(request)
 
-    if (!myRequests) {
+    if (!requests) {
         return <FullscreenLoadingAnimation/>
     } else {
         return (
@@ -40,11 +36,11 @@ const HouseMyRequestsPage = () => {
                     {
                         isRequestLoading
                             ? <FullscreenLoadingAnimation/>
-                            : (myRequests.length === 0
+                            : (requests.length === 0
                                     ? <EmptyComponent/>
-                                    : myRequests.map((request: RequestType) => (
+                                    : requests.map((request: RequestType) => (
                                         <Highlight image={House}
-                                                   type={"House"}
+                                                   type={request.detail?.find((detail) => detail.attribute === "entity")?.value}
                                                    date={moment(request.created_at)?.format("MMM DD, YYYY")}
                                                    location={request.detail?.find((detail) => detail.attribute === "subCity")?.value}
                                                    category={request.detail?.find((detail) => detail.attribute === "entityType")?.value}
@@ -55,11 +51,15 @@ const HouseMyRequestsPage = () => {
                     }
                 </Grid>
                 {
-                    selectedHouseDetail &&
-                    <CustomModal open={Boolean(selectedHouseDetail)} title={"Request Detail"} handleClose={handleModalClose}>
+                    selectedRequestDetail &&
+                    <CustomModal open={Boolean(selectedRequestDetail)} title={"Request Detail"} handleClose={handleModalClose}
+                    buttons={[
+                        <Button variant={"contained"} color={"primary"} fullWidth onClick={() => console.log("Here is the phone number for "+selectedRequestDetail[0].id)}>Get Phone Number</Button>
+                    ]}
+                    >
                         <Grid container direction="column" rowSpacing={1} paddingX={{xs: 1, sm: 2, md: 3, lg: 4}} paddingY={2}>
                             {
-                                selectedHouseDetail.map((request) => (
+                                selectedRequestDetail.map((request) => (
                                     <FormRow label={t(request.attribute) + ":"}>
                                         <Typography minWidth={200} sx={{textTransform: "capitalize"}}
                                                     variant={"body2"}>{request.value}</Typography>
@@ -74,4 +74,4 @@ const HouseMyRequestsPage = () => {
     }
 }
 
-export default HouseMyRequestsPage
+export default RequestsPage
