@@ -188,7 +188,7 @@ const LandForSalePage = () => {
                     </FormRow>
                 </Grid>
             </form>
-            <pre>{JSON.stringify(watch(), null, 2)}</pre>
+            
         </Box>
     )
 }

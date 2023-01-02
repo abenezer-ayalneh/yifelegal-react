@@ -12,21 +12,19 @@ import {DispatcherPageParams} from "../../../../../utils/types/dispatcher-page-p
 import useSend from "../../../../../utils/hooks/use-send";
 
 // Validation Schema
-const ApartmentForRentSchema = z.object({
+const CondominiumForRentSchema = z.object({
     entity: z.string().min(1,"Can't be empty"),
     category: z.string().min(1,"Can't be empty"),
     deal: z.string().min(1,"Can't be empty"),
     subCity: z.string().min(1,"Can't be empty"),
     specialName: z.string().optional(),
+    specialCondominiumName: z.string().optional(),
     numberOfBedroom: z.string().refine((value) => !Number.isNaN(parseInt(value)), {message: "Must be number"})
         .refine((value) => parseInt(value) >= 0, {message: "Zero is the minimum"}),
-    floorNumber: z.string().refine((value) => !Number.isNaN(parseFloat(value)), {
-        message: "Must be number"
-    }),
 })
-type ApartmentForRentType = z.infer<typeof ApartmentForRentSchema>;
+type CondominiumForRentType = z.infer<typeof CondominiumForRentSchema>;
 
-const ApartmentForRentPage = () => {
+const CondominiumForRentPage = () => {
     const navigate = useNavigate()
     const {category, deal, entity} = useParams<DispatcherPageParams>()
     const {sendRequest: storeRequest, isRequestLoading} = useSend({
@@ -40,8 +38,8 @@ const ApartmentForRentPage = () => {
         reset,
         handleSubmit,
         control,
-    } = useForm<ApartmentForRentType>({
-        resolver: zodResolver(ApartmentForRentSchema),
+    } = useForm<CondominiumForRentType>({
+        resolver: zodResolver(CondominiumForRentSchema),
         // reValidateMode: "onChange",
         defaultValues: {
             entity: entity,
@@ -50,26 +48,31 @@ const ApartmentForRentPage = () => {
             subCity: "",
             specialName: "",
             numberOfBedroom: "",
-            floorNumber: "",
+            specialCondominiumName: "",
         },
         mode: "onChange"
     });
 
-    const onSubmitHandler: SubmitHandler<ApartmentForRentType> = (values) => {
+    useEffect(() => {
+        if (isSubmitSuccessful) {
+            reset({
+                entity: entity,
+                category: category,
+                deal: deal,
+                subCity: "",
+                specialName: "",
+                numberOfBedroom: "",
+                specialCondominiumName: "",
+            });
+        }
+    }, [isSubmitSuccessful, reset]);
+
+    const onSubmitHandler: SubmitHandler<CondominiumForRentType> = (values) => {
         storeRequest({
             data: values
         },true).then((result) => {
             if(result.status){
-                // navigate('/home')
-                reset({
-                    entity: entity,
-                    category: category,
-                    deal: deal,
-                    subCity: "",
-                    specialName: "",
-                    numberOfBedroom: "",
-                    floorNumber: "",
-                });
+                navigate('/home')
             }
         })
     };
@@ -97,7 +100,7 @@ const ApartmentForRentPage = () => {
                             control={control}
                             render={({field: {ref, ...field}}) => (
                                 <TextField
-                                    placeholder={"The sub-city of the apartment. E.g: Bole, Yeka"}
+                                    placeholder={"The sub-city of the condominium. E.g: Bole, Yeka"}
                                     label={"Sub-City"}
                                     inputRef={ref}
                                     error={!!errors.subCity}
@@ -122,6 +125,22 @@ const ApartmentForRentPage = () => {
                             )}
                         />
                     </FormRow>
+                    <FormRow label={"Special Condominium Name (if any)"} xs={12}>
+                        <Controller
+                            name={"specialCondominiumName"}
+                            control={control}
+                            render={({field: {ref, ...field}}) => (
+                                <TextField
+                                    placeholder={"Special or local name of the condominium. E.g: Ayat, Tulu Dimtu..."}
+                                    label={"Special Condominium Name"}
+                                    size={"small"}
+                                    error={!!errors.specialCondominiumName}
+                                    helperText={errors?.specialCondominiumName?.message}
+                                    {...field}
+                                />
+                            )}
+                        />
+                    </FormRow>
                     <FormRow required={true} label={"Number of Bedroom"} xs={12}>
                         <Controller
                             name={"numberOfBedroom"}
@@ -129,7 +148,7 @@ const ApartmentForRentPage = () => {
                             render={({field: {ref, ...field}}) => (
                                 <TextField
                                     type={"number"}
-                                    placeholder={"The number of bedrooms you want the apartment to have"}
+                                    placeholder={"The number of bedrooms you want the condominium to have"}
                                     label={"Number of Bedroom"}
                                     size={"small"}
                                     inputRef={ref}
@@ -140,31 +159,15 @@ const ApartmentForRentPage = () => {
                             )}
                         />
                     </FormRow>
-                    <FormRow required={true} label={"Floor Number"} xs={12}>
-                        <Controller
-                            name={"floorNumber"}
-                            control={control}
-                            render={({field: {ref, ...field}}) => (
-                                <TextField
-                                    type={"number"}
-                                    placeholder={"On which floor number do you want the apartment to be . E.g: 3"}
-                                    label={"Floor Number"}
-                                    size={"small"}
-                                    error={!!errors.floorNumber}
-                                    helperText={errors?.floorNumber?.message}
-                                    {...field}/>
-                            )}
-                        />
-                    </FormRow>
 
                     <FormRow xs={12}>
                         <LoadingButton loading={isSubmitting || isRequestLoading} variant={"contained"} color={"primary"} type={"submit"} fullWidth>Submit</LoadingButton>
                     </FormRow>
                 </Grid>
             </form>
-            
+
         </Box>
     )
 }
 
-export default ApartmentForRentPage
+export default CondominiumForRentPage

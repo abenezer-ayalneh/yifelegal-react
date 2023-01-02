@@ -12,7 +12,7 @@ import {DispatcherPageParams} from "../../../../../utils/types/dispatcher-page-p
 import useSend from "../../../../../utils/hooks/use-send";
 
 // Validation Schema
-const ApartmentForRentSchema = z.object({
+const OtherForSaleSchema = z.object({
     entity: z.string().min(1,"Can't be empty"),
     category: z.string().min(1,"Can't be empty"),
     deal: z.string().min(1,"Can't be empty"),
@@ -20,13 +20,14 @@ const ApartmentForRentSchema = z.object({
     specialName: z.string().optional(),
     numberOfBedroom: z.string().refine((value) => !Number.isNaN(parseInt(value)), {message: "Must be number"})
         .refine((value) => parseInt(value) >= 0, {message: "Zero is the minimum"}),
-    floorNumber: z.string().refine((value) => !Number.isNaN(parseFloat(value)), {
+    area: z.string().refine((value) => !Number.isNaN(parseFloat(value)), {
         message: "Must be number"
     }),
+    paymentMethod: z.enum(["In Cash", "With Bank"], {invalid_type_error: "Should be either In Cash or With Bank"}),
 })
-type ApartmentForRentType = z.infer<typeof ApartmentForRentSchema>;
+type OtherForSaleType = z.infer<typeof OtherForSaleSchema>;
 
-const ApartmentForRentPage = () => {
+const OtherForSalePage = () => {
     const navigate = useNavigate()
     const {category, deal, entity} = useParams<DispatcherPageParams>()
     const {sendRequest: storeRequest, isRequestLoading} = useSend({
@@ -40,8 +41,8 @@ const ApartmentForRentPage = () => {
         reset,
         handleSubmit,
         control,
-    } = useForm<ApartmentForRentType>({
-        resolver: zodResolver(ApartmentForRentSchema),
+    } = useForm<OtherForSaleType>({
+        resolver: zodResolver(OtherForSaleSchema),
         // reValidateMode: "onChange",
         defaultValues: {
             entity: entity,
@@ -50,26 +51,33 @@ const ApartmentForRentPage = () => {
             subCity: "",
             specialName: "",
             numberOfBedroom: "",
-            floorNumber: "",
+            area: "",
+            paymentMethod: "With Bank",
         },
         mode: "onChange"
     });
 
-    const onSubmitHandler: SubmitHandler<ApartmentForRentType> = (values) => {
+    useEffect(() => {
+        if (isSubmitSuccessful) {
+            reset({
+                entity: entity,
+                category: category,
+                deal: deal,
+                subCity: "",
+                specialName: "",
+                numberOfBedroom: "",
+                area: "",
+                paymentMethod: "With Bank",
+            });
+        }
+    }, [isSubmitSuccessful, reset]);
+
+    const onSubmitHandler: SubmitHandler<OtherForSaleType> = (values) => {
         storeRequest({
             data: values
         },true).then((result) => {
             if(result.status){
-                // navigate('/home')
-                reset({
-                    entity: entity,
-                    category: category,
-                    deal: deal,
-                    subCity: "",
-                    specialName: "",
-                    numberOfBedroom: "",
-                    floorNumber: "",
-                });
+                navigate('/home')
             }
         })
     };
@@ -97,7 +105,7 @@ const ApartmentForRentPage = () => {
                             control={control}
                             render={({field: {ref, ...field}}) => (
                                 <TextField
-                                    placeholder={"The sub-city of the apartment. E.g: Bole, Yeka"}
+                                    placeholder={"The sub-city of the other. E.g: Bole, Yeka"}
                                     label={"Sub-City"}
                                     inputRef={ref}
                                     error={!!errors.subCity}
@@ -129,7 +137,7 @@ const ApartmentForRentPage = () => {
                             render={({field: {ref, ...field}}) => (
                                 <TextField
                                     type={"number"}
-                                    placeholder={"The number of bedrooms you want the apartment to have"}
+                                    placeholder={"The number of bedrooms you want the other to have"}
                                     label={"Number of Bedroom"}
                                     size={"small"}
                                     inputRef={ref}
@@ -140,19 +148,45 @@ const ApartmentForRentPage = () => {
                             )}
                         />
                     </FormRow>
-                    <FormRow required={true} label={"Floor Number"} xs={12}>
+                    <FormRow required={true} label={"Area (in Square Meters)"} xs={12}>
                         <Controller
-                            name={"floorNumber"}
+                            name={"area"}
                             control={control}
                             render={({field: {ref, ...field}}) => (
                                 <TextField
                                     type={"number"}
-                                    placeholder={"On which floor number do you want the apartment to be . E.g: 3"}
-                                    label={"Floor Number"}
+                                    placeholder={"The floor area of the other. E.g: 150"}
+                                    label={"Area (in Square Meters)"}
                                     size={"small"}
-                                    error={!!errors.floorNumber}
-                                    helperText={errors?.floorNumber?.message}
+                                    error={!!errors.area}
+                                    helperText={errors?.area?.message}
                                     {...field}/>
+                            )}
+                        />
+                    </FormRow>
+                    <FormRow required={true} label={"Payment Method"} xs={12}>
+                        <Controller
+                            name={"paymentMethod"}
+                            control={control}
+                            render={({field: {ref, ...field}}) => (
+                                <TextField
+                                    label={"In Cash or with Bank Transfer?"}
+                                    size={"small"}
+                                    error={!!errors.paymentMethod}
+                                    helperText={errors?.paymentMethod?.message}
+                                    {...field}
+                                    select
+                                    defaultValue={''}
+                                    sx={{
+                                        '& .MuiSelect-select': {
+                                            fontSize: 14,
+                                            padding: '6px 14px',
+                                        }
+                                    }}
+                                >
+                                    <MenuItem style={{fontSize: 14}} value={"In Cash"}>In Cash</MenuItem>
+                                    <MenuItem style={{fontSize: 14}} value={"With Bank"}>With Bank</MenuItem>
+                                </TextField>
                             )}
                         />
                     </FormRow>
@@ -167,4 +201,4 @@ const ApartmentForRentPage = () => {
     )
 }
 
-export default ApartmentForRentPage
+export default OtherForSalePage

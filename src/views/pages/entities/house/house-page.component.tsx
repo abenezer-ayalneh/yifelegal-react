@@ -23,7 +23,7 @@ const HousePage = () => {
                 <HorizontalTile tileTitle={"Apartment"} image={Apartment} to={"category/apartment"}/>
                 <VerticalTile tileTitle={"Villa"} image={Villa} to={"category/villa"}/>
                 <VerticalTile tileTitle={"Ground+"} image={GroundPlus} to={"category/ground+"}/>
-                <VerticalTile tileTitle={"RealEstate"} image={RealEstate} to={"category/real estate"}/>
+                <VerticalTile tileTitle={"Real Estate"} image={RealEstate} to={"category/real estate"}/>
                 <HorizontalTile tileTitle={"Condominium"} image={Condominium} to={"category/condominium"}/>
                 <VerticalTile tileTitle={"Other"} image={Other} to={"category/other"}/>
             </Grid>

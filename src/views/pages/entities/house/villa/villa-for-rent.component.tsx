@@ -1,5 +1,5 @@
-import {Box, Grid, MenuItem, Stack, Typography} from "@mui/material";
-import React, {useEffect} from "react";
+import {Box, Grid, Stack, Typography} from "@mui/material";
+import React from "react";
 import FormRow from "../../../../components/form-row/form-row.component";
 import {TextField} from "../../../../components/text-field/text-field.component";
 import LoadingButton from "@mui/lab/LoadingButton";
@@ -12,21 +12,18 @@ import {DispatcherPageParams} from "../../../../../utils/types/dispatcher-page-p
 import useSend from "../../../../../utils/hooks/use-send";
 
 // Validation Schema
-const ApartmentForRentSchema = z.object({
-    entity: z.string().min(1,"Can't be empty"),
-    category: z.string().min(1,"Can't be empty"),
-    deal: z.string().min(1,"Can't be empty"),
-    subCity: z.string().min(1,"Can't be empty"),
+const VillaForRentSchema = z.object({
+    entity: z.string().min(1, "Can't be empty"),
+    category: z.string().min(1, "Can't be empty"),
+    deal: z.string().min(1, "Can't be empty"),
+    subCity: z.string().min(1, "Can't be empty"),
     specialName: z.string().optional(),
     numberOfBedroom: z.string().refine((value) => !Number.isNaN(parseInt(value)), {message: "Must be number"})
         .refine((value) => parseInt(value) >= 0, {message: "Zero is the minimum"}),
-    floorNumber: z.string().refine((value) => !Number.isNaN(parseFloat(value)), {
-        message: "Must be number"
-    }),
 })
-type ApartmentForRentType = z.infer<typeof ApartmentForRentSchema>;
+type VillaForRentType = z.infer<typeof VillaForRentSchema>;
 
-const ApartmentForRentPage = () => {
+const VillaForRentPage = () => {
     const navigate = useNavigate()
     const {category, deal, entity} = useParams<DispatcherPageParams>()
     const {sendRequest: storeRequest, isRequestLoading} = useSend({
@@ -40,8 +37,8 @@ const ApartmentForRentPage = () => {
         reset,
         handleSubmit,
         control,
-    } = useForm<ApartmentForRentType>({
-        resolver: zodResolver(ApartmentForRentSchema),
+    } = useForm<VillaForRentType>({
+        resolver: zodResolver(VillaForRentSchema),
         // reValidateMode: "onChange",
         defaultValues: {
             entity: entity,
@@ -50,16 +47,15 @@ const ApartmentForRentPage = () => {
             subCity: "",
             specialName: "",
             numberOfBedroom: "",
-            floorNumber: "",
         },
         mode: "onChange"
     });
 
-    const onSubmitHandler: SubmitHandler<ApartmentForRentType> = (values) => {
+    const onSubmitHandler: SubmitHandler<VillaForRentType> = (values) => {
         storeRequest({
             data: values
-        },true).then((result) => {
-            if(result.status){
+        }, true).then((result) => {
+            if (result.status) {
                 // navigate('/home')
                 reset({
                     entity: entity,
@@ -68,7 +64,6 @@ const ApartmentForRentPage = () => {
                     subCity: "",
                     specialName: "",
                     numberOfBedroom: "",
-                    floorNumber: "",
                 });
             }
         })
@@ -97,7 +92,7 @@ const ApartmentForRentPage = () => {
                             control={control}
                             render={({field: {ref, ...field}}) => (
                                 <TextField
-                                    placeholder={"The sub-city of the apartment. E.g: Bole, Yeka"}
+                                    placeholder={"The sub-city of the villa. E.g: Bole, Yeka"}
                                     label={"Sub-City"}
                                     inputRef={ref}
                                     error={!!errors.subCity}
@@ -129,7 +124,7 @@ const ApartmentForRentPage = () => {
                             render={({field: {ref, ...field}}) => (
                                 <TextField
                                     type={"number"}
-                                    placeholder={"The number of bedrooms you want the apartment to have"}
+                                    placeholder={"The number of bedrooms you want the villa to have"}
                                     label={"Number of Bedroom"}
                                     size={"small"}
                                     inputRef={ref}
@@ -140,31 +135,15 @@ const ApartmentForRentPage = () => {
                             )}
                         />
                     </FormRow>
-                    <FormRow required={true} label={"Floor Number"} xs={12}>
-                        <Controller
-                            name={"floorNumber"}
-                            control={control}
-                            render={({field: {ref, ...field}}) => (
-                                <TextField
-                                    type={"number"}
-                                    placeholder={"On which floor number do you want the apartment to be . E.g: 3"}
-                                    label={"Floor Number"}
-                                    size={"small"}
-                                    error={!!errors.floorNumber}
-                                    helperText={errors?.floorNumber?.message}
-                                    {...field}/>
-                            )}
-                        />
-                    </FormRow>
 
                     <FormRow xs={12}>
                         <LoadingButton loading={isSubmitting || isRequestLoading} variant={"contained"} color={"primary"} type={"submit"} fullWidth>Submit</LoadingButton>
                     </FormRow>
                 </Grid>
             </form>
-            
+
         </Box>
     )
 }
 
-export default ApartmentForRentPage
+export default VillaForRentPage

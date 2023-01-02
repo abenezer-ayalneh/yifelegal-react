@@ -15,7 +15,7 @@ import useSend from "../../../../../utils/hooks/use-send";
 const ApartmentForSaleSchema = z.object({
     entity: z.string().min(1,"Can't be empty"),
     category: z.string().min(1,"Can't be empty"),
-    dealType: z.string().min(1,"Can't be empty"),
+    deal: z.string().min(1,"Can't be empty"),
     subCity: z.string().min(1,"Can't be empty"),
     specialName: z.string().optional(),
     numberOfBedroom: z.string().refine((value) => !Number.isNaN(parseInt(value)), {message: "Must be number"})
@@ -50,7 +50,7 @@ const ApartmentForSalePage = () => {
         defaultValues: {
             entity: entity,
             category: category,
-            dealType: deal,
+            deal: deal,
             subCity: "",
             specialName: "",
             numberOfBedroom: "",
@@ -66,7 +66,7 @@ const ApartmentForSalePage = () => {
             reset({
                 entity: entity,
                 category: category,
-                dealType: deal,
+                deal: deal,
                 subCity: "",
                 specialName: "",
                 numberOfBedroom: "",
@@ -217,7 +217,7 @@ const ApartmentForSalePage = () => {
                     </FormRow>
                 </Grid>
             </form>
-            <pre>{JSON.stringify(watch(), null, 2)}</pre>
+            
         </Box>
     )
 }
