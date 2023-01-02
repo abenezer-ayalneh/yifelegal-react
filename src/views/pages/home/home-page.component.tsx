@@ -23,14 +23,14 @@ const HomePage = () => {
             <Box height={30}></Box>
             {/*Tiles*/}
             <Grid container paddingX={{xs: 5, md: 5, lg: 3, xl: 15}} justifyContent={{xs: "left", sm: "center", lg: "left"}} spacing={{xs: 1, sm: 2, md: 3}}>
-                <HorizontalTile tileTitle={"House"} image={House} to={"/request/house"}/>
-                <VerticalTile tileTitle={"Land"} image={Land} to={"/request/land"}/>
-                <VerticalTile tileTitle={"Commercial Building"} image={CommercialBuilding} to={"/request/commercial-building"}/>
-                <VerticalTile tileTitle={"Guest House (Furnished)"} image={GuestHouse} to={"/request/guest-house"}/>
-                <VerticalTile tileTitle={"Machinery & Truck"} image={MachineryAndTrucks} to={"/request/machinery-and-truck"}/>
-                <HorizontalTile tileTitle={"Car"} image={Car} to={"/request/car"}/>
-                <HorizontalTile tileTitle={"Three Wheeler"} image={ThreeWheeler} to={"/request/three-wheeler"}/>
-                <VerticalTile tileTitle={"Whole Building"} image={WholeBuilding} to={"/request/whole-building"}/>
+                <HorizontalTile tileTitle={"House"} image={House} to={"/request/entity/house"}/>
+                <VerticalTile tileTitle={"Land"} image={Land} to={"/request/entity/land"}/>
+                <VerticalTile tileTitle={"Commercial Building"} image={CommercialBuilding} to={"/request/entity/commercial-building"}/>
+                <VerticalTile tileTitle={"Guest House (Furnished)"} image={GuestHouse} to={"/request/entity/guest-house"}/>
+                <VerticalTile tileTitle={"Machinery & Truck"} image={MachineryAndTrucks} to={"/request/entity/machinery-and-truck"}/>
+                <HorizontalTile tileTitle={"Car"} image={Car} to={"/request/entity/car"}/>
+                <HorizontalTile tileTitle={"Three Wheeler"} image={ThreeWheeler} to={"/request/entity/three-wheeler"}/>
+                <VerticalTile tileTitle={"Whole Building"} image={WholeBuilding} to={"/request/entity/whole-building"}/>
             </Grid>
         </Box>
     )

@@ -57,12 +57,17 @@ export default function Header({onOpenNav}: { onOpenNav: () => void }) {
         let breadcrumbArray: ReactNode[] = []
         location.pathname.substring(1).split("/").reduce((previousValue: string, currentValue: string, currentIndex: number) => {
             let link
-            if (currentIndex + 1 === location.pathname.substring(1).split("/").length) {
-                link = <Link key={currentIndex} to={`${previousValue}/${currentValue}`} style={{textTransform:"capitalize",textDecoration:"none",...theme.typography.h5,color:theme.palette.text.primary}}>{currentValue.replace("-"," ")}</Link>
-            }else{
-                link = <Link key={currentIndex} to={`${previousValue}/${currentValue}`} style={{textTransform:"capitalize",textDecoration:"none",...theme.typography.body2,color:theme.palette.text.primary,}}>{currentValue.replace("-"," ")}</Link>
+            if (!["entity", "category", "deal"].includes(currentValue)) {
+                if (currentIndex + 1 === location.pathname.substring(1).split("/").length) {
+                    link = <Link key={currentIndex} to={`${previousValue}/${currentValue}`}
+                                 style={{textTransform: "capitalize", textDecoration: "none", ...theme.typography.h5, color: theme.palette.text.primary}}>{currentValue.replace("-", " ")}</Link>
+                } else {
+                    link = <Link key={currentIndex} to={`${previousValue}/${currentValue}`}
+                                 style={{textTransform: "capitalize", textDecoration: "none", ...theme.typography.body2, color: theme.palette.text.primary,}}>{currentValue.replace("-", " ")}</Link>
+                }
+
+                breadcrumbArray.push(link)
             }
-            breadcrumbArray.push(link)
             return `${previousValue}/${currentValue}`;
         }, "")
 

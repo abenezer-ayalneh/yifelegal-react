@@ -1,6 +1,6 @@
 import React from "react";
 import RequiredAstrix from "../required-span/required-span.component";
-import {Grid, Typography} from "@mui/material";
+import {Grid, GridProps, Typography} from "@mui/material";
 
 type FormRowPropTypes = {
     id?: string,
@@ -10,7 +10,7 @@ type FormRowPropTypes = {
     children: JSX.Element
 }
 
-const FormRow = ({id, label, required, children, labelFontStyle = "h5", ...rest}: FormRowPropTypes) => (
+const FormRow = ({id, label, required, children, labelFontStyle = "h5", ...rest}: FormRowPropTypes & GridProps) => (
     <Grid item xs={12} {...rest}>
         <Grid container columnSpacing={1} columns={12}>
             <Grid item xs={12} md={4}>

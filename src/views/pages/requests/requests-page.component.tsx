@@ -1,5 +1,4 @@
 import {useTranslation} from "react-i18next";
-import {useParams} from "react-router-dom";
 import {useMemo, useState} from "react";
 import {RequestDetailType, RequestType} from "../../../utils/types/request-type";
 import useFetch from "../../../utils/hooks/use-fetch";

@@ -3,6 +3,7 @@ import * as React from 'react';
 import {FC} from 'react';
 import MUITextFiled from "@mui/material/TextField"
 import {BaseTextFieldProps} from "@mui/material/TextField/TextField";
+import {SelectProps} from "@mui/material";
 
 export const TextField: FC<BaseTextFieldProps> = ({size = "small", ...restProps}) => {
     return (

@@ -16,13 +16,14 @@
     "makeSureInfoIsCorrect": "Because we are going to use the number to contact you when you need our help, please make sure it is correct",
     "entity": "Request",
     "entityType": "Category",
-    "dealType": "Deal Type",
+    "deal": "Deal Type",
     "subCity": "Sub City",
     "specialName": "Special Name",
     "numberOfBedroom": "Number of Bedrooms",
     "area": "Area",
     "floorNumber": "Floor Number",
     "paymentMethod": "Payment Method",
+    "otherDetail": "Other Details",
     "empty" : "Empty"
   }
 }

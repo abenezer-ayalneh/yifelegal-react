@@ -7,9 +7,10 @@ import {lazy} from "react";
 
 // Loadable
 const HomePage = Loadable(lazy(() => import("../views/pages/home/home-page.component")))
-const HousePage = Loadable(lazy(() => import("../views/pages/house/house-page.component")))
-const DealPage = Loadable(lazy(() => import("../views/pages/deal/deal.component")))
-const PageDispatcher = Loadable(lazy(() => import("../views/pages/page-dispatchers/request-page-dispatcher.component")))
+const EntityPageDispatcher = Loadable(lazy(() => import("../views/pages/page-dispatchers/entity-page-dispatcher.component")))
+const DealPage = Loadable(lazy(() => import("../views/pages/deal/deal-page.component")))
+const DealTypeWithCategoryPageDispatcher = Loadable(lazy(() => import("../views/pages/page-dispatchers/deal-type-with-category-page-dispatcher.component")))
+const DealTypeWithoutCategoryPageDispatcher = Loadable(lazy(() => import("../views/pages/page-dispatchers/deal-type-without-category-page-dispatcher.component")))
 const MyRequestsPage = Loadable(lazy(() => import("../views/pages/my-requests/my-requests-page.component")))
 const MyRequestPageDispatcher = Loadable(lazy(() => import("../views/pages/page-dispatchers/my-request-list-page-dispatcher.component")))
 const RequestsPage = Loadable(lazy(() => import("../views/pages/requests/requests-page.component")))
@@ -37,16 +38,22 @@ const authRoute = (): RouteObject[] => {
                     element: <HomePage/>
                 },
                 {
-                    path: ":entity",
-                    element: <HousePage/>
+                    path: "entity/:entity",
+                    element: <EntityPageDispatcher/>
                 },
+                // Requests with category
                 {
-                    path: ":entity/:pageName",
+                    path: "entity/:entity/category/:category",
                     element: <DealPage/>
                 },
                 {
-                    path: ":entity/:pageName/:dealType",
-                    element: <PageDispatcher/>
+                    path: "entity/:entity/category/:category/deal/:deal",
+                    element: <DealTypeWithCategoryPageDispatcher/>
+                },
+                // Requests without category
+                {
+                    path: "entity/:entity/deal/:deal",
+                    element: <DealTypeWithoutCategoryPageDispatcher/>
                 },
             ]
         },

@@ -4,12 +4,13 @@ import {HighlightContainer, HighlightImageContainer, HighlightImageOverlay} from
 type HighlightPropTypes = {
     image: string,
     type?: string,
+    deal: string,
     category?: string,
     location?: string,
     date?: string,
 }
 
-const Highlight = ({image,type,category,location,date, ...parentProps}:HighlightPropTypes & GridProps) => {
+const Highlight = ({image, type, category, deal, location, date, ...parentProps}: HighlightPropTypes & GridProps) => {
     const theme = useTheme()
     return (
         <Grid item xs={12} sm={6} md={4} {...parentProps}>
@@ -22,14 +23,22 @@ const Highlight = ({image,type,category,location,date, ...parentProps}:Highlight
                         <Grid item height={"150px"} borderRadius={"0 15px 0 0"}>
                             <Grid container spacing={1} padding={2} direction={"column"}>
                                 <Grid item>
-                                    <Typography sx={{textTransform: "capitalize"}} variant={"body2"}>Type: {type}</Typography>
+                                    <Typography sx={{textTransform: "capitalize"}} variant={"body2"}>Request: {type}</Typography>
                                 </Grid>
                                 <Grid item>
-                                    <Typography sx={{textTransform: "capitalize"}} variant={"body2"}>Category: {category}</Typography>
+                                    <Typography sx={{textTransform: "capitalize"}} variant={"body2"}>Deal: {deal}</Typography>
                                 </Grid>
-                                <Grid item>
-                                    <Typography sx={{textTransform: "capitalize"}} variant={"body2"}>Location: {location}</Typography>
-                                </Grid>
+                                {
+                                    category && <Grid item>
+                                        <Typography sx={{textTransform: "capitalize"}} variant={"body2"}>Category: {category}</Typography>
+                                    </Grid>
+                                }
+                                {
+                                    location && <Grid item>
+                                        <Typography sx={{textTransform: "capitalize"}} variant={"body2"}>Location: {location}</Typography>
+                                    </Grid>
+                                }
+
                             </Grid>
                         </Grid>
                         <Grid item height={"30px"} borderRadius={"0 0 15px 0"}>

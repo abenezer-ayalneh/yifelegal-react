@@ -1,20 +1,20 @@
 import {Box, Grid, MenuItem, Stack, Typography} from "@mui/material";
 import React, {useEffect} from "react";
-import FormRow from "../../../components/form-row/form-row.component";
-import {TextField} from "../../../components/text-field/text-field.component";
+import FormRow from "../../../../components/form-row/form-row.component";
+import {TextField} from "../../../../components/text-field/text-field.component";
 import LoadingButton from "@mui/lab/LoadingButton";
 import {Controller, SubmitHandler, useForm} from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod";
 import {z} from "zod";
-import config from "../../../../config";
+import config from "../../../../../config";
 import {useNavigate, useParams} from "react-router-dom";
-import {DispatcherPageParams} from "../../page-dispatchers/request-page-dispatcher.component";
-import useSend from "../../../../utils/hooks/use-send";
+import {DispatcherPageParams} from "../../../../../utils/types/dispatcher-page-param-types";
+import useSend from "../../../../../utils/hooks/use-send";
 
 // Validation Schema
 const ApartmentForRentSchema = z.object({
     entity: z.string().min(1,"Can't be empty"),
-    entityType: z.string().min(1,"Can't be empty"),
+    category: z.string().min(1,"Can't be empty"),
     dealType: z.string().min(1,"Can't be empty"),
     subCity: z.string().min(1,"Can't be empty"),
     specialName: z.string().optional(),
@@ -28,7 +28,7 @@ type ApartmentForRentType = z.infer<typeof ApartmentForRentSchema>;
 
 const ApartmentForRentPage = () => {
     const navigate = useNavigate()
-    const {pageName, dealType, entity} = useParams<DispatcherPageParams>()
+    const {category, deal, entity} = useParams<DispatcherPageParams>()
     const {sendRequest: storeRequest, isRequestLoading} = useSend({
         method: "POST",
         url: config.REACT_APP_ROOT_URL + "request/store",
@@ -45,8 +45,8 @@ const ApartmentForRentPage = () => {
         // reValidateMode: "onChange",
         defaultValues: {
             entity: entity,
-            entityType: pageName,
-            dealType: dealType,
+            category: category,
+            dealType: deal,
             subCity: "",
             specialName: "",
             numberOfBedroom: "",
@@ -63,8 +63,8 @@ const ApartmentForRentPage = () => {
                 // navigate('/home')
                 reset({
                     entity: entity,
-                    entityType: pageName,
-                    dealType: dealType,
+                    category: category,
+                    dealType: deal,
                     subCity: "",
                     specialName: "",
                     numberOfBedroom: "",
@@ -78,7 +78,7 @@ const ApartmentForRentPage = () => {
         <Box>
             {/*Page Title*/}
             <Stack justifyContent={"center"} alignItems={"center"} direction={"column"}>
-                <Typography variant={"h1"} style={{textTransform: "capitalize"}}>{pageName?.toString()}</Typography>
+                <Typography variant={"h1"} style={{textTransform: "capitalize"}}>{category?.toString()}</Typography>
                 <Typography variant={"subtitle2"} align={"center"}>Please fill the questions below about the item you are requesting</Typography>
             </Stack>
             <Box height={30}></Box>

@@ -12,10 +12,11 @@ import CustomModal from "../../components/modal/modal.component";
 import FormRow from "../../components/form-row/form-row.component";
 import {useTranslation} from "react-i18next";
 import EmptyComponent from "../../components/empty/empty.component";
+import {DispatcherPageParams} from "../../../utils/types/dispatcher-page-param-types";
 
 const HouseMyRequestsPage = () => {
     const {t} = useTranslation()
-    const params = useParams()
+    const params = useParams<DispatcherPageParams>()
     const [selectedHouseDetail, setSelectedHouseDetail] = useState<RequestDetailType[] | null>(null)
     const {responseData, isRequestLoading} = useFetch({
         method: "GET",
