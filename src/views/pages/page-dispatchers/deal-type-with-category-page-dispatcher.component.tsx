@@ -19,6 +19,8 @@ const RealEstateForRentPage = Loadable(lazy(() => import("../entities/house/real
 
 const DealTypePageDispatcher = (): JSX.Element => {
     const {category, deal} = useParams<DispatcherPageParams>()
+    
+    console.log(category)
 
     const chosenPage = (): JSX.Element => {
         if (deal === "sale") {
@@ -33,7 +35,7 @@ const DealTypePageDispatcher = (): JSX.Element => {
                     return <GroundPlusForSalePage/>
                 case "other":
                     return <OtherForSalePage/>
-                case "real-estate":
+                case "real estate":
                     return <RealEstateForSalePage/>
                 default:
                     return <Error404Page/>
@@ -50,7 +52,7 @@ const DealTypePageDispatcher = (): JSX.Element => {
                     return <GroundPlusForRentPage/>
                 case "other":
                     return <OtherForRentPage/>
-                case "real-estate":
+                case "real estate":
                     return <RealEstateForRentPage/>
                 default:
                     return <Error404Page/>

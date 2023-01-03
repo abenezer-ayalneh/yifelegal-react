@@ -92,7 +92,7 @@ const OtherForRentPage = () => {
                             control={control}
                             render={({field: {ref, ...field}}) => (
                                 <TextField
-                                    placeholder={"The sub-city of the other. E.g: Bole, Yeka"}
+                                    placeholder={"The sub-city of the house. E.g: Bole, Yeka"}
                                     label={"Sub-City"}
                                     inputRef={ref}
                                     error={!!errors.subCity}
@@ -124,7 +124,7 @@ const OtherForRentPage = () => {
                             render={({field: {ref, ...field}}) => (
                                 <TextField
                                     type={"number"}
-                                    placeholder={"The number of bedrooms you want the other to have"}
+                                    placeholder={"The number of bedrooms you want the house to have"}
                                     label={"Number of Bedroom"}
                                     size={"small"}
                                     inputRef={ref}

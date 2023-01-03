@@ -105,7 +105,7 @@ const OtherForSalePage = () => {
                             control={control}
                             render={({field: {ref, ...field}}) => (
                                 <TextField
-                                    placeholder={"The sub-city of the other. E.g: Bole, Yeka"}
+                                    placeholder={"The sub-city of the house. E.g: Bole, Yeka"}
                                     label={"Sub-City"}
                                     inputRef={ref}
                                     error={!!errors.subCity}
@@ -137,7 +137,7 @@ const OtherForSalePage = () => {
                             render={({field: {ref, ...field}}) => (
                                 <TextField
                                     type={"number"}
-                                    placeholder={"The number of bedrooms you want the other to have"}
+                                    placeholder={"The number of bedrooms you want the house to have"}
                                     label={"Number of Bedroom"}
                                     size={"small"}
                                     inputRef={ref}
@@ -155,7 +155,7 @@ const OtherForSalePage = () => {
                             render={({field: {ref, ...field}}) => (
                                 <TextField
                                     type={"number"}
-                                    placeholder={"The floor area of the other. E.g: 150"}
+                                    placeholder={"The floor area of the house. E.g: 150"}
                                     label={"Area (in Square Meters)"}
                                     size={"small"}
                                     error={!!errors.area}

@@ -55,15 +55,17 @@ export default function Header({onOpenNav}: { onOpenNav: () => void }) {
     const theme = useTheme();
     const breadCrumb: ReactNode[] = useMemo<ReactNode[]>(() => {
         let breadcrumbArray: ReactNode[] = []
-        location.pathname.substring(1).split("/").reduce((previousValue: string, currentValue: string, currentIndex: number) => {
+        const splitPathname = location.pathname.substring(1).split("/")
+
+        splitPathname.reduce((previousValue: string, currentValue: string, currentIndex: number) => {
             let link
             if (!["entity", "category", "deal"].includes(currentValue)) {
-                if (currentIndex + 1 === location.pathname.substring(1).split("/").length) {
+                if (currentIndex + 1 === splitPathname.length) {
                     link = <Link key={currentIndex} to={`${previousValue}/${currentValue}`}
-                                 style={{textTransform: "capitalize", textDecoration: "none", ...theme.typography.h5, color: theme.palette.text.primary}}>{currentValue.replace("-", " ")}</Link>
+                                 style={{textTransform: "capitalize", textDecoration: "none", ...theme.typography.h5, color: theme.palette.text.primary}}>{currentValue.replace("-", " ").replace("%20"," ")}</Link>
                 } else {
                     link = <Link key={currentIndex} to={`${previousValue}/${currentValue}`}
-                                 style={{textTransform: "capitalize", textDecoration: "none", ...theme.typography.body2, color: theme.palette.text.primary,}}>{currentValue.replace("-", " ")}</Link>
+                                 style={{textTransform: "capitalize", textDecoration: "none", ...theme.typography.body2, color: theme.palette.text.primary,}}>{currentValue.replace("-", " ").replace("%20"," ")}</Link>
                 }
 
                 breadcrumbArray.push(link)
