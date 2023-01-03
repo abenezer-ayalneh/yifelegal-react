@@ -8,6 +8,7 @@ import RealEstate from "../../../../assets/images/real-estate.jpg";
 import Condominium from "../../../../assets/images/condominium.jpg";
 import Other from "../../../../assets/images/other.jpg";
 import React from "react";
+import {CATEGORIES} from "../../../../utils/const/categories";
 
 const HousePage = () => {
     return (
@@ -20,12 +21,12 @@ const HousePage = () => {
             <Box height={30}></Box>
             {/*Tiles*/}
             <Grid container paddingX={{xs: 5, md: 5, lg: 3, xl: 15}} justifyContent={{xs: "left", sm: "center", lg: "left"}} spacing={{xs: 1, sm: 2, md: 3}}>
-                <HorizontalTile tileTitle={"Apartment"} image={Apartment} to={"category/apartment"}/>
-                <VerticalTile tileTitle={"Villa"} image={Villa} to={"category/villa"}/>
-                <VerticalTile tileTitle={"Ground+"} image={GroundPlus} to={"category/ground+"}/>
-                <VerticalTile tileTitle={"Real Estate"} image={RealEstate} to={"category/real estate"}/>
-                <HorizontalTile tileTitle={"Condominium"} image={Condominium} to={"category/condominium"}/>
-                <VerticalTile tileTitle={"Other"} image={Other} to={"category/other"}/>
+                <HorizontalTile tileTitle={"Apartment"} image={Apartment} to={`category/${CATEGORIES.APARTMENT}`}/>
+                <VerticalTile tileTitle={"Villa"} image={Villa} to={`category/${CATEGORIES.VILLA}`}/>
+                <VerticalTile tileTitle={"Ground+"} image={GroundPlus} to={`category/${CATEGORIES.GROUND_PLUS}`}/>
+                <VerticalTile tileTitle={"Real Estate"} image={RealEstate} to={`category/${CATEGORIES.REAL_ESTATE}`}/>
+                <HorizontalTile tileTitle={"Condominium"} image={Condominium} to={`category/${CATEGORIES.CONDOMINIUM}`}/>
+                <VerticalTile tileTitle={"Other"} image={Other} to={`category/${CATEGORIES.OTHER}`}/>
             </Grid>
         </Box>
     )

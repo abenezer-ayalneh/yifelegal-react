@@ -10,6 +10,7 @@ import MachineryAndTrucks from "../../../assets/images/machinery-&-trucks.jpg"
 import Car from "../../../assets/images/car.jpg"
 import ThreeWheeler from "../../../assets/images/three-wheeler.jpg"
 import WholeBuilding from "../../../assets/images/whole-building.jpg"
+import {ENTITIES} from "../../../utils/const/entities";
 
 
 const HomePage = () => {
@@ -23,14 +24,14 @@ const HomePage = () => {
             <Box height={30}></Box>
             {/*Tiles*/}
             <Grid container paddingX={{xs: 5, md: 5, lg: 3, xl: 15}} justifyContent={{xs: "left", sm: "center", lg: "left"}} spacing={{xs: 1, sm: 2, md: 3}}>
-                <HorizontalTile tileTitle={"House"} image={House} to={"/request/entity/house"}/>
-                <VerticalTile tileTitle={"Land"} image={Land} to={"/request/entity/land"}/>
-                <VerticalTile tileTitle={"Commercial Building"} image={CommercialBuilding} to={"/request/entity/commercial-building"}/>
-                <VerticalTile tileTitle={"Guest House (Furnished)"} image={GuestHouse} to={"/request/entity/guest-house"}/>
-                <VerticalTile tileTitle={"Machinery & Truck"} image={MachineryAndTrucks} to={"/request/entity/machinery-and-truck"}/>
-                <HorizontalTile tileTitle={"Car"} image={Car} to={"/request/entity/car"}/>
-                <HorizontalTile tileTitle={"Three Wheeler"} image={ThreeWheeler} to={"/request/entity/three-wheeler"}/>
-                <VerticalTile tileTitle={"Whole Building"} image={WholeBuilding} to={"/request/entity/whole-building"}/>
+                <HorizontalTile tileTitle={"House"} image={House} to={`/request/entity/${ENTITIES.HOUSE}`}/>
+                <VerticalTile tileTitle={"Land"} image={Land} to={`/request/entity/${ENTITIES.LAND}`}/>
+                <VerticalTile tileTitle={"Commercial Building"} image={CommercialBuilding} to={`/request/entity/${ENTITIES.COMMERCIAL_BUILDING}`}/>
+                <VerticalTile tileTitle={"Guest House (Furnished)"} image={GuestHouse} to={`/request/entity/${ENTITIES.GUEST_HOUSE}`}/>
+                <VerticalTile tileTitle={"Machinery & Truck"} image={MachineryAndTrucks} to={`/request/entity/${ENTITIES.MACHINERY_AND_TRUCKS}`}/>
+                <HorizontalTile tileTitle={"Car"} image={Car} to={`/request/entity/${ENTITIES.CAR}`}/>
+                <HorizontalTile tileTitle={"Three Wheeler"} image={ThreeWheeler} to={`/request/entity/${ENTITIES.THREE_WHEELER}`}/>
+                <VerticalTile tileTitle={"Whole Building"} image={WholeBuilding} to={`/request/entity/${ENTITIES.WHOLE_BUILDING}`}/>
             </Grid>
         </Box>
     )

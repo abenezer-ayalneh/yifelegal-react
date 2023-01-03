@@ -3,6 +3,7 @@ import Loadable from "../../components/loader/loadable";
 import {lazy} from "react";
 import Error404Page from "../error/error-page.compoent";
 import {DispatcherPageParams} from "../../../utils/types/dispatcher-page-param-types";
+import {CATEGORIES} from "../../../utils/const/categories";
 
 const ApartmentForSalePage = Loadable(lazy(() => import("../entities/house/apartment/apartment-for-sale.component")))
 const VillaForSalePage = Loadable(lazy(() => import("../entities/house/villa/villa-for-sale.component")))
@@ -19,40 +20,38 @@ const RealEstateForRentPage = Loadable(lazy(() => import("../entities/house/real
 
 const DealTypePageDispatcher = (): JSX.Element => {
     const {category, deal} = useParams<DispatcherPageParams>()
-    
-    console.log(category)
 
     const chosenPage = (): JSX.Element => {
         if (deal === "sale") {
             switch (category) {
-                case "apartment":
+                case CATEGORIES.APARTMENT:
                     return <ApartmentForSalePage/>
-                case "villa":
+                case CATEGORIES.VILLA:
                     return <VillaForSalePage/>
-                case "condominium":
+                case CATEGORIES.CONDOMINIUM:
                     return <CondominiumForSalePage/>
-                case "ground+":
+                case CATEGORIES.GROUND_PLUS:
                     return <GroundPlusForSalePage/>
-                case "other":
+                case CATEGORIES.OTHER:
                     return <OtherForSalePage/>
-                case "real estate":
+                case CATEGORIES.REAL_ESTATE:
                     return <RealEstateForSalePage/>
                 default:
                     return <Error404Page/>
             }
         } else if (deal === "rent") {
             switch (category) {
-                case "apartment":
+                case CATEGORIES.APARTMENT:
                     return <ApartmentForRentPage/>
-                case "villa":
+                case CATEGORIES.VILLA:
                     return <VillaForRentPage/>
-                case "condominium":
+                case CATEGORIES.CONDOMINIUM:
                     return <CondominiumForRentPage/>
-                case "ground+":
+                case CATEGORIES.GROUND_PLUS:
                     return <GroundPlusForRentPage/>
-                case "other":
+                case CATEGORIES.OTHER:
                     return <OtherForRentPage/>
-                case "real estate":
+                case CATEGORIES.REAL_ESTATE:
                     return <RealEstateForRentPage/>
                 default:
                     return <Error404Page/>

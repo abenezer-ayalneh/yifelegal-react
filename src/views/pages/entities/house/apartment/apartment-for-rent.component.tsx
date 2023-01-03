@@ -60,7 +60,7 @@ const ApartmentForRentPage = () => {
             data: values
         },true).then((result) => {
             if(result.status){
-                // navigate('/home')
+                navigate('/home')
                 reset({
                     entity: entity,
                     category: category,

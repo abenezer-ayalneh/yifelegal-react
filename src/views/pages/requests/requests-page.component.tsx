@@ -53,7 +53,7 @@ const RequestsPage = () =>{
                     selectedRequestDetail &&
                     <CustomModal open={Boolean(selectedRequestDetail)} title={"Request Detail"} handleClose={handleModalClose}
                     buttons={[
-                        <Button variant={"contained"} color={"primary"} fullWidth onClick={() => console.log("Here is the phone number for "+selectedRequestDetail[0].id)}>Get Phone Number</Button>
+                        <Button variant={"contained"} color={"primary"} fullWidth onClick={() => console.info("Here is the phone number for "+selectedRequestDetail[0].id)}>Get Phone Number</Button>
                     ]}
                     >
                         <Grid container direction="column" rowSpacing={1} paddingX={{xs: 1, sm: 2, md: 3, lg: 4}} paddingY={2}>
