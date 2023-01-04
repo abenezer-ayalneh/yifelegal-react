@@ -7,12 +7,12 @@ import {lazy} from "react";
 
 // Loadable
 const HomePage = Loadable(lazy(() => import("../views/pages/home/home-page.component")))
-const EntityPageDispatcher = Loadable(lazy(() => import("../views/pages/page-dispatchers/entity-page-dispatcher.component")))
+const EntityPageDispatcher = Loadable(lazy(() => import("../views/components/page-dispatchers/entity-page-dispatcher.component")))
 const DealPage = Loadable(lazy(() => import("../views/pages/deal/deal-page.component")))
-const DealTypeWithCategoryPageDispatcher = Loadable(lazy(() => import("../views/pages/page-dispatchers/deal-type-with-category-page-dispatcher.component")))
-const DealTypeWithoutCategoryPageDispatcher = Loadable(lazy(() => import("../views/pages/page-dispatchers/deal-type-without-category-page-dispatcher.component")))
+const DealTypeWithCategoryPageDispatcher = Loadable(lazy(() => import("../views/components/page-dispatchers/deal-type-with-category-page-dispatcher.component")))
+const DealTypeWithoutCategoryPageDispatcher = Loadable(lazy(() => import("../views/components/page-dispatchers/deal-type-without-category-page-dispatcher.component")))
 const MyRequestsPage = Loadable(lazy(() => import("../views/pages/my-requests/my-requests-page.component")))
-const MyRequestPageDispatcher = Loadable(lazy(() => import("../views/pages/page-dispatchers/my-request-list-page-dispatcher.component")))
+const MyRequestPageDispatcher = Loadable(lazy(() => import("../views/components/page-dispatchers/my-request-list-page-dispatcher.component")))
 const RequestsPage = Loadable(lazy(() => import("../views/pages/requests/requests-page.component")))
 
 const authRoute = (): RouteObject[] => {

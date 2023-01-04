@@ -47,6 +47,7 @@ const HouseMyRequestsPage = () => {
                                         <Highlight image={House}
                                                    type={"House"}
                                                    date={moment(request.created_at)?.format("MMM DD, YYYY")}
+                                                   deal={request.detail?.find((detail) => detail.attribute === "deal")?.value}
                                                    location={request.detail?.find((detail) => detail.attribute === "subCity")?.value}
                                                    category={request.detail?.find((detail) => detail.attribute === "entityType")?.value}
                                                    onClick={() => handleHighlightClicked(request.detail)}

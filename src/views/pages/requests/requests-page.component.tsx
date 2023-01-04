@@ -11,6 +11,7 @@ import moment from "moment/moment";
 import CustomModal from "../../components/modal/modal.component";
 import FormRow from "../../components/form-row/form-row.component";
 import House from "../../../assets/images/house.jpg";
+import Land from "../../../assets/images/land.jpg";
 
 const RequestsPage = () =>{
     const {t} = useTranslation()
@@ -39,6 +40,7 @@ const RequestsPage = () =>{
                                     ? <EmptyComponent/>
                                     : requests.map((request: RequestType) => (
                                         <Highlight image={House}
+                                                   deal={request.detail?.find((detail) => detail.attribute === "deal")?.value}
                                                    type={request.detail?.find((detail) => detail.attribute === "entity")?.value}
                                                    date={moment(request.created_at)?.format("MMM DD, YYYY")}
                                                    location={request.detail?.find((detail) => detail.attribute === "subCity")?.value}

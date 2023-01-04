@@ -10,7 +10,7 @@ import Other from "../../../../assets/images/other.jpg";
 import React from "react";
 import {CATEGORIES} from "../../../../utils/const/categories";
 
-const HousePage = () => {
+const HouseCategoriesPage = () => {
     return (
         <Box>
             {/*Page Title*/}
@@ -32,4 +32,4 @@ const HousePage = () => {
     )
 }
 
-export default HousePage;
+export default HouseCategoriesPage;

@@ -15,16 +15,18 @@
     "recordsInformation": "The application will hold a record of the information you entered above",
     "makeSureInfoIsCorrect": "Because we are going to use the number to contact you when you need our help, please make sure it is correct",
     "entity": "Request",
-    "entityType": "Category",
+    "category": "Category",
     "deal": "Deal Type",
     "subCity": "Sub City",
     "specialName": "Special Name",
     "specialCondominiumName": "Special Condominium Name",
     "numberOfBedroom": "Number of Bedrooms",
+    "numberOfFloors": "Number of Floors",
     "area": "Area",
     "floorNumber": "Floor Number",
     "paymentMethod": "Payment Method",
     "otherDetail": "Other Details",
-    "empty" : "Empty"
+    "empty" : "Empty",
+    "purpose": "Purpose"
   }
 }
