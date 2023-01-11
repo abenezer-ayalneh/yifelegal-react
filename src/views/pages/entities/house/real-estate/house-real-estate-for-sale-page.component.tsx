@@ -26,6 +26,7 @@ const ApartmentForSaleSchema = z.object({
     area: z.string().refine((value) => !Number.isNaN(parseFloat(value)), {
         message: "Must be number"
     }),
+    specialRealEstateName: z.string().optional(),
     paymentMethod: z.enum(["In Cash", "With Bank"], {invalid_type_error: "Should be either In Cash or With Bank"}),
 })
 type ApartmentForSaleType = z.infer<typeof ApartmentForSaleSchema>;
@@ -53,6 +54,7 @@ const ApartmentForSalePage = () => {
             deal: deal,
             subCity: "",
             specialName: "",
+            specialRealEstateName: "",
             numberOfBedroom: "",
             floorNumber: "",
             area: "",
@@ -69,6 +71,7 @@ const ApartmentForSalePage = () => {
                 deal: deal,
                 subCity: "",
                 specialName: "",
+                specialRealEstateName: "",
                 numberOfBedroom: "",
                 floorNumber: "",
                 area: "",
@@ -130,6 +133,22 @@ const ApartmentForSalePage = () => {
                                     size={"small"}
                                     error={!!errors.specialName}
                                     helperText={errors?.specialName?.message}
+                                    {...field}
+                                />
+                            )}
+                        />
+                    </FormRow>
+                    <FormRow label={"Special Real Estate Name (if any)"} xs={12}>
+                        <Controller
+                            name={"specialRealEstateName"}
+                            control={control}
+                            render={({field: {ref, ...field}}) => (
+                                <TextField
+                                    placeholder={"Special or local name of the realEstate. E.g: Ayat, Tsehay..."}
+                                    label={"Special RealEstate Name"}
+                                    size={"small"}
+                                    error={!!errors.specialRealEstateName}
+                                    helperText={errors?.specialRealEstateName?.message}
                                     {...field}
                                 />
                             )}

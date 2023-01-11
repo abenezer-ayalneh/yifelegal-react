@@ -12,7 +12,7 @@ import {DispatcherPageParams} from "../../../../../utils/types/dispatcher-page-p
 import useSend from "../../../../../utils/hooks/use-send";
 
 // Validation Schema
-const OtherForRentSchema = z.object({
+const HotelApartmentForRentSchema = z.object({
     entity: z.string().min(1, "Can't be empty"),
     category: z.string().min(1, "Can't be empty"),
     deal: z.string().min(1, "Can't be empty"),
@@ -24,9 +24,9 @@ const OtherForRentSchema = z.object({
         .refine((value) => parseInt(value) >= 1, {message: "One is the minimum"}),
     otherDetail: z.string().optional(),
 })
-type OtherForRentType = z.infer<typeof OtherForRentSchema>;
+type HotelApartmentForRentType = z.infer<typeof HotelApartmentForRentSchema>;
 
-const OtherForRentPage = () => {
+const HotelApartmentForRentPage = () => {
     const navigate = useNavigate()
     const {category, deal, entity} = useParams<DispatcherPageParams>()
     const {sendRequest: storeRequest, isRequestLoading} = useSend({
@@ -40,8 +40,8 @@ const OtherForRentPage = () => {
         reset,
         handleSubmit,
         control,
-    } = useForm<OtherForRentType>({
-        resolver: zodResolver(OtherForRentSchema),
+    } = useForm<HotelApartmentForRentType>({
+        resolver: zodResolver(HotelApartmentForRentSchema),
         // reValidateMode: "onChange",
         defaultValues: {
             entity: entity,
@@ -56,7 +56,7 @@ const OtherForRentPage = () => {
         mode: "onChange"
     });
 
-    const onSubmitHandler: SubmitHandler<OtherForRentType> = (values) => {
+    const onSubmitHandler: SubmitHandler<HotelApartmentForRentType> = (values) => {
         storeRequest({
             data: values
         }, true).then((result) => {
@@ -99,7 +99,7 @@ const OtherForRentPage = () => {
                             control={control}
                             render={({field: {ref, ...field}}) => (
                                 <TextField
-                                    placeholder={"The sub-city of the house. E.g: Bole, Yeka"}
+                                    placeholder={"The sub-city of the hotel. E.g: Bole, Yeka"}
                                     label={"Sub-City"}
                                     inputRef={ref}
                                     error={!!errors.subCity}
@@ -131,7 +131,7 @@ const OtherForRentPage = () => {
                             render={({field: {ref, ...field}}) => (
                                 <TextField
                                     type={"number"}
-                                    placeholder={"The number of bedrooms you want the house to have"}
+                                    placeholder={"The number of bedrooms you want the apartment to have"}
                                     label={"Number of Bedroom"}
                                     size={"small"}
                                     inputRef={ref}
@@ -191,4 +191,4 @@ const OtherForRentPage = () => {
     )
 }
 
-export default OtherForRentPage
+export default HotelApartmentForRentPage

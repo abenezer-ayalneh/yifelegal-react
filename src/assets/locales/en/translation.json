@@ -27,6 +27,8 @@
     "paymentMethod": "Payment Method",
     "otherDetail": "Other Details",
     "empty" : "Empty",
-    "purpose": "Purpose"
+    "purpose": "Purpose",
+    "threeWheelerModelName" : "Model Name",
+    "condition": "Condition"
   }
 }

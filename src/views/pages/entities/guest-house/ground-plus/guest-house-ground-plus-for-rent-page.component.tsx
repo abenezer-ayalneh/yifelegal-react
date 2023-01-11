@@ -20,12 +20,12 @@ const GroundPlusForRentSchema = z.object({
     specialName: z.string().optional(),
     numberOfBedroom: z.string().refine((value) => !Number.isNaN(parseInt(value)), {message: "Must be number"})
         .refine((value) => parseInt(value) >= 0, {message: "Zero is the minimum"}),
-    area: z.string().refine((value) => !Number.isNaN(parseFloat(value)), {
-        message: "Must be number"
-    }),
     numberOfFloors: z.string().refine((value) => !Number.isNaN(parseFloat(value)), {
         message: "Must be number"
     }),
+    rentPeriod: z.string().refine((value) => !Number.isNaN(parseInt(value)), {message: "Must be number"})
+        .refine((value) => parseInt(value) >= 1, {message: "One is the minimum"}),
+    otherDetail: z.string().optional(),
 })
 type GroundPlusForRentType = z.infer<typeof GroundPlusForRentSchema>;
 
@@ -53,8 +53,9 @@ const GroundPlusForRentPage = () => {
             subCity: "",
             specialName: "",
             numberOfBedroom: "",
-            area: "",
+            rentPeriod: "",
             numberOfFloors: "",
+            otherDetail: "",
         },
         mode: "onChange"
     });
@@ -68,8 +69,9 @@ const GroundPlusForRentPage = () => {
                 subCity: "",
                 specialName: "",
                 numberOfBedroom: "",
-                area: "",
+                rentPeriod: "",
                 numberOfFloors: "",
+                otherDetail: "",
             });
         }
     }, [isSubmitSuccessful, reset]);
@@ -150,22 +152,6 @@ const GroundPlusForRentPage = () => {
                             )}
                         />
                     </FormRow>
-                    <FormRow required={true} label={"Area (in Square Meters)"} xs={12}>
-                        <Controller
-                            name={"area"}
-                            control={control}
-                            render={({field: {ref, ...field}}) => (
-                                <TextField
-                                    type={"number"}
-                                    placeholder={"The floor area of the groundPlus. E.g: 150"}
-                                    label={"Area (in Square Meters)"}
-                                    size={"small"}
-                                    error={!!errors.area}
-                                    helperText={errors?.area?.message}
-                                    {...field}/>
-                            )}
-                        />
-                    </FormRow>
                     <FormRow required={true} label={"Number of Floors"} xs={12}>
                         <Controller
                             name={"numberOfFloors"}
@@ -179,6 +165,44 @@ const GroundPlusForRentPage = () => {
                                     error={!!errors.numberOfFloors}
                                     helperText={errors?.numberOfFloors?.message}
                                     {...field}/>
+                            )}
+                        />
+                    </FormRow>
+                    <FormRow required={true} label={"Period of Rent (in days)"} xs={12}>
+                        <Controller
+                            name={"rentPeriod"}
+                            control={control}
+                            render={({field: {ref, ...field}}) => (
+                                <TextField
+                                    type={"number"}
+                                    placeholder={"How long you are planning on staying (in days)"}
+                                    label={"Period of Rent (in days)"}
+                                    size={"small"}
+                                    inputRef={ref}
+                                    error={!!errors.rentPeriod}
+                                    helperText={errors?.rentPeriod?.message}
+                                    {...field}
+                                />
+                            )}
+                        />
+                    </FormRow>
+                    <FormRow label={"Other Details"} xs={12}>
+                        <Controller
+                            name={"otherDetail"}
+                            control={control}
+                            render={({field: {ref, ...field}}) => (
+                                <TextField
+                                    type={"number"}
+                                    placeholder={"If you have extra needs, please specify them here"}
+                                    label={"Other Details"}
+                                    size={"small"}
+                                    inputRef={ref}
+                                    error={!!errors.otherDetail}
+                                    helperText={errors?.otherDetail?.message}
+                                    multiline={true}
+                                    rows={3}
+                                    {...field}
+                                />
                             )}
                         />
                     </FormRow>

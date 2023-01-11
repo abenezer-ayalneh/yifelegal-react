@@ -22,6 +22,7 @@ const GuestHouseVillaForRentSchema = z.object({
         .refine((value) => parseInt(value) >= 0, {message: "Zero is the minimum"}),
     rentPeriod: z.string().refine((value) => !Number.isNaN(parseInt(value)), {message: "Must be number"})
         .refine((value) => parseInt(value) >= 1, {message: "One is the minimum"}),
+    otherDetail: z.string().optional(),
 })
 type GuestHouseVillaForRentType = z.infer<typeof GuestHouseVillaForRentSchema>;
 
@@ -50,6 +51,7 @@ const GuestHouseVillaForRentPage = () => {
             specialName: "",
             numberOfBedroom: "",
             rentPeriod: "",
+            otherDetail: "",
         },
         mode: "onChange"
     });
@@ -68,6 +70,7 @@ const GuestHouseVillaForRentPage = () => {
                     specialName: "",
                     numberOfBedroom: "",
                     rentPeriod: "",
+                    otherDetail: "",
                 });
             }
         })
@@ -152,6 +155,26 @@ const GuestHouseVillaForRentPage = () => {
                                     inputRef={ref}
                                     error={!!errors.rentPeriod}
                                     helperText={errors?.rentPeriod?.message}
+                                    {...field}
+                                />
+                            )}
+                        />
+                    </FormRow>
+                    <FormRow label={"Other Details"} xs={12}>
+                        <Controller
+                            name={"otherDetail"}
+                            control={control}
+                            render={({field: {ref, ...field}}) => (
+                                <TextField
+                                    type={"number"}
+                                    placeholder={"If you have extra needs, please specify them here"}
+                                    label={"Other Details"}
+                                    size={"small"}
+                                    inputRef={ref}
+                                    error={!!errors.otherDetail}
+                                    helperText={errors?.otherDetail?.message}
+                                    multiline={true}
+                                    rows={3}
                                     {...field}
                                 />
                             )}

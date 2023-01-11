@@ -1,32 +1,29 @@
-import {Box, Grid, Stack, Typography} from "@mui/material";
-import React from "react";
-import FormRow from "../../../../components/form-row/form-row.component";
-import {TextField} from "../../../../components/text-field/text-field.component";
+import {Box, Grid, MenuItem, Stack, Typography} from "@mui/material";
+import React, {useEffect} from "react";
+import FormRow from "../../../components/form-row/form-row.component";
+import {TextField} from "../../../components/text-field/text-field.component";
 import LoadingButton from "@mui/lab/LoadingButton";
 import {Controller, SubmitHandler, useForm} from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod";
 import {z} from "zod";
-import config from "../../../../../config";
+import config from "../../../../config";
 import {useNavigate, useParams} from "react-router-dom";
-import {DispatcherPageParams} from "../../../../../utils/types/dispatcher-page-param-types";
-import useSend from "../../../../../utils/hooks/use-send";
+import {DispatcherPageParams} from "../../../../utils/types/dispatcher-page-param-types";
+import useSend from "../../../../utils/hooks/use-send";
 
 // Validation Schema
-const VillaForRentSchema = z.object({
+const ThreeWheelerForSaleSchema = z.object({
     entity: z.string().min(1, "Can't be empty"),
-    category: z.string().min(1, "Can't be empty"),
     deal: z.string().min(1, "Can't be empty"),
-    subCity: z.string().min(1, "Can't be empty"),
-    specialName: z.string().optional(),
-    numberOfBedroom: z.string().refine((value) => !Number.isNaN(parseInt(value)), {message: "Must be number"})
-        .refine((value) => parseInt(value) >= 0, {message: "Zero is the minimum"}),
-    otherDetail: z.string().optional(),
+    threeWheelerModelName: z.string().min(1, "Can't be empty"),
+    condition: z.enum(["New", "Used"], {invalid_type_error: "Should be either New or Used"}),
+    otherDetail: z.string().optional()
 })
-type VillaForRentType = z.infer<typeof VillaForRentSchema>;
+type ThreeWheelerForSaleType = z.infer<typeof ThreeWheelerForSaleSchema>;
 
-const VillaForRentPage = () => {
+const ThreeWheelerForSalePage = () => {
     const navigate = useNavigate()
-    const {category, deal, entity} = useParams<DispatcherPageParams>()
+    const {deal, entity} = useParams<DispatcherPageParams>()
     const {sendRequest: storeRequest, isRequestLoading} = useSend({
         method: "POST",
         url: config.REACT_APP_ROOT_URL + "request/store",
@@ -38,36 +35,31 @@ const VillaForRentPage = () => {
         reset,
         handleSubmit,
         control,
-    } = useForm<VillaForRentType>({
-        resolver: zodResolver(VillaForRentSchema),
-        // reValidateMode: "onChange",
+    } = useForm<ThreeWheelerForSaleType>({
+        resolver: zodResolver(ThreeWheelerForSaleSchema),
         defaultValues: {
             entity: entity,
-            category: category,
             deal: deal,
-            subCity: "",
-            specialName: "",
-            numberOfBedroom: "",
-            otherDetail: "",
+            threeWheelerModelName: "",
+            condition: "New",
+            otherDetail: ""
         },
         mode: "onChange"
     });
 
-    const onSubmitHandler: SubmitHandler<VillaForRentType> = (values) => {
+    const onSubmitHandler: SubmitHandler<ThreeWheelerForSaleType> = (values) => {
         storeRequest({
             data: values
         }, true).then((result) => {
-            if (result.status) {
-                navigate('/home')
+            if (result?.status) {
                 reset({
                     entity: entity,
-                    category: category,
                     deal: deal,
-                    subCity: "",
-                    specialName: "",
-                    numberOfBedroom: "",
-                    otherDetail: "",
+                    threeWheelerModelName: "",
+                    condition: "New",
+                    otherDetail: ""
                 });
+                navigate('/home')
             }
         })
     };
@@ -76,7 +68,7 @@ const VillaForRentPage = () => {
         <Box>
             {/*Page Title*/}
             <Stack justifyContent={"center"} alignItems={"center"} direction={"column"}>
-                <Typography variant={"h1"} style={{textTransform: "capitalize"}}>{category?.toString()}</Typography>
+                <Typography variant={"h1"} style={{textTransform: "capitalize"}}>{entity}</Typography>
                 <Typography variant={"subtitle2"} align={"center"}>Please fill the questions below about the item you are requesting</Typography>
             </Stack>
             <Box height={30}></Box>
@@ -89,52 +81,44 @@ const VillaForRentPage = () => {
                     paddingX={2}
                     rowSpacing={2}
                 >
-                    <FormRow required={true} label={"Sub-City"} xs={12}>
+                    <FormRow required={true} label={"Model Name"} xs={12}>
                         <Controller
-                            name={"subCity"}
+                            name={"threeWheelerModelName"}
                             control={control}
                             render={({field: {ref, ...field}}) => (
                                 <TextField
-                                    placeholder={"The sub-city of the villa. E.g: Bole, Yeka"}
-                                    label={"Sub-City"}
+                                    placeholder={"The model name of the Three Wheeler. E.g: Bajaj, RE"}
+                                    label={"Model Name"}
                                     inputRef={ref}
-                                    error={!!errors.subCity}
-                                    helperText={errors?.subCity?.message}
+                                    error={!!errors.threeWheelerModelName}
+                                    helperText={errors?.threeWheelerModelName?.message}
                                     {...field}                                />
                             )}
                         />
                     </FormRow>
-                    <FormRow label={"Special Place Name (if any)"} xs={12}>
+                    <FormRow required={true} label={"Condition"} xs={12}>
                         <Controller
-                            name={"specialName"}
+                            name={"condition"}
                             control={control}
                             render={({field: {ref, ...field}}) => (
                                 <TextField
-                                    placeholder={"Special or local name of the location. E.g: Gerji, Sar bet"}
-                                    label={"Special Place Name"}
+                                    placeholder={"Condition of the Three Wheeler"}
+                                    label={"Condition"}
                                     size={"small"}
-                                    error={!!errors.specialName}
-                                    helperText={errors?.specialName?.message}
+                                    error={!!errors.condition}
+                                    helperText={errors?.condition?.message}
                                     {...field}
-                                />
-                            )}
-                        />
-                    </FormRow>
-                    <FormRow required={true} label={"Number of Bedroom"} xs={12}>
-                        <Controller
-                            name={"numberOfBedroom"}
-                            control={control}
-                            render={({field: {ref, ...field}}) => (
-                                <TextField
-                                    type={"number"}
-                                    placeholder={"The number of bedrooms you want the villa to have"}
-                                    label={"Number of Bedroom"}
-                                    size={"small"}
-                                    inputRef={ref}
-                                    error={!!errors.numberOfBedroom}
-                                    helperText={errors?.numberOfBedroom?.message}
-                                    {...field}
-                                />
+                                    select
+                                    sx={{
+                                        '& .MuiSelect-select': {
+                                            fontSize: 14,
+                                            padding: '6px 14px',
+                                        }
+                                    }}
+                                >
+                                    <MenuItem style={{fontSize: 14}} value={"New"}>New</MenuItem>
+                                    <MenuItem style={{fontSize: 14}} value={"Used"}>Used</MenuItem>
+                                </TextField>
                             )}
                         />
                     </FormRow>
@@ -164,9 +148,9 @@ const VillaForRentPage = () => {
                     </FormRow>
                 </Grid>
             </form>
-
+            
         </Box>
     )
 }
 
-export default VillaForRentPage
+export default ThreeWheelerForSalePage

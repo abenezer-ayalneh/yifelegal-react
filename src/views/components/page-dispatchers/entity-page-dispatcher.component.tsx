@@ -19,6 +19,8 @@ const EntityPageDispatcher = () => {
                 return <DealPage/>
             case ENTITIES.COMMERCIAL_BUILDING:
                 return <DealPage remove={"sale"}/>
+            case ENTITIES.THREE_WHEELER:
+                return <DealPage remove={"rent"}/>
             case ENTITIES.GUEST_HOUSE:
                 return <GuestHouseCategoriesPage/>
             default:

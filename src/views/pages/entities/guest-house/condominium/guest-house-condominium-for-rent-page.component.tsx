@@ -21,6 +21,9 @@ const CondominiumForRentSchema = z.object({
     specialCondominiumName: z.string().optional(),
     numberOfBedroom: z.string().refine((value) => !Number.isNaN(parseInt(value)), {message: "Must be number"})
         .refine((value) => parseInt(value) >= 0, {message: "Zero is the minimum"}),
+    rentPeriod: z.string().refine((value) => !Number.isNaN(parseInt(value)), {message: "Must be number"})
+        .refine((value) => parseInt(value) >= 1, {message: "One is the minimum"}),
+    otherDetail: z.string().optional(),
 })
 type CondominiumForRentType = z.infer<typeof CondominiumForRentSchema>;
 
@@ -49,6 +52,8 @@ const CondominiumForRentPage = () => {
             specialName: "",
             numberOfBedroom: "",
             specialCondominiumName: "",
+            rentPeriod: "",
+            otherDetail: "",
         },
         mode: "onChange"
     });
@@ -63,6 +68,8 @@ const CondominiumForRentPage = () => {
                 specialName: "",
                 numberOfBedroom: "",
                 specialCondominiumName: "",
+                rentPeriod: "",
+                otherDetail: "",
             });
         }
     }, [isSubmitSuccessful, reset]);
@@ -154,6 +161,44 @@ const CondominiumForRentPage = () => {
                                     inputRef={ref}
                                     error={!!errors.numberOfBedroom}
                                     helperText={errors?.numberOfBedroom?.message}
+                                    {...field}
+                                />
+                            )}
+                        />
+                    </FormRow>
+                    <FormRow required={true} label={"Period of Rent (in days)"} xs={12}>
+                        <Controller
+                            name={"rentPeriod"}
+                            control={control}
+                            render={({field: {ref, ...field}}) => (
+                                <TextField
+                                    type={"number"}
+                                    placeholder={"How long you are planning on staying (in days)"}
+                                    label={"Period of Rent (in days)"}
+                                    size={"small"}
+                                    inputRef={ref}
+                                    error={!!errors.rentPeriod}
+                                    helperText={errors?.rentPeriod?.message}
+                                    {...field}
+                                />
+                            )}
+                        />
+                    </FormRow>
+                    <FormRow label={"Other Details"} xs={12}>
+                        <Controller
+                            name={"otherDetail"}
+                            control={control}
+                            render={({field: {ref, ...field}}) => (
+                                <TextField
+                                    type={"number"}
+                                    placeholder={"If you have extra needs, please specify them here"}
+                                    label={"Other Details"}
+                                    size={"small"}
+                                    inputRef={ref}
+                                    error={!!errors.otherDetail}
+                                    helperText={errors?.otherDetail?.message}
+                                    multiline={true}
+                                    rows={3}
                                     {...field}
                                 />
                             )}

@@ -19,6 +19,12 @@ const HouseGroundPlusForRentPage = Loadable(lazy(() => import("../../pages/entit
 const HouseOtherForRentPage = Loadable(lazy(() => import("../../pages/entities/house/other/house-other-for-rent-page.component")))
 const HouseRealEstateForRentPage = Loadable(lazy(() => import("../../pages/entities/house/real-estate/house-real-estate-for-rent-page.component")))
 const GuestHouseVillaForRentPage = Loadable(lazy(() => import("../../pages/entities/guest-house/villa/guest-house-villa-for-rent-page.component")))
+const GuestHouseGroundPlusForRentPage = Loadable(lazy(() => import("../../pages/entities/guest-house/ground-plus/guest-house-ground-plus-for-rent-page.component")))
+const GuestHouseOtherForRentPage = Loadable(lazy(() => import("../../pages/entities/guest-house/other/guest-house-other-for-rent-page.component")))
+const GuestHouseApartmentForRentPage = Loadable(lazy(() => import("../../pages/entities/guest-house/apartment/guest-house-apartment-for-rent-page.component")))
+const GuestHouseHotelApartmentForRentPage = Loadable(lazy(() => import("../../pages/entities/guest-house/hotel-apartment/guest-house-hotel-apartment-for-rent-page.component")))
+const GuestHouseCondominiumForRentPage = Loadable(lazy(() => import("../../pages/entities/guest-house/condominium/guest-house-condominium-for-rent-page.component")))
+const GuestHouseRealEstateForRentPage = Loadable(lazy(() => import("../../pages/entities/guest-house/real-estate/guest-house-real-estate-for-rent-page.component")))
 
 const DealTypePageDispatcher = (): JSX.Element => {
     const {entity, category, deal} = useParams<DispatcherPageParams>()
@@ -55,33 +61,6 @@ const DealTypePageDispatcher = (): JSX.Element => {
                         chosenPageComponent = <Error404Page/>
                         break;
                 }
-            }else if(entity === ENTITIES.GUEST_HOUSE){
-                switch (category) {
-                    // case CATEGORIES.APARTMENT:
-                    //     chosenPageComponent = <GuestHouseApartmentForSalePage/>
-                    //     break;
-                    // case CATEGORIES.VILLA:
-                    //     chosenPageComponent = <GuestHouseVillaForSalePage/>
-                    //     break;
-                    // case CATEGORIES.CONDOMINIUM:
-                    //     chosenPageComponent = <GuestHouseCondominiumForSalePage/>
-                    //     break;
-                    // case CATEGORIES.GROUND_PLUS:
-                    //     chosenPageComponent = <GuestHouseGroundPlusForSalePage/>
-                    //     break;
-                    // case CATEGORIES.OTHER:
-                    //     chosenPageComponent = <GuestHouseOtherForSalePage/>
-                    //     break;
-                    // case CATEGORIES.REAL_ESTATE:
-                    //     chosenPageComponent = <GuestHouseRealEstateForSalePage/>
-                    //     break;
-                    // case CATEGORIES.ELECTRIC_VEHICLE:
-                    //     chosenPageComponent = <GuestHouseRealEstateForSalePage/>
-                    //     break;
-                    default:
-                        chosenPageComponent = <Error404Page/>
-                        break;
-                }
             }
         } else if (deal === "rent") {
             if (entity === ENTITIES.HOUSE) {
@@ -110,27 +89,27 @@ const DealTypePageDispatcher = (): JSX.Element => {
                 }
             }else if(entity === ENTITIES.GUEST_HOUSE){
                 switch (category) {
-                    // case CATEGORIES.APARTMENT:
-                    //     chosenPageComponent = <GuestHouseApartmentForSalePage/>
-                    //     break;
+                    case CATEGORIES.APARTMENT:
+                        chosenPageComponent = <GuestHouseApartmentForRentPage/>
+                        break;
+                    case CATEGORIES.HOTEL_APARTMENT:
+                        chosenPageComponent = <GuestHouseHotelApartmentForRentPage/>
+                        break;
                     case CATEGORIES.VILLA:
                         chosenPageComponent = <GuestHouseVillaForRentPage/>
                         break;
-                    // case CATEGORIES.CONDOMINIUM:
-                    //     chosenPageComponent = <GuestHouseCondominiumForSalePage/>
-                    //     break;
-                    // case CATEGORIES.GROUND_PLUS:
-                    //     chosenPageComponent = <GuestHouseGroundPlusForSalePage/>
-                    //     break;
-                    // case CATEGORIES.OTHER:
-                    //     chosenPageComponent = <GuestHouseOtherForSalePage/>
-                    //     break;
-                    // case CATEGORIES.REAL_ESTATE:
-                    //     chosenPageComponent = <GuestHouseRealEstateForSalePage/>
-                    //     break;
-                    // case CATEGORIES.ELECTRIC_VEHICLE:
-                    //     chosenPageComponent = <GuestHouseRealEstateForSalePage/>
-                    //     break;
+                    case CATEGORIES.CONDOMINIUM:
+                        chosenPageComponent = <GuestHouseCondominiumForRentPage/>
+                        break;
+                    case CATEGORIES.GROUND_PLUS:
+                        chosenPageComponent = <GuestHouseGroundPlusForRentPage/>
+                        break;
+                    case CATEGORIES.OTHER:
+                        chosenPageComponent = <GuestHouseOtherForRentPage/>
+                        break;
+                    case CATEGORIES.REAL_ESTATE:
+                        chosenPageComponent = <GuestHouseRealEstateForRentPage/>
+                        break;
                     default:
                         chosenPageComponent = <Error404Page/>
                         break;

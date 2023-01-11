@@ -12,6 +12,7 @@ import ThreeWheeler from "../../../assets/images/three-wheeler.jpg";
 import WholeBuilding from "../../../assets/images/whole-building.jpg";
 import useFetch from "../../../utils/hooks/use-fetch";
 import config from "../../../config";
+import {ENTITIES} from "../../../utils/const/entities";
 
 const MyRequestsPage = () => {
     const {responseData} = useFetch({
@@ -31,14 +32,14 @@ const MyRequestsPage = () => {
             <Box height={30}></Box>
             {/*Tiles*/}
             <Grid container paddingX={{xs: 5, md: 5, lg: 3, xl: 15}} justifyContent={{xs: "left", sm: "center", lg: "left"}} spacing={{xs: 1, sm: 2, md: 3}}>
-                <HorizontalTile tileTitle={"House"} image={House} to={"house"} subtitle={`# ${myRequests?.houseCount ?? ""}`}/>
-                <VerticalTile tileTitle={"Land"} image={Land} to={"land"} subtitle={`# ${myRequests?.landCount ?? ""}`}/>
-                <VerticalTile tileTitle={"Commercial Building"} image={CommercialBuilding} to={"commercial-building"} subtitle={`# ${myRequests?.commercialBuildingCount ?? ""}`}/>
-                <VerticalTile tileTitle={"Guest House (Furnished)"} image={GuestHouse} to={"guest-house"} subtitle={`# ${myRequests?.guestHouseCount ?? ""}`}/>
-                <VerticalTile tileTitle={"Machinery & Truck"} image={MachineryAndTrucks} to={"machinery-and-truck"} subtitle={`# ${myRequests?.machineryAndTruckCount ?? ""}`}/>
-                <HorizontalTile tileTitle={"Car"} image={Car} to={"car"} subtitle={`# ${myRequests?.carCount ?? ""}`}/>
-                <HorizontalTile tileTitle={"Three Wheeler"} image={ThreeWheeler} to={"three-wheeler"} subtitle={`# ${myRequests?.threeWheelerCount ?? ""}`}/>
-                <VerticalTile tileTitle={"Whole Building"} image={WholeBuilding} to={"whole-building"} subtitle={`# ${myRequests?.wholeBuildingCount ?? ""}`}/>
+                <HorizontalTile tileTitle={"House"} image={House} to={ENTITIES.HOUSE} subtitle={`# ${myRequests?.houseCount ?? ""}`}/>
+                <VerticalTile tileTitle={"Land"} image={Land} to={ENTITIES.LAND} subtitle={`# ${myRequests?.landCount ?? ""}`}/>
+                <VerticalTile tileTitle={"Commercial Building"} image={CommercialBuilding} to={ENTITIES.COMMERCIAL_BUILDING} subtitle={`# ${myRequests?.commercialBuildingCount ?? ""}`}/>
+                <VerticalTile tileTitle={"Guest House (Furnished)"} image={GuestHouse} to={ENTITIES.GUEST_HOUSE} subtitle={`# ${myRequests?.guestHouseCount ?? ""}`}/>
+                <VerticalTile tileTitle={"Machinery & Truck"} image={MachineryAndTrucks} to={ENTITIES.MACHINERY_AND_TRUCKS} subtitle={`# ${myRequests?.machineryAndTruckCount ?? ""}`}/>
+                <HorizontalTile tileTitle={"Car"} image={Car} to={ENTITIES.CAR} subtitle={`# ${myRequests?.carCount ?? ""}`}/>
+                <HorizontalTile tileTitle={"Three Wheeler"} image={ThreeWheeler} to={ENTITIES.THREE_WHEELER} subtitle={`# ${myRequests?.threeWheelerCount ?? ""}`}/>
+                <VerticalTile tileTitle={"Whole Building"} image={WholeBuilding} to={ENTITIES.WHOLE_BUILDING} subtitle={`# ${myRequests?.wholeBuildingCount ?? ""}`}/>
             </Grid>
         </Box>
     )

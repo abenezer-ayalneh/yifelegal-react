@@ -7,6 +7,8 @@ import {ENTITIES} from "../../../utils/const/entities";
 
 
 const HouseMyRequestsPage = Loadable(lazy(() => import("../../pages/my-requests/house-my-requests-page.component")))
+const LandMyRequestsPage = Loadable(lazy(() => import("../../pages/my-requests/land-my-requests-page.component")))
+const CommercialBuildingMyRequestsPage = Loadable(lazy(() => import("../../pages/my-requests/commercial-building-my-requests-page.component")))
 
 const MyRequestListPageDispatcher = (): JSX.Element => {
     const {entity} = useParams<DispatcherPageParams>()
@@ -15,6 +17,10 @@ const MyRequestListPageDispatcher = (): JSX.Element => {
         switch (entity) {
             case ENTITIES.HOUSE:
                 return <HouseMyRequestsPage/>
+            case ENTITIES.LAND:
+                return <LandMyRequestsPage/>
+            case ENTITIES.COMMERCIAL_BUILDING:
+                return <CommercialBuildingMyRequestsPage/>
             default:
                 return <Error404Page/>
         }

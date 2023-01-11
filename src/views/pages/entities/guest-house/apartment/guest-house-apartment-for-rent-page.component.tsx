@@ -1,5 +1,5 @@
-import {Box, Grid, MenuItem, Stack, Typography} from "@mui/material";
-import React, {useEffect} from "react";
+import {Box, Grid, Stack, Typography} from "@mui/material";
+import React from "react";
 import FormRow from "../../../../components/form-row/form-row.component";
 import {TextField} from "../../../../components/text-field/text-field.component";
 import LoadingButton from "@mui/lab/LoadingButton";
@@ -13,16 +13,19 @@ import useSend from "../../../../../utils/hooks/use-send";
 
 // Validation Schema
 const ApartmentForRentSchema = z.object({
-    entity: z.string().min(1,"Can't be empty"),
-    category: z.string().min(1,"Can't be empty"),
-    deal: z.string().min(1,"Can't be empty"),
-    subCity: z.string().min(1,"Can't be empty"),
+    entity: z.string().min(1, "Can't be empty"),
+    category: z.string().min(1, "Can't be empty"),
+    deal: z.string().min(1, "Can't be empty"),
+    subCity: z.string().min(1, "Can't be empty"),
     specialName: z.string().optional(),
     numberOfBedroom: z.string().refine((value) => !Number.isNaN(parseInt(value)), {message: "Must be number"})
         .refine((value) => parseInt(value) >= 0, {message: "Zero is the minimum"}),
     floorNumber: z.string().refine((value) => !Number.isNaN(parseFloat(value)), {
         message: "Must be number"
     }),
+    rentPeriod: z.string().refine((value) => !Number.isNaN(parseInt(value)), {message: "Must be number"})
+        .refine((value) => parseInt(value) >= 1, {message: "One is the minimum"}),
+    otherDetail: z.string().optional(),
 })
 type ApartmentForRentType = z.infer<typeof ApartmentForRentSchema>;
 
@@ -51,6 +54,8 @@ const ApartmentForRentPage = () => {
             specialName: "",
             numberOfBedroom: "",
             floorNumber: "",
+            rentPeriod: "",
+            otherDetail: "",
         },
         mode: "onChange"
     });
@@ -58,8 +63,8 @@ const ApartmentForRentPage = () => {
     const onSubmitHandler: SubmitHandler<ApartmentForRentType> = (values) => {
         storeRequest({
             data: values
-        },true).then((result) => {
-            if(result.status){
+        }, true).then((result) => {
+            if (result.status) {
                 navigate('/home')
                 reset({
                     entity: entity,
@@ -68,7 +73,9 @@ const ApartmentForRentPage = () => {
                     subCity: "",
                     specialName: "",
                     numberOfBedroom: "",
+                    rentPeriod: "",
                     floorNumber: "",
+                    otherDetail: "",
                 });
             }
         })
@@ -156,13 +163,51 @@ const ApartmentForRentPage = () => {
                             )}
                         />
                     </FormRow>
+                    <FormRow required={true} label={"Period of Rent (in days)"} xs={12}>
+                        <Controller
+                            name={"rentPeriod"}
+                            control={control}
+                            render={({field: {ref, ...field}}) => (
+                                <TextField
+                                    type={"number"}
+                                    placeholder={"How long you are planning on staying (in days)"}
+                                    label={"Period of Rent (in days)"}
+                                    size={"small"}
+                                    inputRef={ref}
+                                    error={!!errors.rentPeriod}
+                                    helperText={errors?.rentPeriod?.message}
+                                    {...field}
+                                />
+                            )}
+                        />
+                    </FormRow>
+                    <FormRow label={"Other Details"} xs={12}>
+                        <Controller
+                            name={"otherDetail"}
+                            control={control}
+                            render={({field: {ref, ...field}}) => (
+                                <TextField
+                                    type={"number"}
+                                    placeholder={"If you have extra needs, please specify them here"}
+                                    label={"Other Details"}
+                                    size={"small"}
+                                    inputRef={ref}
+                                    error={!!errors.otherDetail}
+                                    helperText={errors?.otherDetail?.message}
+                                    multiline={true}
+                                    rows={3}
+                                    {...field}
+                                />
+                            )}
+                        />
+                    </FormRow>
 
                     <FormRow xs={12}>
                         <LoadingButton loading={isSubmitting || isRequestLoading} variant={"contained"} color={"primary"} type={"submit"} fullWidth>Submit</LoadingButton>
                     </FormRow>
                 </Grid>
             </form>
-            
+
         </Box>
     )
 }

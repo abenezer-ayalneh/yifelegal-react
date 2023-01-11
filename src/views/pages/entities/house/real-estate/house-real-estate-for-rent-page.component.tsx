@@ -20,6 +20,7 @@ const VillaForRentSchema = z.object({
     specialName: z.string().optional(),
     numberOfBedroom: z.string().refine((value) => !Number.isNaN(parseInt(value)), {message: "Must be number"})
         .refine((value) => parseInt(value) >= 0, {message: "Zero is the minimum"}),
+    specialRealEstateName: z.string().optional(),
     floorNumber: z.string().refine((value) => !Number.isNaN(parseFloat(value)), {
         message: "Must be number"
     }),
@@ -49,6 +50,7 @@ const VillaForRentPage = () => {
             deal: deal,
             subCity: "",
             specialName: "",
+            specialRealEstateName: "",
             numberOfBedroom: "",
             floorNumber: "",
         },
@@ -67,6 +69,7 @@ const VillaForRentPage = () => {
                     deal: deal,
                     subCity: "",
                     specialName: "",
+                    specialRealEstateName: "",
                     numberOfBedroom: "",
                     floorNumber: "",
                 });
@@ -117,6 +120,22 @@ const VillaForRentPage = () => {
                                     size={"small"}
                                     error={!!errors.specialName}
                                     helperText={errors?.specialName?.message}
+                                    {...field}
+                                />
+                            )}
+                        />
+                    </FormRow>
+                    <FormRow label={"Special Real Estate Name (if any)"} xs={12}>
+                        <Controller
+                            name={"specialRealEstateName"}
+                            control={control}
+                            render={({field: {ref, ...field}}) => (
+                                <TextField
+                                    placeholder={"Special or local name of the realEstate. E.g: Ayat, Tsehay..."}
+                                    label={"Special RealEstate Name"}
+                                    size={"small"}
+                                    error={!!errors.specialRealEstateName}
+                                    helperText={errors?.specialRealEstateName?.message}
                                     {...field}
                                 />
                             )}

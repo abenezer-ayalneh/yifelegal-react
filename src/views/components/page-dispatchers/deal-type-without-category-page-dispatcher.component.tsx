@@ -12,7 +12,7 @@ const CommercialBuildingForRentPage = Loadable(lazy(() => import("../../pages/en
 const GuestHouseForRentPage = Loadable(lazy(() => import("../../pages/entities/guest-house/guest-house-categories-page.component")))
 const WholeBuildingForRentPage = Loadable(lazy(() => import("../../pages/entities/whole-building/whole-building-for-sale-page.component")))
 const WholeBuildingForSalePage = Loadable(lazy(() => import("../../pages/entities/whole-building/whole-building-for-sale-page.component")))
-const CarForSalePage = Loadable(lazy(() => import("../../pages/entities/whole-building/whole-building-for-sale-page.component")))
+const ThreeWheelerForSalePage = Loadable(lazy(() => import("../../pages/entities/three-wheeler/three-wheeler-for-sale-page.component")))
 
 const DealTypeWithoutCategoryPageDispatcher = (): JSX.Element => {
     const {entity, deal} = useParams<DispatcherPageParams>()
@@ -24,8 +24,8 @@ const DealTypeWithoutCategoryPageDispatcher = (): JSX.Element => {
                     return <LandForSalePage/>
                 case ENTITIES.WHOLE_BUILDING:
                     return <WholeBuildingForSalePage/>
-                case ENTITIES.CAR:
-                    return <WholeBuildingForSalePage/>
+                case ENTITIES.THREE_WHEELER:
+                    return <ThreeWheelerForSalePage/>
                 default:
                     return <Error404Page/>
             }
