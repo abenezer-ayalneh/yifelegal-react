@@ -14,6 +14,7 @@ const DealTypeWithoutCategoryPageDispatcher = Loadable(lazy(() => import("../vie
 const MyRequestsPage = Loadable(lazy(() => import("../views/pages/my-requests/my-requests-page.component")))
 const MyRequestPageDispatcher = Loadable(lazy(() => import("../views/components/page-dispatchers/my-request-list-page-dispatcher.component")))
 const RequestsPage = Loadable(lazy(() => import("../views/pages/requests/requests-page.component")))
+const SettingsPage = Loadable(lazy(() => import("../views/pages/settings/settings-page.component")))
 
 const authRoute = (): RouteObject[] => {
     return [
@@ -80,6 +81,17 @@ const authRoute = (): RouteObject[] => {
                 {
                     path: "",
                     element: <RequestsPage/>
+                },
+            ]
+        },
+        {
+            path: "settings",
+            element: <ProtectedRoutes><MainLayout/></ProtectedRoutes>,
+            errorElement: <Error404Page/>,
+            children: [
+                {
+                    path: "",
+                    element: <SettingsPage/>
                 },
             ]
         },
