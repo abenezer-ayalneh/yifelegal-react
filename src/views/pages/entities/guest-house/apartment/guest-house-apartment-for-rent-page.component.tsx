@@ -1,4 +1,4 @@
-import {Box, Grid, Stack, Typography} from "@mui/material";
+import {Box, Button, Grid, Stack, Typography} from "@mui/material";
 import React from "react";
 import FormRow from "../../../../components/form-row/form-row.component";
 import {TextField} from "../../../../components/text-field/text-field.component";
@@ -7,7 +7,7 @@ import {Controller, SubmitHandler, useForm} from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod";
 import {z} from "zod";
 import config from "../../../../../config";
-import {useNavigate, useParams} from "react-router-dom";
+import {Link, useLocation, useNavigate, useParams} from "react-router-dom";
 import {DispatcherPageParams} from "../../../../../utils/types/dispatcher-page-param-types";
 import useSend from "../../../../../utils/hooks/use-send";
 
@@ -32,6 +32,7 @@ type ApartmentForRentType = z.infer<typeof ApartmentForRentSchema>;
 const ApartmentForRentPage = () => {
     const navigate = useNavigate()
     const {category, deal, entity} = useParams<DispatcherPageParams>()
+    const location = useLocation()
     const {sendRequest: storeRequest, isRequestLoading} = useSend({
         method: "POST",
         url: config.REACT_APP_ROOT_URL + "request/store",
@@ -203,7 +204,11 @@ const ApartmentForRentPage = () => {
                     </FormRow>
 
                     <FormRow xs={12}>
-                        <LoadingButton loading={isSubmitting || isRequestLoading} variant={"contained"} color={"primary"} type={"submit"} fullWidth>Submit</LoadingButton>
+                        {
+                            location && location.pathname.startsWith("/request-for-others")
+                                ? <Button variant={"contained"} color={"primary"} type={"button"} fullWidth component={Link} to={"client-info"}>Next</Button>
+                                : <LoadingButton loading={isSubmitting || isRequestLoading} variant={"contained"} color={"primary"} type={"submit"} fullWidth>Submit</LoadingButton>
+                        }
                     </FormRow>
                 </Grid>
             </form>

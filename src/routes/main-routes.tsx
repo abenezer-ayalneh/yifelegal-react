@@ -15,6 +15,9 @@ const MyRequestsPage = Loadable(lazy(() => import("../views/pages/my-requests/my
 const MyRequestPageDispatcher = Loadable(lazy(() => import("../views/components/page-dispatchers/my-request-list-page-dispatcher.component")))
 const RequestsPage = Loadable(lazy(() => import("../views/pages/requests/requests-page.component")))
 const SettingsPage = Loadable(lazy(() => import("../views/pages/settings/settings-page.component")))
+const UsersListPage = Loadable(lazy(() => import("../views/pages/settings/user/users-list.component")))
+const RequestForOthersPage = Loadable(lazy(() => import("../views/pages/request-for-others/request-for-others-page.component")))
+const RequestForOthersPersonalInformationPage = Loadable(lazy(() => import("../views/pages/request-for-others/personal-information-page/request-for-others-personal-information-page.component")))
 
 const authRoute = (): RouteObject[] => {
     return [
@@ -59,6 +62,43 @@ const authRoute = (): RouteObject[] => {
             ]
         },
         {
+            path: "request-for-others",
+            element: <ProtectedRoutes><MainLayout/></ProtectedRoutes>,
+            errorElement: <Error404Page/>,
+            children: [
+                {
+                    path: "",
+                    element: <RequestForOthersPage/>
+                },
+                {
+                    path: "entity/:entity",
+                    element: <EntityPageDispatcher/>
+                },
+                // Requests with category
+                {
+                    path: "entity/:entity/category/:category",
+                    element: <DealPage/>
+                },
+                {
+                    path: "entity/:entity/category/:category/deal/:deal",
+                    element: <DealTypeWithCategoryPageDispatcher/>
+                },
+                {
+                    path: "entity/:entity/category/:category/deal/:deal/client-info",
+                    element: <RequestForOthersPersonalInformationPage/>
+                },
+                // Requests without category
+                {
+                    path: "entity/:entity/deal/:deal",
+                    element: <DealTypeWithoutCategoryPageDispatcher/>
+                },
+                {
+                    path: "entity/:entity/deal/:deal/client-info",
+                    element: <RequestForOthersPersonalInformationPage/>
+                },
+            ]
+        },
+        {
             path: "my-requests",
             element: <ProtectedRoutes><MainLayout/></ProtectedRoutes>,
             errorElement: <Error404Page/>,
@@ -92,6 +132,10 @@ const authRoute = (): RouteObject[] => {
                 {
                     path: "",
                     element: <SettingsPage/>
+                },
+                {
+                    path: "users",
+                    element: <UsersListPage/>
                 },
             ]
         },

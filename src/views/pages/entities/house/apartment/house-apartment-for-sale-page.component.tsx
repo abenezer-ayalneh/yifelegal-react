@@ -1,4 +1,4 @@
-import {Box, Grid, MenuItem, Stack, Typography} from "@mui/material";
+import {Box, Button, Grid, MenuItem, Stack, Typography} from "@mui/material";
 import React, {useEffect} from "react";
 import FormRow from "../../../../components/form-row/form-row.component";
 import {TextField} from "../../../../components/text-field/text-field.component";
@@ -7,16 +7,16 @@ import {Controller, SubmitHandler, useForm} from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod";
 import {z} from "zod";
 import config from "../../../../../config";
-import {useNavigate, useParams} from "react-router-dom";
+import {useLocation, useNavigate,redirect, useParams} from "react-router-dom";
 import {DispatcherPageParams} from "../../../../../utils/types/dispatcher-page-param-types";
 import useSend from "../../../../../utils/hooks/use-send";
 
 // Validation Schema
 const ApartmentForSaleSchema = z.object({
-    entity: z.string().min(1,"Can't be empty"),
-    category: z.string().min(1,"Can't be empty"),
-    deal: z.string().min(1,"Can't be empty"),
-    subCity: z.string().min(1,"Can't be empty"),
+    entity: z.string().min(1, "Can't be empty"),
+    category: z.string().min(1, "Can't be empty"),
+    deal: z.string().min(1, "Can't be empty"),
+    subCity: z.string().min(1, "Can't be empty"),
     specialName: z.string().optional(),
     numberOfBedroom: z.string().refine((value) => !Number.isNaN(parseInt(value)), {message: "Must be number"})
         .refine((value) => parseInt(value) >= 0, {message: "Zero is the minimum"}),
@@ -33,6 +33,7 @@ type ApartmentForSaleType = z.infer<typeof ApartmentForSaleSchema>;
 const ApartmentForSalePage = () => {
     const navigate = useNavigate()
     const {category, deal, entity} = useParams<DispatcherPageParams>()
+    const location = useLocation()
     const {sendRequest: storeRequest, isRequestLoading} = useSend({
         method: "POST",
         url: config.REACT_APP_ROOT_URL + "request/store",
@@ -61,31 +62,36 @@ const ApartmentForSalePage = () => {
         mode: "onChange"
     });
 
-    useEffect(() => {
-        if (isSubmitSuccessful) {
-            reset({
-                entity: entity,
-                category: category,
-                deal: deal,
-                subCity: "",
-                specialName: "",
-                numberOfBedroom: "",
-                floorNumber: "",
-                area: "",
-                paymentMethod: "With Bank",
-            });
-        }
-    }, [isSubmitSuccessful, reset]);
+    // useEffect(() => {
+    //     if (isSubmitSuccessful) {
+    //         reset({
+    //             entity: entity,
+    //             category: category,
+    //             deal: deal,
+    //             subCity: "",
+    //             specialName: "",
+    //             numberOfBedroom: "",
+    //             floorNumber: "",
+    //             area: "",
+    //             paymentMethod: "With Bank",
+    //         });
+    //     }
+    // }, [isSubmitSuccessful, reset]);
 
     const onSubmitHandler: SubmitHandler<ApartmentForSaleType> = (values) => {
         storeRequest({
             data: values
-        },true).then((result) => {
-            if(result.status){
+        }, true).then((result) => {
+            if (result.status) {
                 navigate('/home')
             }
         })
     };
+
+    const onNextHandler: SubmitHandler<ApartmentForSaleType>  = (values) => {
+        navigate("client-info",{state: values})
+        // return redirect("client-info",)
+    }
 
     return (
         <Box>
@@ -97,7 +103,7 @@ const ApartmentForSalePage = () => {
             <Box height={30}></Box>
             {/*Questions*/}
             <form
-                onSubmit={handleSubmit(onSubmitHandler)}
+                onSubmit={handleSubmit(location && location.pathname.startsWith("/request-for-others") ? onNextHandler : onSubmitHandler)}
             >
                 <Grid
                     container
@@ -213,11 +219,15 @@ const ApartmentForSalePage = () => {
                     </FormRow>
 
                     <FormRow xs={12}>
-                        <LoadingButton loading={isSubmitting || isRequestLoading} variant={"contained"} color={"primary"} type={"submit"} fullWidth>Submit</LoadingButton>
+                        {
+                            location && location.pathname.startsWith("/request-for-others")
+                                ? <Button variant={"contained"} color={"primary"} type={"submit"} fullWidth>Next</Button>
+                                : <LoadingButton loading={isSubmitting || isRequestLoading} variant={"contained"} color={"primary"} type={"submit"} fullWidth>Submit</LoadingButton>
+                        }
                     </FormRow>
                 </Grid>
             </form>
-            
+
         </Box>
     )
 }

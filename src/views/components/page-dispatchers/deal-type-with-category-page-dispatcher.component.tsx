@@ -29,7 +29,6 @@ const GuestHouseRealEstateForRentPage = Loadable(lazy(() => import("../../pages/
 const DealTypePageDispatcher = (): JSX.Element => {
     const {entity, category, deal} = useParams<DispatcherPageParams>()
 
-    console.log(entity)
     const chosenPage = (): JSX.Element => {
         let chosenPageComponent: JSX.Element = <Error404Page/>
 

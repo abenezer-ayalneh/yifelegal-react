@@ -67,7 +67,7 @@ const useAuth = () => {
 
     const checkAuth = async (): Promise<boolean> => {
         let result = await sendRequest({
-            url: config.REACT_APP_ROOT_URL + "user",
+            url: config.REACT_APP_ROOT_URL + "me",
         })
 
         if (result?.status) {

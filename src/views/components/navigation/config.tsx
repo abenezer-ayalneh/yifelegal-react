@@ -14,7 +14,7 @@ const navConfig:NavSectionPropTypes[] = [
   },
   {
     title: 'request for others',
-    path: '/request/others',
+    path: '/request-for-others',
     icon: icon('user-group'),
   },
   {

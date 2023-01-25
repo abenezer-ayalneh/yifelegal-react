@@ -8,7 +8,6 @@ import GuestHouseCategoriesPage from "../../pages/entities/guest-house/guest-hou
 
 const EntityPageDispatcher = () => {
     const {entity} = useParams<DispatcherPageParams>()
-    console.log(entity)
 
     const chosenPage = (): JSX.Element => {
         switch (entity) {

@@ -62,10 +62,10 @@ export default function Header({onOpenNav}: { onOpenNav: () => void }) {
             if (!["entity", "category", "deal"].includes(currentValue)) {
                 if (currentIndex + 1 === splitPathname.length) {
                     link = <Link key={currentIndex} to={`${previousValue}/${currentValue}`}
-                                 style={{textTransform: "capitalize", textDecoration: "none", ...theme.typography.h5, color: theme.palette.text.primary}}>{currentValue.replace("-", " ").replaceAll("%20"," ")}</Link>
+                                 style={{textTransform: "capitalize", textDecoration: "none", ...theme.typography.h5, color: theme.palette.text.primary}}>{currentValue.replaceAll("-", " ").replaceAll("%20"," ")}</Link>
                 } else {
                     link = <Link key={currentIndex} to={`${previousValue}/${currentValue}`}
-                                 style={{textTransform: "capitalize", textDecoration: "none", ...theme.typography.body2, color: theme.palette.text.primary,}}>{currentValue.replace("-", " ").replaceAll("%20"," ")}</Link>
+                                 style={{textTransform: "capitalize", textDecoration: "none", ...theme.typography.body2, color: theme.palette.text.primary,}}>{currentValue.replaceAll("-", " ").replaceAll("%20"," ")}</Link>
                 }
 
                 breadcrumbArray.push(link)
