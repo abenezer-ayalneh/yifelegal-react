@@ -62,22 +62,6 @@ const ApartmentForSalePage = () => {
         mode: "onChange"
     });
 
-    // useEffect(() => {
-    //     if (isSubmitSuccessful) {
-    //         reset({
-    //             entity: entity,
-    //             category: category,
-    //             deal: deal,
-    //             subCity: "",
-    //             specialName: "",
-    //             numberOfBedroom: "",
-    //             floorNumber: "",
-    //             area: "",
-    //             paymentMethod: "With Bank",
-    //         });
-    //     }
-    // }, [isSubmitSuccessful, reset]);
-
     const onSubmitHandler: SubmitHandler<ApartmentForSaleType> = (values) => {
         storeRequest({
             data: values

@@ -16,7 +16,7 @@ const RequestForOthersPersonalInformationSchema = z.object({
     category: z.string().min(1, "Can't be empty"),
     deal: z.string().min(1, "Can't be empty"),
     requestedFor: z.string().min(1, "Can't be empty"),
-    requestedForPhoneNumber: z.string().optional(),
+    requestedForPhoneNumber: z.string().min(1, "Can't be empty"),
 })
 type RequestForOthersPersonalInformationType = z.infer<typeof RequestForOthersPersonalInformationSchema>;
 
@@ -58,6 +58,11 @@ const RequestForOthersPersonalInformationPage = () => {
             }
         })
     };
+
+    const onNextHandler: SubmitHandler<RequestForOthersPersonalInformationType>  = (values) => {
+        navigate("client-info",{state: values})
+        // return redirect("client-info",)
+    }
 
     return (
         <Box>

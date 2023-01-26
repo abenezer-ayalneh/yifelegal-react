@@ -59,18 +59,15 @@ const WholeBuildingForSalePage = () => {
         }, true).then((result) => {
             if (result.status) {
                 navigate('/home')
-                reset({
-                    entity: entity,
-                    deal: deal,
-                    purpose: "Hotel",
-                    subCity: "",
-                    specialName: "",
-                    numberOfFloors: "",
-                    otherDetail: "",
-                });
             }
         })
     };
+
+    const onNextHandler: SubmitHandler<WholeBuildingForSaleType>  = (values) => {
+        navigate("client-info",{state: values})
+        // return redirect("client-info",)
+    }
+
     return (
         <Box>
             {/*Page Title*/}
@@ -81,7 +78,7 @@ const WholeBuildingForSalePage = () => {
             <Box height={30}></Box>
             {/*Questions*/}
             <form
-                onSubmit={handleSubmit(onSubmitHandler)}
+                onSubmit={handleSubmit(location && location.pathname.startsWith("/request-for-others") ? onNextHandler : onSubmitHandler)}
             >
                 <Grid
                     container
@@ -191,7 +188,7 @@ const WholeBuildingForSalePage = () => {
                     <FormRow xs={12}>
                         {
                             location && location.pathname.startsWith("/request-for-others")
-                                ? <Button variant={"contained"} color={"primary"} type={"button"} fullWidth component={Link} to={"client-info"}>Next</Button>
+                                ? <Button variant={"contained"} color={"primary"} type={"submit"} fullWidth>Next</Button>
                                 : <LoadingButton loading={isSubmitting || isRequestLoading} variant={"contained"} color={"primary"} type={"submit"} fullWidth>Submit</LoadingButton>
                         }
                     </FormRow>

@@ -86,6 +86,11 @@ const CondominiumForSalePage = () => {
         })
     };
 
+    const onNextHandler: SubmitHandler<CondominiumForSaleType>  = (values) => {
+        navigate("client-info",{state: values})
+        // return redirect("client-info",)
+    }
+
     return (
         <Box>
             {/*Page Title*/}
@@ -96,7 +101,7 @@ const CondominiumForSalePage = () => {
             <Box height={30}></Box>
             {/*Questions*/}
             <form
-                onSubmit={handleSubmit(onSubmitHandler)}
+                onSubmit={handleSubmit(location && location.pathname.startsWith("/request-for-others") ? onNextHandler : onSubmitHandler)}
             >
                 <Grid
                     container
@@ -214,7 +219,7 @@ const CondominiumForSalePage = () => {
                     <FormRow xs={12}>
                         {
                             location && location.pathname.startsWith("/request-for-others")
-                                ? <Button variant={"contained"} color={"primary"} type={"button"} fullWidth component={Link} to={"client-info"}>Next</Button>
+                                ? <Button variant={"contained"} color={"primary"} type={"submit"} fullWidth>Next</Button>
                                 : <LoadingButton loading={isSubmitting || isRequestLoading} variant={"contained"} color={"primary"} type={"submit"} fullWidth>Submit</LoadingButton>
                         }
                     </FormRow>
