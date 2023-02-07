@@ -5,6 +5,7 @@ import DealPage from "../../pages/deal/deal-page.component";
 import {ENTITIES} from "../../../utils/const/entities";
 import Error404Page from "../../pages/error/error-page.compoent";
 import GuestHouseCategoriesPage from "../../pages/entities/guest-house/guest-house-categories-page.component";
+import CarCategoriesPage from "../../pages/entities/car/car-categories-page.component";
 
 const EntityPageDispatcher = () => {
     const {entity} = useParams<DispatcherPageParams>()
@@ -22,6 +23,8 @@ const EntityPageDispatcher = () => {
                 return <DealPage remove={"rent"}/>
             case ENTITIES.GUEST_HOUSE:
                 return <GuestHouseCategoriesPage/>
+            case ENTITIES.CAR:
+                return <CarCategoriesPage/>
             default:
                 return <Error404Page/>
         }

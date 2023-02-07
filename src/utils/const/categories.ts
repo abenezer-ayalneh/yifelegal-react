@@ -6,5 +6,7 @@ export const CATEGORIES = {
     OTHER: "other",
     REAL_ESTATE: "real estate",
     VILLA: 'villa',
-    ELECTRIC_VEHICLE: "electric vehicle"
+    AUTOMOBILE: 'automobile',
+    OFF_ROAD_CARS: 'off road cars',
+    MACHINERY: 'machinery'
 }

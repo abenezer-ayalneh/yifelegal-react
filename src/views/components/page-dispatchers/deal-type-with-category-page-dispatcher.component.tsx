@@ -25,6 +25,10 @@ const GuestHouseApartmentForRentPage = Loadable(lazy(() => import("../../pages/e
 const GuestHouseHotelApartmentForRentPage = Loadable(lazy(() => import("../../pages/entities/guest-house/hotel-apartment/guest-house-hotel-apartment-for-rent-page.component")))
 const GuestHouseCondominiumForRentPage = Loadable(lazy(() => import("../../pages/entities/guest-house/condominium/guest-house-condominium-for-rent-page.component")))
 const GuestHouseRealEstateForRentPage = Loadable(lazy(() => import("../../pages/entities/guest-house/real-estate/guest-house-real-estate-for-rent-page.component")))
+const CarAutomobileForSale = Loadable(lazy(() => import("../../pages/entities/car/automobile/car-automobile-for-sale.component.jsx")))
+const CarAutomobileForRent = Loadable(lazy(() => import("../../pages/entities/car/automobile/car-automobile-for-rent.component.jsx")))
+const CarOffRoadCarForSale = Loadable(lazy(() => import("../../pages/entities/car/off-road-car/car-off-road-car-for-sale.component.jsx")))
+const CarOffRoadCarForRent = Loadable(lazy(() => import("../../pages/entities/car/off-road-car/car-off-road-car-for-rent.component.jsx")))
 
 const DealTypePageDispatcher = (): JSX.Element => {
     const {entity, category, deal} = useParams<DispatcherPageParams>()
@@ -53,8 +57,17 @@ const DealTypePageDispatcher = (): JSX.Element => {
                     case CATEGORIES.REAL_ESTATE:
                         chosenPageComponent = <HouseRealEstateForSalePage/>
                         break;
-                    case CATEGORIES.ELECTRIC_VEHICLE:
-                        chosenPageComponent = <HouseRealEstateForSalePage/>
+                    default:
+                        chosenPageComponent = <Error404Page/>
+                        break;
+                }
+            } else if (entity === ENTITIES.CAR) {
+                switch (category) {
+                    case CATEGORIES.AUTOMOBILE:
+                        chosenPageComponent = <CarAutomobileForSale/>
+                        break;
+                    case CATEGORIES.OFF_ROAD_CARS:
+                        chosenPageComponent = <CarOffRoadCarForSale/>
                         break;
                     default:
                         chosenPageComponent = <Error404Page/>
@@ -86,7 +99,7 @@ const DealTypePageDispatcher = (): JSX.Element => {
                         chosenPageComponent = <Error404Page/>
                         break;
                 }
-            }else if(entity === ENTITIES.GUEST_HOUSE){
+            } else if (entity === ENTITIES.GUEST_HOUSE) {
                 switch (category) {
                     case CATEGORIES.APARTMENT:
                         chosenPageComponent = <GuestHouseApartmentForRentPage/>
@@ -108,6 +121,18 @@ const DealTypePageDispatcher = (): JSX.Element => {
                         break;
                     case CATEGORIES.REAL_ESTATE:
                         chosenPageComponent = <GuestHouseRealEstateForRentPage/>
+                        break;
+                    default:
+                        chosenPageComponent = <Error404Page/>
+                        break;
+                }
+            } else if (entity === ENTITIES.CAR) {
+                switch (category) {
+                    case CATEGORIES.AUTOMOBILE:
+                        chosenPageComponent = <CarAutomobileForRent/>
+                        break;
+                    case CATEGORIES.OFF_ROAD_CARS:
+                        chosenPageComponent = <CarOffRoadCarForRent/>
                         break;
                     default:
                         chosenPageComponent = <Error404Page/>
