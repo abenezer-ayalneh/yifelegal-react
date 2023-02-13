@@ -29,6 +29,8 @@ const CarAutomobileForSale = Loadable(lazy(() => import("../../pages/entities/ca
 const CarAutomobileForRent = Loadable(lazy(() => import("../../pages/entities/car/automobile/car-automobile-for-rent.component.jsx")))
 const CarOffRoadCarForSale = Loadable(lazy(() => import("../../pages/entities/car/off-road-car/car-off-road-car-for-sale.component.jsx")))
 const CarOffRoadCarForRent = Loadable(lazy(() => import("../../pages/entities/car/off-road-car/car-off-road-car-for-rent.component.jsx")))
+const CarMachineryForSale = Loadable(lazy(() => import("../../pages/entities/car/machinery/car-machinery-for-sale.component.jsx")))
+const CarMachineryForRent = Loadable(lazy(() => import("../../pages/entities/car/machinery/car-machinery-for-rent.component.jsx")))
 
 const DealTypePageDispatcher = (): JSX.Element => {
     const {entity, category, deal} = useParams<DispatcherPageParams>()
@@ -68,6 +70,9 @@ const DealTypePageDispatcher = (): JSX.Element => {
                         break;
                     case CATEGORIES.OFF_ROAD_CARS:
                         chosenPageComponent = <CarOffRoadCarForSale/>
+                        break;
+                    case CATEGORIES.MACHINERY:
+                        chosenPageComponent = <CarMachineryForSale/>
                         break;
                     default:
                         chosenPageComponent = <Error404Page/>
@@ -133,6 +138,9 @@ const DealTypePageDispatcher = (): JSX.Element => {
                         break;
                     case CATEGORIES.OFF_ROAD_CARS:
                         chosenPageComponent = <CarOffRoadCarForRent/>
+                        break;
+                    case CATEGORIES.MACHINERY:
+                        chosenPageComponent = <CarMachineryForRent/>
                         break;
                     default:
                         chosenPageComponent = <Error404Page/>

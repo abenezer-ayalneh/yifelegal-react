@@ -3,7 +3,7 @@ import FormRow from "../../../../components/form-row/form-row.component";
 import {Controller, SubmitHandler, useForm} from "react-hook-form";
 import {TextField} from "../../../../components/text-field/text-field.component";
 import LoadingButton from "@mui/lab/LoadingButton";
-import React from "react";
+import React, {useState} from "react";
 import {useLocation, useNavigate, useParams} from "react-router-dom";
 import {DispatcherPageParams} from "../../../../../utils/types/dispatcher-page-param-types";
 import useSend from "../../../../../utils/hooks/use-send";
@@ -22,7 +22,7 @@ const MachineryForSaleSchema = z.object({
     wheels: z.enum(["Chains", "Tire"], {invalid_type_error: "Should be either Chains or Tire"}),
     condition: z.enum(["Used", "Brand New"], {invalid_type_error: "Should be either Used or Brand New"}),
     usedHours: z.string().min(1, "Must be a valid number").refine((value) => !Number.isNaN(parseInt(value)), {message: "Must be number"})
-        .refine((value) => parseInt(value) > 1, {message: "1 is the minimum"}),
+        .refine((value) => parseInt(value) > 1, {message: "1 is the minimum"}).optional(),
     paymentMethod: z.enum(["In Cash", "With Bank"], {invalid_type_error: "Should be either In Cash or With Bank"}),
     otherDetail: z.string().optional(),
 })
@@ -32,13 +32,15 @@ const CarMachineryForSale = () => {
     const navigate = useNavigate()
     const {category, deal, entity} = useParams<DispatcherPageParams>()
     const location = useLocation()
+    const [isUsed, setIsUsed] = useState<boolean>(false);
     const {sendRequest: storeRequest, isRequestLoading} = useSend({
         method: "POST",
         url: config.REACT_APP_ROOT_URL + "request/store",
     })
 
     const {
-        formState: {errors, isSubmitting},
+        watch,
+        formState: {errors, isSubmitting,},
         handleSubmit,
         control,
     } = useForm<MachineryForSaleType>({
@@ -50,26 +52,41 @@ const CarMachineryForSale = () => {
             deal: deal,
             carType: "",
             modelYear: "",
+            model: "",
+            wheels: "Tire",
+            condition: "Brand New",
             paymentMethod: "With Bank",
             otherDetail: "",
         },
-        mode: "onChange"
+        mode: "onChange",
+        shouldUnregister: true
     });
 
     const onSubmitHandler: SubmitHandler<MachineryForSaleType> = (values) => {
-        storeRequest({
-            data: values
-        }, true).then((result) => {
-            if (result.status) {
-                navigate('/home')
-            }
-        })
+        console.log(values)
+        // storeRequest({
+        //     data: values
+        // }, true).then((result) => {
+        //     if (result.status) {
+        //         navigate('/home')
+        //     }
+        // })
     };
 
     const onNextHandler: SubmitHandler<MachineryForSaleType> = (values) => {
         navigate("client-info", {state: values})
         // return redirect("client-info",)
     }
+
+    const handleIsUsedToggle = (event: object) => {
+        if (event.target.value === 'Used') {
+            setIsUsed(true)
+        } else {
+            setIsUsed(false)
+        }
+    }
+
+    console.log(watch())
 
     return (
         <Box>
@@ -94,7 +111,7 @@ const CarMachineryForSale = () => {
                             control={control}
                             render={({field: {ref, ...field}}) => (
                                 <TextField
-                                    placeholder={"The type/model name of the car. E.g: Dezire, Yaris"}
+                                    placeholder={"The type name of the car. E.g: Dozer"}
                                     label={"Car Type"}
                                     inputRef={ref}
                                     error={!!errors.carType}
@@ -119,16 +136,33 @@ const CarMachineryForSale = () => {
                             )}
                         />
                     </FormRow>
-                    <FormRow required={true} label={"Plate"} xs={12}>
+                    <FormRow required={true} label={"Model"} xs={12}>
                         <Controller
-                            name={"plateCondition"}
+                            name={"model"}
                             control={control}
                             render={({field: {ref, ...field}}) => (
                                 <TextField
-                                    label={"Should the car have a plate or not"}
+                                    placeholder={"Model name of the car"}
+                                    label={"Model"}
                                     size={"small"}
-                                    error={!!errors.plateCondition}
-                                    helperText={errors?.plateCondition?.message}
+                                    error={!!errors.model}
+                                    helperText={errors?.model?.message}
+                                    {...field}
+                                    defaultValue={''}
+                                />
+                            )}
+                        />
+                    </FormRow>
+                    <FormRow required={true} label={"Wheels"} xs={12}>
+                        <Controller
+                            name={"wheels"}
+                            control={control}
+                            render={({field: {ref, ...field}}) => (
+                                <TextField
+                                    label={"The type of wheel it uses"}
+                                    size={"small"}
+                                    error={!!errors.wheels}
+                                    helperText={errors?.wheels?.message}
                                     {...field}
                                     select
                                     defaultValue={''}
@@ -139,65 +173,63 @@ const CarMachineryForSale = () => {
                                         }
                                     }}
                                 >
-                                    <MenuItem style={{fontSize: 14}} value={"With Plate Number"}>With Plate Number</MenuItem>
-                                    <MenuItem style={{fontSize: 14}} value={"Without Plate Number"}>Without Plate Number</MenuItem>
+                                    <MenuItem style={{fontSize: 14}} value={"Tire"}>Tire</MenuItem>
+                                    <MenuItem style={{fontSize: 14}} value={"Chains"}>Chains</MenuItem>
                                 </TextField>
                             )}
                         />
                     </FormRow>
-                    <FormRow required={true} label={"Gear"} xs={12}>
+                    <FormRow required={true} label={"Condition"} xs={12}>
                         <Controller
-                            name={"gear"}
+                            name={"condition"}
                             control={control}
-                            render={({field: {ref, ...field}}) => (
-                                <TextField
-                                    label={"Should it be Manual or Automatic"}
-                                    size={"small"}
-                                    error={!!errors.gear}
-                                    helperText={errors?.gear?.message}
-                                    {...field}
-                                    select
-                                    defaultValue={''}
-                                    sx={{
-                                        '& .MuiSelect-select': {
-                                            fontSize: 14,
-                                            padding: '6px 14px',
-                                        }
-                                    }}
-                                >
-                                    <MenuItem style={{fontSize: 14}} value={"Manual"}>Manual</MenuItem>
-                                    <MenuItem style={{fontSize: 14}} value={"Automatic"}>Automatic</MenuItem>
-                                </TextField>
-                            )}
+                            render={({field: {ref, onChange, ...field}}) => {
+                                return (
+                                    <TextField
+                                        label={"Is it Used or Brand New"}
+                                        size={"small"}
+                                        error={!!errors.condition}
+                                        helperText={errors?.condition?.message}
+                                        {...field}
+                                        select
+                                        onChange={(e: any) => {
+                                            handleIsUsedToggle(e)
+                                            onChange(e);
+                                        }}
+                                        defaultValue={''}
+                                        sx={{
+                                            '& .MuiSelect-select': {
+                                                fontSize: 14,
+                                                padding: '6px 14px',
+                                            }
+                                        }}
+                                    >
+                                        <MenuItem style={{fontSize: 14}} value={"Brand New"}>Brand New</MenuItem>
+                                        <MenuItem style={{fontSize: 14}} value={"Used"}>Used</MenuItem>
+                                    </TextField>
+                                )
+                            }}
                         />
                     </FormRow>
-                    <FormRow required={true} label={"Fuel"} xs={12}>
-                        <Controller
-                            name={"fuel"}
-                            control={control}
-                            render={({field: {ref, ...field}}) => (
-                                <TextField
-                                    label={"Should it be Benzene, Diesel or Electric"}
-                                    size={"small"}
-                                    error={!!errors.fuel}
-                                    helperText={errors?.fuel?.message}
-                                    {...field}
-                                    select
-                                    defaultValue={''}
-                                    sx={{
-                                        '& .MuiSelect-select': {
-                                            fontSize: 14,
-                                            padding: '6px 14px',
-                                        }
-                                    }}
-                                >
-                                    <MenuItem style={{fontSize: 14}} value={"Benzene"}>Benzene</MenuItem>
-                                    <MenuItem style={{fontSize: 14}} value={"Diesel"}>Diesel</MenuItem>
-                                    <MenuItem style={{fontSize: 14}} value={"Electric"}>Electric</MenuItem>
-                                </TextField>
-                            )}
-                        />
-                    </FormRow>
+                    {
+                        isUsed && <FormRow required={true} label={"Used Hours"} xs={12}>
+                            <Controller
+                                name={"usedHours"}
+                                control={control}
+                                defaultValue={""}
+                                render={({field: {ref, ...field}}) => (
+                                    <TextField
+                                        placeholder={"Number of hours used"}
+                                        label={"Hours"}
+                                        size={"small"}
+                                        error={!!errors.usedHours}
+                                        helperText={errors?.usedHours?.message}
+                                        {...field}
+                                    />
+                                )}
+                            />
+                        </FormRow>
+                    }
                     <FormRow required={true} label={"Payment Method"} xs={12}>
                         <Controller
                             name={"paymentMethod"}
@@ -254,7 +286,6 @@ const CarMachineryForSale = () => {
                     </FormRow>
                 </Grid>
             </form>
-
         </Box>
     )
 }
