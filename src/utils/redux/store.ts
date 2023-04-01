@@ -3,7 +3,7 @@ import {configureStore} from "@reduxjs/toolkit";
 import errorSlice from "./slices/error-slice";
 import successSlice from "./slices/success-slice";
 import userSlice from "./slices/user-slice";
-import breadcrumbSlice from "./slices/breadcrumb-slice";
+import customizationSlice from "./slices/customization-slice";
 
 const middleware = [];
 if (process.env.NODE_ENV === 'development') {
@@ -15,7 +15,7 @@ export const store = configureStore({
         error: errorSlice,
         success:successSlice,
         user: userSlice,
-        breadCrumb: breadcrumbSlice,
+        customization: customizationSlice,
     },
     middleware: (getDefaultMiddleware) => getDefaultMiddleware({
         serializableCheck: false

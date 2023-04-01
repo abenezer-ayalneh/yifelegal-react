@@ -1,32 +1,28 @@
 // @flow
 import * as React from 'react';
+import {FC} from 'react';
 import MUITextFiled from "@mui/material/TextField"
 import {BaseTextFieldProps} from "@mui/material/TextField/TextField";
-import {FC} from "react";
+import {SelectProps} from "@mui/material";
 
-export const TextField: FC<BaseTextFieldProps> = ({...restProps}) => {
+export const TextField: FC<BaseTextFieldProps> = ({size = "small", ...restProps}) => {
     return (
         <MUITextFiled
             {...restProps}
-
             /* styles the wrapper */
-            style={{ height:50, width:"100%",}}
-
+            style={{width: "100%", fontSize: 14}}
+            size={size}
             /* styles the label component */
             InputLabelProps={{
                 style: {
-                    height:50,
-                    fontSize:16,
-                    top: "-3px"
+                    fontSize: 14,
                 },
             }}
-
             /* styles the input component */
             inputProps={{
                 style: {
-                    height:50,
-                    padding: '0px 14px',
-                    fontSize:18
+                    padding: '10px 14px',
+                    fontSize: 14,
                 },
             }}
         />

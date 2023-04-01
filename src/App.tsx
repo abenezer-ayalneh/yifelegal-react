@@ -5,15 +5,19 @@ import authRoute from "./routes/auth-route"
 import mainRoute from "./routes/main-routes"
 import ThemeProvider from "./utils/theme/theme"
 import {createTheme} from "@mui/material/styles";
+import {QueryClient, QueryClientProvider} from "@tanstack/react-query";
 
-const router = createBrowserRouter([...authRoute(),...mainRoute()])
+const router = createBrowserRouter([...authRoute(), ...mainRoute()])
+const queryClient = new QueryClient()
 
 function App() {
     const theme = createTheme();
     return (
-        <ThemeProvider>
-            <RouterProvider router={router}/>
-        </ThemeProvider>
+        <QueryClientProvider client={queryClient}>
+            <ThemeProvider>
+                <RouterProvider router={router}/>
+            </ThemeProvider>
+        </QueryClientProvider>
     )
 }
 

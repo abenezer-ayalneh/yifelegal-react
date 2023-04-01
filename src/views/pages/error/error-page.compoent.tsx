@@ -10,7 +10,7 @@ export default function Error404Page() {
         <Paper>
             <Grid container height="100vh" width="100vw" direction="row" justifyContent="center" alignItems="center">
                 {
-                    error.status === 404
+                    error?.status === 404
                         ?
                         <Grid width={{xs:300,sm:450,md:500}} container rowSpacing={3}>
                             <Grid item xs={12}>
@@ -36,10 +36,10 @@ export default function Error404Page() {
                         </Grid>
                         : <Grid container justifyContent="center" alignItems="center" direction="column">
                             <Grid item xs={12}>
-                                <Typography>Error!! {error.status}</Typography>
+                                <Typography>Error!! {error?.status}</Typography>
                             </Grid>
                             <Grid item xs={12}>
-                                <Typography>{error.statusText}</Typography>
+                                <Typography>{error?.statusText}</Typography>
                             </Grid>
                         </Grid>
 

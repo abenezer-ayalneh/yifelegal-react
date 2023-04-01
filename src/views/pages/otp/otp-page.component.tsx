@@ -1,36 +1,43 @@
-import React, {FormEvent, useRef} from "react"
+import React, {FormEvent, useRef, useState} from "react"
 import LoadingButton from '@mui/lab/LoadingButton';
-import {Button, Divider, Grid, Paper, Typography, useTheme} from "@mui/material";
+import {Grid, Paper, Typography} from "@mui/material";
 import Logo from "../../components/logo/logo.component";
 import {useNavigate} from "react-router-dom";
-import OTPTextField from "../../components/otp-textfield/otp-textfield.component";
-import useSend from "../../../utils/hooks/use-send";
-import config from "../../../config";
-import {useAppSelector} from "../../../utils/hooks/redux-hooks";
+import {useAppDispatch, useAppSelector} from "../../../utils/hooks/redux-hooks";
+import useAuth from "../../../utils/hooks/use-auth";
+import {setError} from "../../../utils/redux/slices/error-slice";
+import firebase from "firebase/compat";
+import {useTranslation} from 'react-i18next';
+import UserCredential = firebase.auth.UserCredential;
 
 const OTPPage = (): JSX.Element => {
+    const {t} = useTranslation()
     const navigate = useNavigate();
+    const dispatch = useAppDispatch()
+    const otpCodeInputRef = useRef<HTMLInputElement>(null)
     const user = useAppSelector((state) => state.user)
+    const [isSigningIn, setIsSigningIn] = useState<boolean>(false)
+    const {signIn} = useAuth()
 
-    const {sendRequest,isRequestLoading} = useSend({
-        method:"POST",
-        url:config.REACT_APP_ROOT_URL+"me",
-        data:{
-            phoneNumber: user.phoneNumber
-        }
-    })
     const handleOTPConfirmationFormSubmit = async (event: FormEvent) => {
         event.preventDefault()
-        // TODO OTP code sending and confirmation
-
-        let result = await sendRequest();
-
-        if(result?.data?.userExists){
-            navigate("/home")
-        }else{
-            navigate("/personal-information")
-        }
+        setIsSigningIn(true)
+        const code = otpCodeInputRef.current?.value ?? "";
+        window.MyNamespace.confirmationResult.confirm(code).then((response: UserCredential) => {
+            // User signed in successfully.
+            let loginResult = signIn(user.phoneNumber ?? "")
+                .then((loginResult) => {
+                    if (loginResult) {
+                        navigate("/home", {replace: true,})
+                    } else {
+                        navigate("/personal-information")
+                    }
+                })
+        }).catch(() => {
+            dispatch(setError({type: "OTP Verification Failed", message: "Incorrect OTP code. Please try again"}))
+        }).finally(() => setIsSigningIn(false));
     }
+
     return (
         <Paper>
             <form onSubmit={handleOTPConfirmationFormSubmit}>
@@ -40,19 +47,21 @@ const OTPPage = (): JSX.Element => {
                             <Logo/>
                         </Grid>
                         <Grid item xs={12}>
-                            <Typography variant={"h1"}>OTP Confirmation</Typography>
+                            <Typography variant={"h1"} textAlign={"center"}>{t("otpConfirmation")}</Typography>
+                            <Typography variant={"body1"} textAlign={"center"}>{t("otpConfirmationInformation")}</Typography>
                         </Grid>
                         <Grid item>
-                            <OTPTextField/>
+                            <input type={"text"} ref={otpCodeInputRef} className={"form-control"} style={{textAlign: "center"}} autoFocus/>
                         </Grid>
                         <Grid item xs={12}>
-                            <LoadingButton loading={isRequestLoading} variant={"contained"} type={"submit"} sx={{width: "200px", height: "40px"}}>
-                                Enter
+                            <LoadingButton loading={isSigningIn} variant={"contained"} type={"submit"} sx={{width: "200px", height: "40px"}}>
+                                {t("enter")}
                             </LoadingButton>
                         </Grid>
                     </Grid>
                 </Grid>
             </form>
+            <div style={{position: "fixed", bottom: 0, right: 0}} id="recaptcha-container"></div>
         </Paper>
     )
 }
