@@ -35,11 +35,11 @@ const MyRequestsPage = () => {
                 <HorizontalTile tileTitle={"House"} image={House} to={ENTITIES.HOUSE} subtitle={`# ${myRequests?.houseCount ?? ""}`}/>
                 <VerticalTile tileTitle={"Land"} image={Land} to={ENTITIES.LAND} subtitle={`# ${myRequests?.landCount ?? ""}`}/>
                 <VerticalTile tileTitle={"Commercial Building"} image={CommercialBuilding} to={ENTITIES.COMMERCIAL_BUILDING} subtitle={`# ${myRequests?.commercialBuildingCount ?? ""}`}/>
+                {/*<VerticalTile tileTitle={"Machinery & Truck"} image={MachineryAndTrucks} to={ENTITIES.MACHINERY_AND_TRUCKS} subtitle={`# ${myRequests?.machineryAndTruckCount ?? ""}`}/>*/}
                 <VerticalTile tileTitle={"Guest House (Furnished)"} image={GuestHouse} to={ENTITIES.GUEST_HOUSE} subtitle={`# ${myRequests?.guestHouseCount ?? ""}`}/>
-                <VerticalTile tileTitle={"Machinery & Truck"} image={MachineryAndTrucks} to={ENTITIES.MACHINERY_AND_TRUCKS} subtitle={`# ${myRequests?.machineryAndTruckCount ?? ""}`}/>
                 <HorizontalTile tileTitle={"Car"} image={Car} to={ENTITIES.CAR} subtitle={`# ${myRequests?.carCount ?? ""}`}/>
-                <HorizontalTile tileTitle={"Three Wheeler"} image={ThreeWheeler} to={ENTITIES.THREE_WHEELER} subtitle={`# ${myRequests?.threeWheelerCount ?? ""}`}/>
                 <VerticalTile tileTitle={"Whole Building"} image={WholeBuilding} to={ENTITIES.WHOLE_BUILDING} subtitle={`# ${myRequests?.wholeBuildingCount ?? ""}`}/>
+                <HorizontalTile tileTitle={"Three Wheeler"} image={ThreeWheeler} to={ENTITIES.THREE_WHEELER} subtitle={`# ${myRequests?.threeWheelerCount ?? ""}`}/>
             </Grid>
         </Box>
     )

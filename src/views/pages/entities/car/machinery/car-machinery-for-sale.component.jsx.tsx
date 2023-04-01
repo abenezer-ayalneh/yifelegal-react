@@ -86,8 +86,6 @@ const CarMachineryForSale = () => {
         }
     }
 
-    console.log(watch())
-
     return (
         <Box>
             {/*Page Title*/}
@@ -126,6 +124,7 @@ const CarMachineryForSale = () => {
                             control={control}
                             render={({field: {ref, ...field}}) => (
                                 <TextField
+                                    type={"number"}
                                     placeholder={"The year in which the car is made"}
                                     label={"Year"}
                                     size={"small"}

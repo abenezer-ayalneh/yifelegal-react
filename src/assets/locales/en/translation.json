@@ -30,6 +30,8 @@
     "purpose": "Purpose",
     "threeWheelerModelName" : "Model Name",
     "condition": "Condition",
-    "rentPeriod": "Rent Period"
+    "rentPeriod": "Rent Period",
+    "requestedFor": "Requested For",
+    "requestedForPhoneNumber" : "Phone number"
   }
 }

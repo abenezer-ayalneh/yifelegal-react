@@ -34,7 +34,9 @@ const RequestsPage = () => {
     const handleHighlightClicked = (request: RequestDetailType[]) => setSelectedRequestDetail(request)
 
     const handleGetPhoneNumber = () => {
-        pay().then((response) => console.log(response));
+        pay().then((response) => {
+            window.open(response.data.checkoutUrl, "_blank", "noreferrer");
+        });
     }
 
     if (!requests) {
