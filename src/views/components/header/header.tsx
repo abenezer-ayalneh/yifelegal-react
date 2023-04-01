@@ -28,6 +28,7 @@ const HEADER_MOBILE = 60;
 
 const HEADER_DESKTOP = 70;
 
+// @ts-ignore
 const StyledRoot = styled(AppBar)(({theme}) => ({
     ...bgBlur({color: theme.palette.background.default}),
     boxShadow: 'none',

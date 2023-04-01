@@ -79,6 +79,7 @@ const CarMachineryForSale = () => {
     }
 
     const handleIsUsedToggle = (event: object) => {
+        // @ts-ignore
         if (event.target.value === 'Used') {
             setIsUsed(true)
         } else {
@@ -191,6 +192,7 @@ const CarMachineryForSale = () => {
                                         helperText={errors?.condition?.message}
                                         {...field}
                                         select
+                                        // @ts-ignore
                                         onChange={(e: any) => {
                                             handleIsUsedToggle(e)
                                             onChange(e);
