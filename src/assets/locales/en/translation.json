@@ -32,6 +32,11 @@
     "condition": "Condition",
     "rentPeriod": "Rent Period",
     "requestedFor": "Requested For",
-    "requestedForPhoneNumber" : "Phone number"
+    "requestedForPhoneNumber" : "Phone number",
+    "carType": "Car type",
+    "modelYear": "Model Year",
+    "gear": "Gear",
+    "fuel": "Fuel",
+    "plateCondition": "Plate Condition"
   }
 }
