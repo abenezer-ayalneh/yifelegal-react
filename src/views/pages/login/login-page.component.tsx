@@ -90,6 +90,7 @@ const LoginPage = (): JSX.Element => {
                                                     padding: '6px 14px',
                                                 }
                                             }}
+                                            // @ts-ignore
                                             onChange={handleLanguageChange}
                                         >
                                             <MenuItem style={{fontSize: 14}} value={"am"}>አማርኛ</MenuItem>

@@ -10,6 +10,7 @@ type BigIconPropTypes = {
 
 const BigIcon: React.FunctionComponent<BigIconPropTypes & GridProps> = ({image, title, to, ...rest}) => {
     return (
+    // @ts-ignore
         <Grid item xs={12} sm={6} md={4} lg={3} sx={{cursor: "pointer"}} {...rest} component={Link} to={to}>
             <Grid container direction={"column"} sx={{boxShadow: "2px 2px 5px rgba(0, 0, 0, 0.25)", borderRadius: "10px"}} paddingX={3}
                   position={"relative"} height={300} display={"flex"} alignItems={"center"} justifyContent={"center"}>
