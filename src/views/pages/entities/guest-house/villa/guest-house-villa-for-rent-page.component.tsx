@@ -10,7 +10,7 @@ import config from "../../../../../config";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import { DispatcherPageParams } from "../../../../../utils/types/dispatcher-page-param-types";
 import useSend from "../../../../../utils/hooks/use-send";
-
+const ROOT_URL = import.meta.env.VITE_ROOT_URL;
 // Validation Schema
 const GuestHouseVillaForRentSchema = z.object({
   entity: z.string().min(1, "Can't be empty"),
