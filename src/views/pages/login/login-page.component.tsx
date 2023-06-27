@@ -31,6 +31,7 @@ declare global {
   }
 }
 window.MyNamespace = window.MyNamespace || {};
+const ROOT_URL = import.meta.env.VITE_ROOT_URL;
 
 const LoginPage = (): JSX.Element => {
   const { t, i18n } = useTranslation();
@@ -41,6 +42,7 @@ const LoginPage = (): JSX.Element => {
   const dispatch = useAppDispatch();
   const [isRecaptchaGenerating, setIsRecaptchaGenerating] =
     useState<boolean>(false);
+  console.log({ ROOT_URL });
 
   const generateRecaptcha = () => {
     setIsRecaptchaGenerating(true);

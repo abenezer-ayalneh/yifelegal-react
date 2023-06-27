@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { clearUser, setUser } from "../redux/slices/user-slice";
 import config from "../../config";
-
+const ROOT_URL = import.meta.env.VITE_ROOT_URL;
 const useAuth = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -15,7 +15,7 @@ const useAuth = () => {
 
   const signIn = async (phoneNumber: string): Promise<boolean> => {
     let result = await sendRequest({
-      url: config.REACT_APP_ROOT_URL + "login",
+      url: ROOT_URL + "login",
       headers: {
         withCredentials: false,
       },
@@ -36,7 +36,7 @@ const useAuth = () => {
     phoneNumber: string;
   }): Promise<boolean> => {
     let result = await sendRequest({
-      url: config.REACT_APP_ROOT_URL + "sign-up",
+      url: ROOT_URL + "sign-up",
       headers: {
         withCredentials: false,
       },
@@ -58,7 +58,7 @@ const useAuth = () => {
 
   const signOut = async (): Promise<boolean> => {
     let result = await sendRequest({
-      url: config.REACT_APP_ROOT_URL + "logout",
+      url: ROOT_URL + "logout",
     });
 
     if (result.status) {
@@ -72,7 +72,7 @@ const useAuth = () => {
 
   const checkAuth = async (): Promise<boolean> => {
     let result = await sendRequest({
-      url: config.REACT_APP_ROOT_URL + "me",
+      url: ROOT_URL + "me",
     });
 
     if (result?.status) {
