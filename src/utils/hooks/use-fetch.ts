@@ -71,8 +71,11 @@ const useFetch = (
 
   const { data, error, isFetching, isLoading, isError, isSuccess, status } =
     useQuery([queryKey], fetchData, {
-      staleTime: cacheTime,
-      cacheTime: cacheTime,
+      // staleTime: cacheTime,
+      // cacheTime: cacheTime,
+      cacheTime: 0,
+      keepPreviousData: true,
+      refetchOnWindowFocus: false,
     });
 
   if (isError) {
