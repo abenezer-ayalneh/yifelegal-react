@@ -42,8 +42,6 @@ const LoginPage = (): JSX.Element => {
   const dispatch = useAppDispatch();
   const [isRecaptchaGenerating, setIsRecaptchaGenerating] =
     useState<boolean>(false);
-  console.log({ ROOT_URL });
-
   const generateRecaptcha = () => {
     setIsRecaptchaGenerating(true);
     window.MyNamespace.recaptchaVerifier = new RecaptchaVerifier(

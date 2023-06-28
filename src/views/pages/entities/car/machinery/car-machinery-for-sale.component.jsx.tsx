@@ -1,15 +1,15 @@
 import { Box, Button, Grid, MenuItem, Stack, Typography } from "@mui/material";
-import FormRow from "../../../../components/form-row/form-row.component";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
-import { TextField } from "../../../../components/text-field/text-field.component";
 import LoadingButton from "@mui/lab/LoadingButton";
 import React, { useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { DispatcherPageParams } from "../../../../../utils/types/dispatcher-page-param-types";
 import useSend from "../../../../../utils/hooks/use-send";
-import config from "../../../../../config";
 import { zodResolver } from "@hookform/resolvers/zod/dist/zod";
 import { z } from "zod";
+import FormRow from "../../../../components/form-row/form-row.component";
+import { TextField } from "../../../../components/text-field/text-field.component";
+
 const ROOT_URL = import.meta.env.VITE_ROOT_URL;
 
 const MachineryForSaleSchema = z.object({
@@ -20,6 +20,7 @@ const MachineryForSaleSchema = z.object({
   modelYear: z
     .string()
     .min(4, "Must be a valid year")
+    .max(4, "Must be a valid year")
     .refine((value) => !Number.isNaN(parseInt(value)), {
       message: "Must be number",
     })
@@ -33,14 +34,7 @@ const MachineryForSaleSchema = z.object({
   condition: z.enum(["Used", "Brand New"], {
     invalid_type_error: "Should be either Used or Brand New",
   }),
-  usedHours: z
-    .string()
-    .min(1, "Must be a valid number")
-    .refine((value) => !Number.isNaN(parseInt(value)), {
-      message: "Must be number",
-    })
-    .refine((value) => parseInt(value) > 1, { message: "1 is the minimum" })
-    .optional(),
+  usedHours: z.optional(z.string()),
   paymentMethod: z.enum(["In Cash", "With Bank"], {
     invalid_type_error: "Should be either In Cash or With Bank",
   }),
@@ -59,7 +53,6 @@ const CarMachineryForSale = () => {
   });
 
   const {
-    watch,
     formState: { errors, isSubmitting },
     handleSubmit,
     control,
@@ -76,21 +69,24 @@ const CarMachineryForSale = () => {
       wheels: "Tire",
       condition: "Brand New",
       paymentMethod: "With Bank",
+      usedHours: undefined,
       otherDetail: "",
     },
     mode: "onChange",
-    shouldUnregister: true,
+    //shouldUnregister: true,
   });
 
   const onSubmitHandler: SubmitHandler<MachineryForSaleType> = (values) => {
-    console.log(values);
-    // storeRequest({
-    //     data: values
-    // }, true).then((result) => {
-    //     if (result.status) {
-    //         navigate('/home')
-    //     }
-    // })
+    storeRequest(
+      {
+        data: values,
+      },
+      true
+    ).then((result) => {
+      if (result.status) {
+        navigate("/home");
+      }
+    });
   };
 
   const onNextHandler: SubmitHandler<MachineryForSaleType> = (values) => {
@@ -130,6 +126,11 @@ const CarMachineryForSale = () => {
             ? onNextHandler
             : onSubmitHandler
         )}
+        // onSubmit={handleSubmit(
+        //   location && location.pathname.startsWith("/request-for-others")
+        //     ? onNextHandler
+        //     : onSubmitHandler
+        // )}
       >
         <Grid container paddingX={2} rowSpacing={2}>
           <FormRow required={true} label={"Car Type"} xs={12}>
@@ -177,7 +178,6 @@ const CarMachineryForSale = () => {
                   error={!!errors.model}
                   helperText={errors?.model?.message}
                   {...field}
-                  defaultValue={""}
                 />
               )}
             />
@@ -194,7 +194,6 @@ const CarMachineryForSale = () => {
                   helperText={errors?.wheels?.message}
                   {...field}
                   select
-                  defaultValue={""}
                   sx={{
                     "& .MuiSelect-select": {
                       fontSize: 14,
@@ -230,7 +229,6 @@ const CarMachineryForSale = () => {
                       handleIsUsedToggle(e);
                       onChange(e);
                     }}
-                    defaultValue={""}
                     sx={{
                       "& .MuiSelect-select": {
                         fontSize: 14,
@@ -254,10 +252,10 @@ const CarMachineryForSale = () => {
               <Controller
                 name={"usedHours"}
                 control={control}
-                defaultValue={""}
                 render={({ field: { ref, ...field } }) => (
                   <TextField
                     placeholder={"Number of hours used"}
+                    type={"number"}
                     label={"Hours"}
                     size={"small"}
                     error={!!errors.usedHours}
@@ -280,7 +278,6 @@ const CarMachineryForSale = () => {
                   helperText={errors?.paymentMethod?.message}
                   {...field}
                   select
-                  defaultValue={""}
                   sx={{
                     "& .MuiSelect-select": {
                       fontSize: 14,

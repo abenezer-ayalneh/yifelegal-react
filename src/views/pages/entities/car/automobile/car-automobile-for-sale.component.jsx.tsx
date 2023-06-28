@@ -20,6 +20,7 @@ const AutomobileForSaleSchema = z.object({
   modelYear: z
     .string()
     .min(4, "Must be a valid year")
+    .max(4, "Must be a valid year")
     .refine((value) => !Number.isNaN(parseInt(value)), {
       message: "Must be number",
     })

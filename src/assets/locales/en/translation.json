@@ -37,6 +37,8 @@
     "modelYear": "Model Year",
     "gear": "Gear",
     "fuel": "Fuel",
-    "plateCondition": "Plate Condition"
+    "plateCondition": "Plate Condition",
+    "location": "Location",
+    "usedHours": "User Hours"
   }
 }

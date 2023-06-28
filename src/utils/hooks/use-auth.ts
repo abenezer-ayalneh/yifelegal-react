@@ -45,7 +45,6 @@ const useAuth = () => {
         phoneNumber: credentials.phoneNumber,
       },
     });
-    console.log({ result });
     if (result?.status) {
       dispatch(setUser({ user: result.data?.user }));
       localStorage.setItem("accessToken", result.data.accessToken);
