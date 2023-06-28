@@ -4,6 +4,7 @@ import { setError } from "../redux/slices/error-slice";
 import { setSuccess } from "../redux/slices/success-slice";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "./redux-hooks";
+import { axiosPrivate } from "../axios/axios-private.interceptor";
 
 const useSend = (axiosParams: AxiosRequestConfig<any> = {}) => {
   const [isRequestLoading, setLoading] = useState(false);
@@ -17,7 +18,7 @@ const useSend = (axiosParams: AxiosRequestConfig<any> = {}) => {
     try {
       setLoading(true);
       axios.defaults.withCredentials = true;
-      const result = await axios
+      const result = await axiosPrivate
         .request({
           ...axiosParams,
           ...sendRequestParams,

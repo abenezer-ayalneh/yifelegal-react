@@ -3,6 +3,7 @@ import { setError } from "../redux/slices/error-slice";
 import { useQuery } from "@tanstack/react-query";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useAppDispatch } from "./redux-hooks";
+import { axiosPrivate } from "../axios/axios-private.interceptor";
 
 const useFetch = (
   axiosParams: AxiosRequestConfig<any>,
@@ -14,7 +15,7 @@ const useFetch = (
   const navigate = useNavigate();
   const fetchData = async () => {
     axios.defaults.withCredentials = true;
-    let result = await axios
+    let result = await axiosPrivate
       .request({
         ...axiosParams,
         headers: {
